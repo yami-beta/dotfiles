@@ -403,6 +403,49 @@ call dein#add('Shougo/unite-outline')
 call dein#add('Shougo/unite-session')
 if dein#tap('unite-session') "{{{2
   let g:unite_source_session_path = $HOME . '/.vim/session'
+  command! -nargs=? -complete=customlist,unite#sources#session#_complete
+        \ SSave call s:unite_session_save(<q-args>)
+  function! s:unite_session_save(filename, ...)
+    if unite#util#is_cmdwin()
+      return
+    endif
+
+    if !isdirectory(g:unite_source_session_path)
+      call mkdir(g:unite_source_session_path, 'p')
+    endif
+
+    let filename = s:get_session_path(a:filename)
+
+    " Check if this overrides an existing session
+    if filereadable(filename) && a:0 && a:1
+      call unite#print_error('Session already exists.')
+      return
+    endif
+
+    execute 'silent mksession!' filename
+  endfunction
+  function! s:get_session_path(filename)
+    let filename = a:filename
+    if filename == ''
+      let filename = v:this_session
+    endif
+    if filename == ''
+      let filename = g:unite_source_session_default_session_name
+    endif
+
+    let filename = unite#util#substitute_path_separator(filename)
+
+    if filename !~ '.vim$'
+      let filename .= '.vim'
+    endif
+
+    if filename !~ '^\%(/\|\a\+:/\)'
+      " Relative path.
+      let filename = g:unite_source_session_path . '/' . filename
+    endif
+
+    return filename
+  endfunction
 endif "}}}
 call dein#add('Shougo/neomru.vim', { 'depends': ['unite.vim'] })
 call dein#add('Shougo/vimfiler.vim', { 'on_cmd': ['VimFiler'] })
