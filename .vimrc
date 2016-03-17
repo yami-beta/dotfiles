@@ -686,6 +686,7 @@ augroup pencil
     autocmd ColorScheme pencil highlight CursorLineNr ctermbg=NONE guibg=NONE
     autocmd ColorScheme pencil highlight Normal guibg=#262626
     autocmd ColorScheme pencil highlight SpecialKey ctermfg=8 guifg=#424242
+    autocmd ColorScheme pencil highlight Comment gui=NONE
   endif
 augroup END
 colorscheme pencil
