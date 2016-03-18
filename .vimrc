@@ -674,6 +674,10 @@ let g:vim_json_syntax_conceal = 0
 let g:tex_conceal=''
 autocmd vimrc FileType markdown setlocal conceallevel=0
 
+" ウィンドウタイトルの保存・復元
+let &t_ti .= "\e[22;0t"
+let &t_te .= "\e[23;0t"
+
 " カラー設定
 syntax on " シンタックスハイライト
 setglobal t_Co=256 " 256色ターミナルでVimを使用する
