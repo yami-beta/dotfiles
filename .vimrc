@@ -15,7 +15,7 @@ setglobal confirm
 setglobal cmdheight=2                " 画面下部のコマンドラインの高さ
 setglobal showcmd
 setglobal scrolloff=5
-setglobal ffs=unix,dos,mac           " 改行文字
+setglobal fileformats=unix,dos,mac   " 改行文字
 setglobal modeline
 setglobal splitright
 setglobal splitbelow
@@ -45,6 +45,12 @@ setglobal sessionoptions-=options
 setglobal laststatus=2
 setglobal showtabline=2              " tablineを常時表示
 setglobal guioptions-=e              " tablineをCUIで表示
+setglobal wildmenu                   " コマンドラインモードでの補完を有効に
+setglobal wildchar=<tab>             " コマンド補完を開始するキー
+setglobal history=1000               " コマンド・検索パターンの履歴数
+setglobal wildmode=list:longest,full
+setglobal wildignorecase
+setglobal completeopt=menu,menuone
 
 " htmlタグ移動
 source $VIMRUNTIME/macros/matchit.vim
@@ -472,27 +478,6 @@ call dein#end()
 filetype plugin indent on
 
 
-" インデント "{{{1
-setglobal autoindent      " オートインデント
-setglobal smartindent     " スマートインデント
-setglobal cindent         " C プログラムの自動インデント
-setglobal expandtab       " Tab文字を空白に展開
-setglobal tabstop=4       " タブ幅
-setglobal shiftwidth=4    " インデントの幅
-setglobal softtabstop=-1  " Tab キー押下時に挿入される空白の量(マイナスでshiftwidthと同じ)
-
-" ファイル別設定 "{{{1
-augroup vimrc_filetype
-  autocmd!
-  autocmd FileType ruby       setlocal tabstop=2 shiftwidth=2
-  autocmd FileType vim        setlocal tabstop=2 shiftwidth=2
-  autocmd FileType tex        setlocal tabstop=2 shiftwidth=2
-  autocmd FileType html       setlocal tabstop=2 shiftwidth=2
-  autocmd FileType css,scss   setlocal tabstop=2 shiftwidth=2
-  autocmd FileType javascript setlocal tabstop=2 shiftwidth=2
-augroup END
-
-
 " キーマッピング "{{{1
 noremap ; :
 noremap : ;
@@ -661,6 +646,27 @@ nnoremap <silent> <Space>m :OverCommandLine %s/\v<CR>
 vnoremap <silent> <Space>m :OverCommandLine s/\v<CR>
 
 
+" インデント "{{{1
+setglobal autoindent      " オートインデント
+setglobal smartindent     " スマートインデント
+setglobal cindent         " C プログラムの自動インデント
+setglobal expandtab       " Tab文字を空白に展開
+setglobal tabstop=4       " タブ幅
+setglobal shiftwidth=4    " インデントの幅
+setglobal softtabstop=-1  " Tab キー押下時に挿入される空白の量(マイナスでshiftwidthと同じ)
+
+" ファイル別設定 "{{{1
+augroup vimrc_filetype
+  autocmd!
+  autocmd FileType ruby       setlocal tabstop=2 shiftwidth=2
+  autocmd FileType vim        setlocal tabstop=2 shiftwidth=2
+  autocmd FileType tex        setlocal tabstop=2 shiftwidth=2
+  autocmd FileType html       setlocal tabstop=2 shiftwidth=2
+  autocmd FileType css,scss   setlocal tabstop=2 shiftwidth=2
+  autocmd FileType javascript setlocal tabstop=2 shiftwidth=2
+augroup END
+
+
 " 表示 "{{{1
 set number " 行番号を表示
 set cursorline
@@ -698,15 +704,6 @@ let g:pencil_higher_contrast_ui=1 " 0=low (def), 1=high
 
 " vim kaoriyaで、txtファイルが自動改行されてしまうバグ対応
 autocmd vimrc FileType text setlocal textwidth=0
-
-
-" 補完 "{{{1
-setglobal wildmenu        " コマンドラインモードでの補完を有効に
-setglobal wildchar=<tab>    " コマンド補完を開始するキー
-setglobal history=1000    " コマンド・検索パターンの履歴数
-setglobal wildmode=list:longest,full
-setglobal wildignorecase
-setglobal completeopt=menu,preview,menuone
 
 
 
