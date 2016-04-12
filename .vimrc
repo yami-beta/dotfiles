@@ -344,6 +344,24 @@ call dein#add('osyo-manga/vim-anzu')
 call dein#add('osyo-manga/vim-over', { 'on_cmd': ['OverCommandLine'] })
 
 call dein#add('cohama/lexima.vim', { 'on_i': 1 })
+if dein#tap('lexima.vim') "{{{2
+  function! s:lexima_on_post_source() abort
+    call lexima#add_rule({'char': '<TAB>', 'at': '\%#[)}\]''"]', 'leave': 1})
+    imap <expr><TAB> pumvisible() ?
+          \ "\<C-n>"
+          \ : neosnippet#expandable_or_jumpable() ?
+          \ "\<Plug>(neosnippet_expand_or_jump)"
+          \ : lexima#expand('<LT>TAB>', 'i')
+    call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
+    " inoremap <silent><expr> <CR> pumvisible() ? neocomplete#close_popup() : lexima#expand('<LT>CR>', 'i')
+    imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
+          \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
+          \ neocomplete#close_popup()
+    inoremap <C-j> <Down>
+    inoremap <C-k> <Up>
+  endfunction
+  execute 'autocmd vimrc User' 'dein#post_source#'.g:dein#name 'call s:lexima_on_post_source()'
+endif "}}}
 
 call dein#add('Shougo/vimproc.vim', {
       \   'build' : {
@@ -573,19 +591,6 @@ imap <expr><C-s> !pumvisible() ?
 smap <expr><C-s> !pumvisible() ?
       \ "\<C-s>"
       \ : "\<Plug>(neosnippet_expand_or_jump)"
-
-if dein#tap('lexima.vim')
-  function! s:lexima_on_post_source() abort
-    call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
-    " inoremap <silent><expr> <CR> pumvisible() ? neocomplete#close_popup() : lexima#expand('<LT>CR>', 'i')
-    imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
-          \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
-          \ neocomplete#close_popup()
-    inoremap <C-j> <Down>
-    inoremap <C-k> <Up>
-  endfunction
-  execute 'autocmd vimrc User' 'dein#post_source#'.g:dein#name 'call s:lexima_on_post_source()'
-endif
 
 vmap , <Plug>(EasyAlign)
 
