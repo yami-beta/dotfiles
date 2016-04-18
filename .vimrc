@@ -317,7 +317,7 @@ if dein#tap('vim-markdown') "{{{2
   let g:vim_markdown_folding_disabled=1
 endif "}}}
 call dein#add('elzr/vim-json')
-call dein#add('lervag/vimtex')
+" call dein#add('lervag/vimtex')
 if dein#tap('vimtex') "{{{2
   if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
