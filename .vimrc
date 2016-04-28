@@ -628,7 +628,7 @@ nnoremap <silent> <Space>gr :<C-u>UniteResume search-buffer<CR>
 autocmd vimrc FileType unite imap <buffer> <C-c> <Plug>(unite_insert_leave)<Plug>(unite_all_exit)
 autocmd vimrc FileType unite nmap <buffer> <C-c> <Plug>(unite_all_exit)
 
-nnoremap <silent> <Space>d :<C-u>VimFiler -simple -toggle -winwidth=30 -split -force-quit<CR>
+nnoremap <silent> <Space>d :<C-u>VimFilerBufferDir -simple -toggle -winwidth=30 -split -force-quit<CR>
 
 nmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
 vmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
