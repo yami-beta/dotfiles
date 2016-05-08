@@ -102,7 +102,7 @@ endfunction
 if &compatible
   set nocompatible
 endif
-set runtimepath^=~/.vim/bundle/repos/github.com/Shougo/dein.vim
+set runtimepath^=~/.cache/dein/repos/github.com/Shougo/dein.vim
 autocmd vimrc VimEnter * call dein#call_hook('post_source')
 
 call dein#begin(expand('~/.cache/dein'))
@@ -129,7 +129,9 @@ if dein#tap('neocomplete.vim') "{{{2
           \ 'scheme' : $HOME.'/.gosh_completions'
           \ }
   endfunction
-  execute 'autocmd vimrc User' 'dein#source#'.g:dein#name 'call s:neocomplete_on_source()'
+  call dein#config({
+        \ 'hook_source': function('s:neocomplete_on_source')
+        \ })
 
   function! s:my_cr_function()
     " return neocomplete#close_popup() . "\<CR>"
@@ -360,17 +362,12 @@ if dein#tap('lexima.vim') "{{{2
     inoremap <C-j> <Down>
     inoremap <C-k> <Up>
   endfunction
-  execute 'autocmd vimrc User' 'dein#post_source#'.g:dein#name 'call s:lexima_on_post_source()'
+  call dein#config({
+        \ 'hook_post_source': function('s:lexima_on_post_source')
+        \ })
 endif "}}}
 
-call dein#add('Shougo/vimproc.vim', {
-      \   'build' : {
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'linux' : 'make',
-      \     'unix' : 'gmake',
-      \   },
-      \ })
+call dein#add('Shougo/vimproc.vim', { 'build' : 'make' })
 call dein#add('Shougo/unite.vim', { 'depends': ['vimproc.vim'], 'lazy': 1 })
 if dein#tap('unite.vim') "{{{2 
   let g:unite_force_overwrite_statusline = 0
@@ -412,7 +409,7 @@ if dein#tap('unite.vim') "{{{2
           \ ], 
           \ '\|'))
   endfunction
-  execute 'autocmd vimrc User' 'dein#source#'.g:dein#name 'call s:unite_on_source()'
+  call dein#config({'hook_source': function('s:unite_on_source')})
 
   function! AutoSelectUniteFileRec()
     if isdirectory(getcwd().'/.git')
