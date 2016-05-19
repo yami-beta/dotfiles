@@ -1,6 +1,6 @@
 # Check if zplug is installed
 [[ -d ~/.zplug ]] || {
-  git clone https://github.com/b4b4r07/zplug ~/.zplug
+  git clone https://github.com/zplug/zplug ~/.zplug
   source ~/.zplug/init.zsh && zplug update --self
 }
 
@@ -11,24 +11,20 @@ source ~/.zplug/init.zsh
 zplug "zplug/zplug"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-history-substring-search"
-
-# Add a bunch more of your favorite packages!
+zplug "zsh-users/zsh-completions"
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    else
-        echo
-    fi
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  else
+    echo
+  fi
 fi
 
 zplug load
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
 
 bindkey -e
 disable r
@@ -57,8 +53,7 @@ PROMPT="%{$fg[green]%}%n@%m%{$reset_color%}:%{$fg[cyan]%}%~%{$reset_color%}
 RPROMPT='${vcs_info_msg_0_}'
 
 # 補完
-fpath=(/usr/local/share/zsh-completions $fpath)
-autoload -U compinit && compinit
+autoload -Uz compinit && compinit
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # ssh設定
@@ -75,14 +70,17 @@ zstyle ':completion:*:hosts' hosts $hosts # ホスト名の補完
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
 
-alias tsukuba='tsukuba.sh'
+alias ls='ls --color'
 alias ll='ls -lha'
 alias la='ls -a'
 alias rm='rm -i'
 alias sshlocal='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+alias tsukuba='tsukuba.sh'
 
 export PATH=~/bin:$PATH
-export PATH="$(brew --prefix)/bin:$PATH"
+if type brew >/dev/null 2>&1; then
+  export PATH="$(brew --prefix)/bin:$PATH"
+fi
 
 #MacVim-KaoriYa
 export PATH="/Applications/MacVim.app/Contents/MacOS:$PATH"
@@ -92,22 +90,22 @@ alias gvim='mvim'
 
 # Visual Studio Code
 code () {
-    if [[ $# = 0 ]]
-    then
-        open -a "Visual Studio Code"
-    else
-        [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
-        open -a "Visual Studio Code" "$F"
-    fi
+  if [[ $# = 0 ]]
+  then
+    open -a "Visual Studio Code"
+  else
+    [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
+    open -a "Visual Studio Code" "$F"
+  fi
 }
 
 # peco
 function _peco_tmux_session() {
-    local session="$( tmux ls | peco | awk -F':' '{print $1}')"
-    echo $session
-    if [ -n "$session" ]; then
-        tmux attach -t $session;
-    fi
+  local session="$( tmux ls | peco | awk -F':' '{print $1}')"
+  echo $session
+  if [ -n "$session" ]; then
+    tmux attach -t $session;
+  fi
 }
 
 # tmux
@@ -120,7 +118,9 @@ export PATH="/usr/local/sbin:$PATH"
 
 # rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init - zsh)"
+if type rbenv >/dev/null 2>&1; then
+  eval "$(rbenv init - zsh)"
+fi
 alias be="bundle exec"
 
 # nodebrew
