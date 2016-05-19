@@ -10,7 +10,7 @@ let s:is_windows = has('win32') || has('win64')
 let s:is_mac = has('mac') || system('uname') =~? '^darwin'
 let s:is_linux = !s:is_mac && has('unix')
 
-" 基本設定 "{{{1
+                                     " 基本設定 "{{{1
 setglobal confirm
 setglobal cmdheight=2                " 画面下部のコマンドラインの高さ
 setglobal showcmd
@@ -29,6 +29,7 @@ setglobal ambiwidth=double           " □とか○等の文字でカーソル�
 setglobal backspace=indent,eol,start " BSで，インデント・改行の削除，挿入モード開始位置での削除を有効
 setglobal whichwrap=b,s,h,l,<,>,[,]  " カーソルを行頭、行末で止まらないようにする
 setglobal hidden                     " 未保存状態でバッファの切り替えを可能にする
+setglobal autoread                   " 自動読み込み
 setglobal noswapfile                 " スワップファイルを作成しない
 setglobal nobackup                   " backupファイル(file.txt~)を作成しない
 setglobal backupcopy=yes             " noで動作する場合samba上のファイルを書き込んだ際にgroupのパーミッションが変わる
@@ -660,7 +661,7 @@ setglobal softtabstop=-1  " Tab キー押下時に挿入される空白の量(�
 " ファイル別設定 "{{{1
 augroup vimrc_filetype
   autocmd!
-  autocmd FileType ruby       setlocal tabstop=2 shiftwidth=2
+  autocmd FileType ruby,eruby setlocal tabstop=2 shiftwidth=2
   autocmd FileType vim        setlocal tabstop=2 shiftwidth=2
   autocmd FileType tex        setlocal tabstop=2 shiftwidth=2
   autocmd FileType html       setlocal tabstop=2 shiftwidth=2
