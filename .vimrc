@@ -10,7 +10,7 @@ let s:is_windows = has('win32') || has('win64')
 let s:is_mac = has('mac') || system('uname') =~? '^darwin'
 let s:is_linux = !s:is_mac && has('unix')
 
-                                     " 基本設定 "{{{1
+" 基本設定 "{{{1
 setglobal confirm
 setglobal cmdheight=2                " 画面下部のコマンドラインの高さ
 setglobal showcmd
@@ -319,6 +319,14 @@ call dein#add('plasticboy/vim-markdown')
 if dein#tap('vim-markdown') "{{{2
   let g:vim_markdown_folding_disabled=1
 endif "}}}
+call dein#add('kannokanno/previm')
+if dein#tap('previm') " {{{2
+  if s:is_mac
+    let g:previm_open_cmd = 'open -a Google\ Chrome'
+  elseif s:is_windows
+    let g:previm_open_cmd = 'C:/Program\ Files\ (x86)/Google/Chrome/Application/chrome.exe'
+  endif
+endif " }}}
 call dein#add('elzr/vim-json')
 " call dein#add('lervag/vimtex')
 if dein#tap('vimtex') "{{{2
