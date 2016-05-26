@@ -70,7 +70,6 @@ zstyle ':completion:*:hosts' hosts $hosts # ホスト名の補完
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
 
-alias ls='ls --color'
 alias ll='ls -lha'
 alias la='ls -a'
 alias rm='rm -i'
