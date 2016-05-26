@@ -54,10 +54,7 @@ setglobal wildignorecase
 setglobal completeopt=menu,menuone
 
 " htmlタグ移動
-source $VIMRUNTIME/macros/matchit.vim
-
-" vimproc
-let g:vimproc#download_windows_dll = 1
+packadd matchit
 
 " 自動pasteモード
 function! WrapForTmux(s)
@@ -234,13 +231,13 @@ if dein#tap('lightline.vim') "{{{2
           \ . ' | '. s:unite_get_status_tail_string()
   endfunction
   function! s:unite_get_status_tail_string() abort
-      if !exists('b:unite')
-        return ''
-      endif
+    if !exists('b:unite')
+      return ''
+    endif
 
-      return b:unite.context.path != '' ? '['. simplify(b:unite.context.path) .']' :
-            \    (get(b:unite.msgs, 0, '') == '') ? '' :
-            \    substitute(get(b:unite.msgs, 0, ''), '^\[.\{-}\]\s*', '', '')
+    return b:unite.context.path != '' ? '['. simplify(b:unite.context.path) .']' :
+          \    (get(b:unite.msgs, 0, '') == '') ? '' :
+          \    substitute(get(b:unite.msgs, 0, ''), '^\[.\{-}\]\s*', '', '')
   endfunction
 
   function! MyModified()
@@ -376,7 +373,6 @@ if dein#tap('lexima.vim') "{{{2
         \ })
 endif "}}}
 
-call dein#add('Shougo/vimproc.vim', { 'build' : 'make' })
 call dein#add('Shougo/unite.vim', { 'depends': ['vimproc.vim'], 'lazy': 1 })
 if dein#tap('unite.vim') "{{{2 
   let g:unite_force_overwrite_statusline = 0
@@ -483,17 +479,38 @@ if dein#tap('vimfiler.vim') "{{{2
   let g:vimfiler_edit_action = 'tabopen'
 endif "}}}
 
+" vimproc
+let g:vimproc#download_windows_dll = 1
+call dein#add('Shougo/vimproc.vim', { 'build' : 'make' })
 call dein#add('thinca/vim-quickrun')
 if dein#tap('vim-quickrun') "{{{2
   let g:quickrun_config = {
         \ "_": {
-        \       "outputter/buffer/split" : ":botright",
-        \       "outputter/buffer/close_on_empty" : 1,
+        \   "outputter/buffer/split" : ":botright",
+        \   "outputter/buffer/close_on_empty" : 1, 
         \   "runner": "vimproc",
         \   "runner/vimproc/updatetime": 60,
-        \  },
-        \  }
+        \ },
+        \ }
 endif "}}}
+call dein#add('osyo-manga/shabadou.vim')
+call dein#add('osyo-manga/vim-watchdogs')
+if dein#tap('vim-watchdogs') " {{{2
+  let g:watchdogs_check_BufWritePost_enable = 1
+  let g:watchdogs_check_CursorHold_enable = 0
+  if !exists("g:quickrun_config")
+    let g:quickrun_config = {}
+  endif
+  let g:quickrun_config['watchdogs_checker/_'] = {
+        \   'outputter/quickfix/open_cmd' : '',
+        \ }
+endif " }}}
+call dein#add('KazuakiM/vim-qfsigns')
+if dein#tap('vim-qfsigns') "{{{2
+  let g:qfsigns#AutoJump = 0
+  let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/enable_exit'] = 1
+  let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/priority_exit'] = 1
+endif " }}}
 
 " You can specify revision/branch/tag.
 call dein#add('Shougo/vimshell', { 'rev' : '3787e5' })
