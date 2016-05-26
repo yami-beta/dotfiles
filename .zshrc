@@ -129,3 +129,5 @@ export PATH="$HOME/.nodebrew/current/bin:$PATH"
 # alias dmstart='docker-machine start default && eval "$(docker-machine env default)"'
 # alias dmstop='docker-machine stop default'
 alias docker='docker $(docker-machine config docker-host)'
+
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
