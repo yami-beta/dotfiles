@@ -170,208 +170,6 @@ if dein#tap('neosnippet.vim') "{{{2
   endif
 endif "}}}
 call dein#add('Shougo/neosnippet-snippets', { 'depends': ['neosnippet.vim'] })
-call dein#add('tpope/vim-fugitive')
-" call dein#add('ctrlpvim/ctrlp.vim')
-if dein#tap('ctrlp.vim') "{{{2
-  let g:ctrlp_switch_buffer = 'ET'
-  let g:ctrlp_path_nolim = 1
-  let g:ctrlp_open_new_file = 't'
-
-  function! s:ctrlp_filer_glob_func(path)
-    return map([".."] + glob(a:path . "/*", 0, 1) + glob(a:path . "/.??*", 0, 1), 'fnamemodify(v:val, ":t") . (isdirectory(v:val) ? "/" : "")')
-  endfunction
-  let g:Ctrlp_filer_glob_func = function('s:ctrlp_filer_glob_func')
-
-  if executable('pt')
-    let g:ctrlp_use_caching = 0
-    let g:ctrlp_user_command = 'pt %s --nocolor --nogroup -g .'
-  endif
-
-  let g:ctrlp_funky_syntax_highlight = 1
-  let g:ctrlp_funky_nolim = 1
-endif "}}}
-" call dein#add('tacahiroy/ctrlp-funky')
-" call dein#add('yami-beta/ctrlp-filer', { 'rev' : 'personal' })
-" call dein#add('mhinz/vim-startify')
-
-" call neobundle#local("~/develop",
-"       \   {}, ['ctrlp-filer'])
-
-" 見た目
-call dein#add('flazz/vim-colorschemes')
-" call dein#add('zsoltf/vim-maui')
-" call dein#add('machakann/vim-colorscheme-imas')
-" call dein#add('ap/vim-buftabline')
-call dein#add('itchyny/lightline.vim')
-if dein#tap('lightline.vim') "{{{2
-  let g:lightline = {
-        \ 'colorscheme': 'pencil_dark',
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ]
-        \ },
-        \ 'component_function': {
-        \   'modified': 'MyModified',
-        \   'readonly': 'MyReadonly',
-        \   'fugitive': 'MyFugitive',
-        \   'filename': 'MyFilename',
-        \   'fileformat': 'MyFileformat',
-        \   'filetype': 'MyFiletype',
-        \   'fileencoding': 'MyFileencoding',
-        \   'mode': 'MyMode',
-        \ },
-        \ }
-
-  function! MyUniteGetStatusString() abort
-    if !exists('b:unite')
-      return ''
-    endif
-
-    return unite#view#_get_status_plane_string()
-          \ . ' | '. s:unite_get_status_tail_string()
-  endfunction
-  function! s:unite_get_status_tail_string() abort
-    if !exists('b:unite')
-      return ''
-    endif
-
-    return b:unite.context.path != '' ? '['. simplify(b:unite.context.path) .']' :
-          \    (get(b:unite.msgs, 0, '') == '') ? '' :
-          \    substitute(get(b:unite.msgs, 0, ''), '^\[.\{-}\]\s*', '', '')
-  endfunction
-
-  function! MyModified()
-    return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-  endfunction
-
-  function! MyReadonly()
-    return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
-  endfunction
-
-  function! MyFilename()
-    return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-          \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-          \  &ft == 'unite' ? MyUniteGetStatusString() :
-          \  &ft == 'vimshell' ? vimshell#get_status_string() :
-          \ '' != expand('%:.') ? expand('%:.') : '[No Name]') .
-          \ ('' != MyModified() ? ' ' . MyModified() : '')
-  endfunction
-
-  function! MyFugitive()
-    try
-      if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-        return fugitive#head()
-      endif
-    catch
-    endtry
-    return ''
-  endfunction
-
-  function! MyFileformat()
-    return winwidth(0) > 70 ? &fileformat : ''
-  endfunction
-
-  function! MyFiletype()
-    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-  endfunction
-
-  function! MyFileencoding()
-    return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-  endfunction
-
-  function! MyMode()
-    return  &ft == 'unite' ? 'Unite' :
-          \ &ft == 'vimfiler' ? 'VimFiler' :
-          \ &ft == 'vimshell' ? 'VimShell' :
-          \ winwidth(0) > 60 ? lightline#mode() : ''
-  endfunction
-endif "}}}
-call dein#add('yami-beta/lightline-pencil.vim')
-
-call dein#add('kana/vim-submode')
-call dein#add('AndrewRadev/splitjoin.vim')
-call dein#add('junegunn/vim-easy-align')
-call dein#add('tomtom/tcomment_vim') " コメントON/OFFを手軽に実行
-" call dein#add('LeafCage/yankround.vim')
-
-call dein#add('kana/vim-operator-user')
-call dein#add('rhysd/vim-operator-surround', {'depends': ['vim-operator-user']})
-call dein#add('kana/vim-operator-replace', {'depends': ['vim-operator-user']})
-"
-call dein#add('kana/vim-textobj-user')
-call dein#add('rhysd/vim-textobj-ruby', {'depends': ['vim-textobj-user']})
-call dein#add('osyo-manga/vim-textobj-multiblock', {'depends': ['vim-textobj-user']})
-call dein#add('kana/vim-textobj-indent', {'depends': ['vim-textobj-user']})
-
-call dein#add('mattn/emmet-vim', { 'on_i': 1 })
-if dein#tap('emmet-vim') "{{{2
-  let g:user_emmet_leader_key = '<C-g>'
-  let g:user_emmet_settings = {
-        \   'variables': {
-        \     'lang': 'ja'
-        \   }
-        \ }
-endif "}}}
-call dein#add('plasticboy/vim-markdown')
-if dein#tap('vim-markdown') "{{{2
-  let g:vim_markdown_folding_disabled=1
-endif "}}}
-call dein#add('kannokanno/previm')
-if dein#tap('previm') " {{{2
-  if s:is_mac
-    let g:previm_open_cmd = 'open -a Google\ Chrome'
-  elseif s:is_windows
-    let g:previm_open_cmd = 'C:/Program\ Files\ (x86)/Google/Chrome/Application/chrome.exe'
-  endif
-endif " }}}
-call dein#add('elzr/vim-json')
-" call dein#add('lervag/vimtex')
-if dein#tap('vimtex') "{{{2
-  if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-  endif
-  let g:neocomplete#sources#omni#input_patterns.tex = '\v\\\a*(ref|cite)\a*([^]]*\])?\{([^}]*,)*[^}]*'
-endif "}}}
-" call dein#add('vim-pandoc/vim-pandoc')
-call dein#add('vim-pandoc/vim-pandoc-syntax')
-if dein#tap('vim-pandoc-syntax') "{{{2
-  let g:pandoc#syntax#conceal#use = 0
-endif "}}}
-call dein#add('vim-pandoc/vim-rmarkdown')
-
-" 検索・置換を便利にする
-call dein#add('tpope/vim-abolish')
-call dein#add('haya14busa/incsearch.vim')
-if dein#tap('incsearch.vim') "{{{2
-  let g:incsearch#auto_nohlsearch = 1
-  let g:incsearch#magic = '\v'
-endif "}}}
-call dein#add('haya14busa/incsearch-migemo.vim', { 'depends': ['incsearch.vim'] })
-call dein#add('haya14busa/vim-asterisk')
-call dein#add('osyo-manga/vim-anzu')
-call dein#add('osyo-manga/vim-over', { 'on_cmd': ['OverCommandLine'] })
-
-call dein#add('cohama/lexima.vim', { 'on_i': 1 })
-if dein#tap('lexima.vim') "{{{2
-  function! s:lexima_on_post_source() abort
-    call lexima#add_rule({'char': '<TAB>', 'at': '\%#[)}\]''"]', 'leave': 1})
-    imap <expr><TAB> pumvisible() ?
-          \ "\<C-n>"
-          \ : neosnippet#expandable_or_jumpable() ?
-          \ "\<Plug>(neosnippet_expand_or_jump)"
-          \ : lexima#expand('<LT>TAB>', 'i')
-    call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
-    " inoremap <silent><expr> <CR> pumvisible() ? neocomplete#close_popup() : lexima#expand('<LT>CR>', 'i')
-    imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
-          \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
-          \ neocomplete#close_popup()
-    inoremap <C-j> <Down>
-    inoremap <C-k> <Up>
-  endfunction
-  call dein#config({
-        \ 'hook_post_source': function('s:lexima_on_post_source')
-        \ })
-endif "}}}
 
 call dein#add('Shougo/unite.vim', { 'depends': ['vimproc.vim'], 'lazy': 1 })
 if dein#tap('unite.vim') "{{{2 
@@ -479,6 +277,179 @@ if dein#tap('vimfiler.vim') "{{{2
   let g:vimfiler_edit_action = 'tabopen'
 endif "}}}
 
+" 見た目
+call dein#add('flazz/vim-colorschemes')
+" call dein#add('zsoltf/vim-maui')
+" call dein#add('machakann/vim-colorscheme-imas')
+" call dein#add('ap/vim-buftabline')
+call dein#add('itchyny/lightline.vim')
+if dein#tap('lightline.vim') "{{{2
+  let g:lightline = {
+        \ 'colorscheme': 'pencil_dark',
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ]
+        \ },
+        \ 'component_function': {
+        \   'modified': 'MyModified',
+        \   'readonly': 'MyReadonly',
+        \   'fugitive': 'MyFugitive',
+        \   'filename': 'MyFilename',
+        \   'fileformat': 'MyFileformat',
+        \   'filetype': 'MyFiletype',
+        \   'fileencoding': 'MyFileencoding',
+        \   'mode': 'MyMode',
+        \ },
+        \ }
+
+  function! MyUniteGetStatusString() abort
+    if !exists('b:unite')
+      return ''
+    endif
+
+    return unite#view#_get_status_plane_string()
+          \ . ' | '. s:unite_get_status_tail_string()
+  endfunction
+  function! s:unite_get_status_tail_string() abort
+    if !exists('b:unite')
+      return ''
+    endif
+
+    return b:unite.context.path != '' ? '['. simplify(b:unite.context.path) .']' :
+          \    (get(b:unite.msgs, 0, '') == '') ? '' :
+          \    substitute(get(b:unite.msgs, 0, ''), '^\[.\{-}\]\s*', '', '')
+  endfunction
+
+  function! MyModified()
+    return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  endfunction
+
+  function! MyReadonly()
+    return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+  endfunction
+
+  function! MyFilename()
+    return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+          \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+          \  &ft == 'unite' ? MyUniteGetStatusString() :
+          \  &ft == 'vimshell' ? vimshell#get_status_string() :
+          \ '' != expand('%:.') ? expand('%:.') : '[No Name]') .
+          \ ('' != MyModified() ? ' ' . MyModified() : '')
+  endfunction
+
+  function! MyFugitive()
+    try
+      if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+        return fugitive#head()
+      endif
+    catch
+    endtry
+    return ''
+  endfunction
+
+  function! MyFileformat()
+    return winwidth(0) > 70 ? &fileformat : ''
+  endfunction
+
+  function! MyFiletype()
+    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  endfunction
+
+  function! MyFileencoding()
+    return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  endfunction
+
+  function! MyMode()
+    return  &ft == 'unite' ? 'Unite' :
+          \ &ft == 'vimfiler' ? 'VimFiler' :
+          \ &ft == 'vimshell' ? 'VimShell' :
+          \ winwidth(0) > 60 ? lightline#mode() : ''
+  endfunction
+endif "}}}
+call dein#add('yami-beta/lightline-pencil.vim')
+
+call dein#add('kana/vim-submode')
+call dein#add('AndrewRadev/splitjoin.vim')
+call dein#add('junegunn/vim-easy-align')
+call dein#add('tomtom/tcomment_vim') " コメントON/OFFを手軽に実行
+
+call dein#add('kana/vim-operator-user')
+call dein#add('rhysd/vim-operator-surround', {'depends': ['vim-operator-user']})
+call dein#add('kana/vim-operator-replace', {'depends': ['vim-operator-user']})
+"
+call dein#add('kana/vim-textobj-user')
+call dein#add('rhysd/vim-textobj-ruby', {'depends': ['vim-textobj-user']})
+call dein#add('osyo-manga/vim-textobj-multiblock', {'depends': ['vim-textobj-user']})
+call dein#add('kana/vim-textobj-indent', {'depends': ['vim-textobj-user']})
+
+call dein#add('pangloss/vim-javascript')
+if dein#tap('vim-javascript') " {{{2
+  let g:javascript_enable_domhtmlcss = 1
+endif " }}}
+call dein#add('mattn/emmet-vim', { 'on_i': 1 })
+if dein#tap('emmet-vim') "{{{2
+  let g:user_emmet_leader_key = '<C-g>'
+  let g:user_emmet_settings = {
+        \   'variables': {
+        \     'lang': 'ja'
+        \   }
+        \ }
+endif "}}}
+call dein#add('plasticboy/vim-markdown')
+if dein#tap('vim-markdown') "{{{2
+  let g:vim_markdown_folding_disabled=1
+endif "}}}
+call dein#add('kannokanno/previm')
+if dein#tap('previm') " {{{2
+  if s:is_mac
+    let g:previm_open_cmd = 'open -a Google\ Chrome'
+  elseif s:is_windows
+    let g:previm_open_cmd = 'C:/Program\ Files\ (x86)/Google/Chrome/Application/chrome.exe'
+  endif
+endif " }}}
+call dein#add('elzr/vim-json')
+" call dein#add('lervag/vimtex')
+if dein#tap('vimtex') "{{{2
+  if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+  endif
+  let g:neocomplete#sources#omni#input_patterns.tex = '\v\\\a*(ref|cite)\a*([^]]*\])?\{([^}]*,)*[^}]*'
+endif "}}}
+
+" 検索・置換を便利にする
+call dein#add('tpope/vim-abolish')
+call dein#add('haya14busa/incsearch.vim')
+if dein#tap('incsearch.vim') "{{{2
+  let g:incsearch#auto_nohlsearch = 1
+  let g:incsearch#magic = '\v'
+endif "}}}
+call dein#add('haya14busa/incsearch-migemo.vim', { 'depends': ['incsearch.vim'] })
+call dein#add('haya14busa/vim-asterisk')
+call dein#add('osyo-manga/vim-anzu')
+call dein#add('osyo-manga/vim-over', { 'on_cmd': ['OverCommandLine'] })
+
+call dein#add('cohama/lexima.vim', { 'on_i': 1 })
+if dein#tap('lexima.vim') "{{{2
+  function! s:lexima_on_post_source() abort
+    call lexima#add_rule({'char': '<TAB>', 'at': '\%#[)}\]''"]', 'leave': 1})
+    imap <expr><TAB> pumvisible() ?
+          \ "\<C-n>"
+          \ : neosnippet#expandable_or_jumpable() ?
+          \ "\<Plug>(neosnippet_expand_or_jump)"
+          \ : lexima#expand('<LT>TAB>', 'i')
+    call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
+    " inoremap <silent><expr> <CR> pumvisible() ? neocomplete#close_popup() : lexima#expand('<LT>CR>', 'i')
+    imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
+          \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
+          \ neocomplete#close_popup()
+    inoremap <C-j> <Down>
+    inoremap <C-k> <Up>
+  endfunction
+  call dein#config({
+        \ 'hook_post_source': function('s:lexima_on_post_source')
+        \ })
+endif "}}}
+
 " vimproc
 let g:vimproc#download_windows_dll = 1
 call dein#add('Shougo/vimproc.vim', { 'build' : 'make' })
@@ -512,6 +483,31 @@ if dein#tap('vim-qfsigns') "{{{2
   let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/priority_exit'] = 1
 endif " }}}
 
+" call dein#add('ctrlpvim/ctrlp.vim')
+if dein#tap('ctrlp.vim') "{{{2
+  let g:ctrlp_switch_buffer = 'ET'
+  let g:ctrlp_path_nolim = 1
+  let g:ctrlp_open_new_file = 't'
+
+  function! s:ctrlp_filer_glob_func(path)
+    return map([".."] + glob(a:path . "/*", 0, 1) + glob(a:path . "/.??*", 0, 1), 'fnamemodify(v:val, ":t") . (isdirectory(v:val) ? "/" : "")')
+  endfunction
+  let g:Ctrlp_filer_glob_func = function('s:ctrlp_filer_glob_func')
+
+  if executable('pt')
+    let g:ctrlp_use_caching = 0
+    let g:ctrlp_user_command = 'pt %s --nocolor --nogroup -g .'
+  endif
+
+  let g:ctrlp_funky_syntax_highlight = 1
+  let g:ctrlp_funky_nolim = 1
+endif "}}}
+" call dein#add('tacahiroy/ctrlp-funky')
+" call dein#add('yami-beta/ctrlp-filer', { 'rev' : 'personal' })
+" call dein#add('mhinz/vim-startify')
+
+" call neobundle#local("~/develop",
+"       \   {}, ['ctrlp-filer'])
 " You can specify revision/branch/tag.
 call dein#add('Shougo/vimshell', { 'rev' : '3787e5' })
 
@@ -587,7 +583,7 @@ nnoremap <Esc><Esc> :<C-u>nohlsearch<CR><ESC>
 inoremap <expr><C-g>     neocomplete#undo_completion()
 " inoremap <expr><C-l>     neocomplete#complete_common_string()
 " <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 " <TAB>: completion.
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
