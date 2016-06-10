@@ -12,6 +12,7 @@ zplug "zplug/zplug"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
+zplug "plugins/npm", from:oh-my-zsh
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
