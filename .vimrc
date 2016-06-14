@@ -474,6 +474,7 @@ if dein#tap('vim-watchdogs') " {{{2
   endif
   let g:quickrun_config['watchdogs_checker/_'] = {
         \   'outputter/quickfix/open_cmd' : '',
+        \   'hook/close_quickfix/enable_exit': 1,
         \ }
 endif " }}}
 call dein#add('KazuakiM/vim-qfsigns')
@@ -651,6 +652,7 @@ nnoremap <silent> <Space>d :<C-u>VimFilerBufferDir -simple -toggle -winwidth=30 
 
 nmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
 vmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
+autocmd vimrc FileType qf nnoremap <CR> <CR>
 
 map / <Plug>(incsearch-forward)
 map ? <Plug>(incsearch-backward)
