@@ -547,6 +547,10 @@ inoremap <expr> <C-a> col('.') == match(getline('.'), '\S') + 1 ?
       \     repeat('<C-G>U<Left>', col('.') - 1 - match(getline('.'), '\S')))
 inoremap <expr> <C-e> repeat('<C-G>U<Right>', col('$') - col('.'))
 
+" 行ごと移動
+vnoremap <C-Up> "zx<Up>"zP`[V`]
+vnoremap <C-Down> "zx"zp`[V`]
+
 " タブ移動
 nnoremap <S-h> gT
 nnoremap <S-l> gt
@@ -723,6 +727,7 @@ augroup pencil
     autocmd ColorScheme pencil highlight Normal guibg=#262626
     autocmd ColorScheme pencil highlight SpecialKey ctermfg=8 guifg=#424242
     autocmd ColorScheme pencil highlight Comment gui=NONE
+    autocmd ColorScheme pencil highlight Search guifg=#424242 guibg=#A89C14
   endif
 augroup END
 colorscheme pencil
