@@ -275,6 +275,7 @@ call dein#add('Shougo/neomru.vim', { 'depends': ['unite.vim'] })
 call dein#add('Shougo/vimfiler.vim', { 'on_cmd': ['VimFiler'] })
 if dein#tap('vimfiler.vim') "{{{2
   let g:vimfiler_edit_action = 'tabopen'
+  let g:vimfiler_as_default_explorer = 1
 endif "}}}
 
 " 見た目
@@ -652,7 +653,7 @@ nnoremap <silent> <Space>gr :<C-u>UniteResume search-buffer<CR>
 autocmd vimrc FileType unite imap <buffer> <C-c> <Plug>(unite_insert_leave)<Plug>(unite_all_exit)
 autocmd vimrc FileType unite nmap <buffer> <C-c> <Plug>(unite_all_exit)
 
-nnoremap <silent> <Space>d :<C-u>VimFilerBufferDir -simple -toggle -winwidth=30 -split -force-quit<CR>
+nnoremap <silent> <Space>d :<C-u>VimFilerExplorer -toggle -winwidth=30<CR>
 
 nmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
 vmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
