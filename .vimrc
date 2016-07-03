@@ -56,6 +56,11 @@ setglobal completeopt=menu,menuone
 " htmlタグ移動
 packadd matchit
 
+" https://github.com/Shougo/dein.vim/issues/107
+if isdirectory(expand('$HOME/.vim/pack/plugins/opt/vimtex'))
+  packadd vimtex
+endif
+
 " 自動pasteモード
 function! WrapForTmux(s)
   if !exists('$TMUX')
