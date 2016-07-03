@@ -490,6 +490,8 @@ if dein#tap('ctrlp.vim') "{{{2
   let g:ctrlp_switch_buffer = 'ET'
   let g:ctrlp_path_nolim = 1
   let g:ctrlp_open_new_file = 't'
+  " 詳細: http://leafcage.hateblo.jp/entry/2013/09/26/234707
+  autocmd vimrc CursorMoved ControlP let w:lightline = 0
 
   function! s:ctrlp_filer_glob_func(path)
     return map([".."] + glob(a:path . "/*", 0, 1) + glob(a:path . "/.??*", 0, 1), 'fnamemodify(v:val, ":t") . (isdirectory(v:val) ? "/" : "")')
