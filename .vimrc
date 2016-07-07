@@ -518,7 +518,7 @@ endif "}}}
 " call neobundle#local("~/develop",
 "       \   {}, ['ctrlp-filer'])
 " You can specify revision/branch/tag.
-call dein#add('Shougo/vimshell', { 'rev' : '3787e5' })
+" call dein#add('Shougo/vimshell')
 
 call dein#end()
 filetype plugin indent on
