@@ -27,7 +27,7 @@ setglobal formatoptions+=mM          " 整形オプションにマルチバイ�
 setglobal clipboard+=unnamed         " クリップボードと無名レジスタを共有
 setglobal ambiwidth=double           " □とか○等の文字でカーソル位置がずれないようにする
 setglobal backspace=indent,eol,start " BSで，インデント・改行の削除，挿入モード開始位置での削除を有効
-setglobal whichwrap=b,s,h,l,<,>,[,]  " カーソルを行頭、行末で止まらないようにする
+setglobal whichwrap+=h,l,<,>         " カーソルを行頭、行末で止まらないようにする
 setglobal hidden                     " 未保存状態でバッファの切り替えを可能にする
 setglobal autoread                   " 自動読み込み
 setglobal noswapfile                 " スワップファイルを作成しない
@@ -548,6 +548,9 @@ inoremap <C-h> <C-g>U<Left>
 inoremap <C-l> <C-g>U<Right>
 inoremap <Left>  <C-G>U<Left>
 inoremap <Right> <C-G>U<Right>
+
+" 挿入モードでの行頭，行末移動
+" 日本語を含む行でinsertモードで行末移動を行うため，whichwrapから'[, ]'を除外する必要あり
 inoremap <expr> <C-a> col('.') == match(getline('.'), '\S') + 1 ?
       \ repeat('<C-G>U<Left>', col('.') - 1) :
       \ (col('.') < match(getline('.'), '\S') ?
