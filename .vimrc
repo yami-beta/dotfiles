@@ -405,7 +405,7 @@ call dein#add('plasticboy/vim-markdown')
 if dein#tap('vim-markdown') "{{{2
   let g:vim_markdown_folding_disabled=1
 endif "}}}
-call dein#add('kannokanno/previm')
+" call dein#add('kannokanno/previm')
 if dein#tap('previm') " {{{2
   if s:is_mac
     let g:previm_open_cmd = 'open -a Google\ Chrome'
