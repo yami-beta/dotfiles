@@ -669,6 +669,8 @@ nmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
 vmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
 autocmd vimrc FileType qf nnoremap <CR> <CR>
 
+noremap <Leader>/ /
+
 map / <Plug>(incsearch-forward)
 map ? <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
