@@ -433,10 +433,13 @@ call dein#add('osyo-manga/vim-over', { 'on_cmd': ['OverCommandLine'] })
 
 call dein#add('cohama/lexima.vim')
 if dein#tap('lexima.vim') "{{{2
+  " lexima.vimはInsertEnter時に初期化されるため注意が必要
+  " <CR>等のmappingは初期化処理で上書きされる
   function! s:lexima_on_post_source() abort
-    " 遅延ロードにすると<TAB>のマッピングを上書きするため注意
     call lexima#add_rule({'char': '<TAB>', 'at': '\%#[)}\]''"]', 'leave': 1})
     call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
+    " <TAB>と<CR>のマッピングを元に戻す
+    call s:lexima_mapping()
   endfunction
   call dein#config({
         \ 'hook_post_source': function('s:lexima_on_post_source')
@@ -592,11 +595,6 @@ inoremap <expr><C-y> neocomplete#close_popup()
 " inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<End>"
 
 xmap <Tab>     <Plug>(neosnippet_expand_target)
-imap <expr><TAB> pumvisible() ?
-      \ "\<C-n>"
-      \ : neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \ : lexima#expand('<LT>TAB>', 'i')
 smap <expr><TAB> pumvisible() ?
       \ "\<C-n>"
       \ : neosnippet#expandable_or_jumpable() ?
@@ -611,9 +609,17 @@ smap <expr><C-s> !pumvisible() ?
       \ "\<C-s>"
       \ : "\<Plug>(neosnippet_expand_or_jump)"
 
-imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
-      \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
-      \ neocomplete#close_popup()
+function! s:lexima_mapping() abort
+  imap <expr><TAB> pumvisible() ?
+        \ "\<C-n>"
+        \ : neosnippet#expandable_or_jumpable() ?
+        \ "\<Plug>(neosnippet_expand_or_jump)"
+        \ : lexima#expand('<LT>TAB>', 'i')
+  imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
+        \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
+        \ neocomplete#close_popup()
+endfunction
+call s:lexima_mapping()
 
 vmap , <Plug>(EasyAlign)
 
