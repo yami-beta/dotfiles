@@ -168,12 +168,6 @@ if dein#tap('neocomplete.vim') "{{{2
   let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 endif "}}}
 call dein#add('Shougo/neosnippet.vim', { 'depends': ['neocomplete.vim'] })
-if dein#tap('neosnippet.vim') "{{{2
-  " For snippet_complete marker.
-  if has('conceal')
-    set conceallevel=2 concealcursor=niv
-  endif
-endif "}}}
 call dein#add('Shougo/neosnippet-snippets', { 'depends': ['neosnippet.vim'] })
 
 call dein#add('Shougo/unite.vim', { 'depends': ['vimproc.vim'], 'lazy': 1 })
@@ -721,7 +715,6 @@ set conceallevel=0
 let g:vim_json_syntax_conceal = 0
 " texのconcealを無効化
 let g:tex_conceal=''
-autocmd vimrc FileType markdown setlocal conceallevel=0
 
 " ウィンドウタイトルの保存・復元
 let &t_ti .= "\e[22;0t"
