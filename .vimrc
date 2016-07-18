@@ -431,9 +431,10 @@ call dein#add('haya14busa/vim-asterisk')
 call dein#add('osyo-manga/vim-anzu')
 call dein#add('osyo-manga/vim-over', { 'on_cmd': ['OverCommandLine'] })
 
-call dein#add('cohama/lexima.vim', { 'on_i': 1 })
+call dein#add('cohama/lexima.vim')
 if dein#tap('lexima.vim') "{{{2
   function! s:lexima_on_post_source() abort
+    " 遅延ロードにすると<TAB>のマッピングを上書きするため注意
     call lexima#add_rule({'char': '<TAB>', 'at': '\%#[)}\]''"]', 'leave': 1})
     call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
   endfunction
