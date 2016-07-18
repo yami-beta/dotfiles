@@ -415,6 +415,7 @@ if dein#tap('vimtex') "{{{2
   endif
   let g:neocomplete#sources#omni#input_patterns.tex = '\v\\\a*(ref|cite)\a*([^]]*\])?\{([^}]*,)*[^}]*'
 endif "}}}
+call dein#add('evanmiller/nginx-vim-syntax')
 
 " 検索・置換を便利にする
 call dein#add('tpope/vim-abolish')
