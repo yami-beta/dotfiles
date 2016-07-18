@@ -435,18 +435,7 @@ call dein#add('cohama/lexima.vim', { 'on_i': 1 })
 if dein#tap('lexima.vim') "{{{2
   function! s:lexima_on_post_source() abort
     call lexima#add_rule({'char': '<TAB>', 'at': '\%#[)}\]''"]', 'leave': 1})
-    imap <expr><TAB> pumvisible() ?
-          \ "\<C-n>"
-          \ : neosnippet#expandable_or_jumpable() ?
-          \ "\<Plug>(neosnippet_expand_or_jump)"
-          \ : lexima#expand('<LT>TAB>', 'i')
     call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
-    " inoremap <silent><expr> <CR> pumvisible() ? neocomplete#close_popup() : lexima#expand('<LT>CR>', 'i')
-    imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
-          \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
-          \ neocomplete#close_popup()
-    inoremap <C-j> <Down>
-    inoremap <C-k> <Up>
   endfunction
   call dein#config({
         \ 'hook_post_source': function('s:lexima_on_post_source')
@@ -596,16 +585,7 @@ nnoremap <Esc><Esc> :<C-u>nohlsearch<CR><ESC>
 nmap <C-_> <Plug>(caw:hatpos:toggle)
 vmap <C-_> <Plug>(caw:hatpos:toggle)
 
-" neocomplate
 inoremap <expr><C-g>     neocomplete#undo_completion()
-" inoremap <expr><C-l>     neocomplete#complete_common_string()
-" <CR>: close popup and save indent.
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-" <TAB>: completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-" inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y> neocomplete#close_popup()
 " inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<End>"
@@ -615,18 +595,24 @@ imap <expr><TAB> pumvisible() ?
       \ "\<C-n>"
       \ : neosnippet#expandable_or_jumpable() ?
       \ "\<Plug>(neosnippet_expand_or_jump)"
-      \ : "\<TAB>"
+      \ : lexima#expand('<LT>TAB>', 'i')
 smap <expr><TAB> pumvisible() ?
       \ "\<C-n>"
       \ : neosnippet#expandable_or_jumpable() ?
       \ "\<Plug>(neosnippet_expand_or_jump)"
       \ : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
 imap <expr><C-s> !pumvisible() ?
       \ "\<C-s>"
       \ : "\<Plug>(neosnippet_expand_or_jump)"
 smap <expr><C-s> !pumvisible() ?
       \ "\<C-s>"
       \ : "\<Plug>(neosnippet_expand_or_jump)"
+
+imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
+      \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
+      \ neocomplete#close_popup()
 
 vmap , <Plug>(EasyAlign)
 
