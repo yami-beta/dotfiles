@@ -726,7 +726,7 @@ augroup pencil
     autocmd ColorScheme pencil highlight Normal guibg=#262626
     autocmd ColorScheme pencil highlight SpecialKey ctermfg=8 guifg=#424242
     autocmd ColorScheme pencil highlight Comment gui=NONE
-    autocmd ColorScheme pencil highlight Search guifg=#212121 guibg=#A89C14
+    autocmd ColorScheme pencil highlight Search ctermfg=0 ctermbg=3 guifg=#212121 guibg=#A89C14
   endif
 augroup END
 colorscheme pencil
