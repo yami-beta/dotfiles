@@ -371,7 +371,10 @@ call dein#add('yami-beta/lightline-pencil.vim')
 call dein#add('kana/vim-submode')
 call dein#add('AndrewRadev/splitjoin.vim')
 call dein#add('junegunn/vim-easy-align')
-call dein#add('tomtom/tcomment_vim') " コメントON/OFFを手軽に実行
+call dein#add('tyru/caw.vim')
+if dein#tap('caw.vim') "{{{2
+  let g:caw_operator_keymappings = 1
+endif "}}}
 
 call dein#add('kana/vim-operator-user')
 call dein#add('rhysd/vim-operator-surround', {'depends': ['vim-operator-user']})
@@ -588,6 +591,10 @@ vnoremap > >gv
 
 " Esc の 2 回押しでハイライトを消去
 nnoremap <Esc><Esc> :<C-u>nohlsearch<CR><ESC>
+
+" コメントアウト
+nmap <C-_> <Plug>(caw:hatpos:toggle)
+vmap <C-_> <Plug>(caw:hatpos:toggle)
 
 " neocomplate
 inoremap <expr><C-g>     neocomplete#undo_completion()
