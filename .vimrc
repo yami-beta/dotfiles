@@ -372,9 +372,6 @@ call dein#add('kana/vim-submode')
 call dein#add('AndrewRadev/splitjoin.vim')
 call dein#add('junegunn/vim-easy-align')
 call dein#add('tyru/caw.vim')
-if dein#tap('caw.vim') "{{{2
-  let g:caw_operator_keymappings = 1
-endif "}}}
 
 call dein#add('kana/vim-operator-user')
 call dein#add('rhysd/vim-operator-surround', {'depends': ['vim-operator-user']})
@@ -588,6 +585,9 @@ nnoremap <Esc><Esc> :<C-u>nohlsearch<CR><ESC>
 " コメントアウト
 nmap <C-_> <Plug>(caw:hatpos:toggle)
 vmap <C-_> <Plug>(caw:hatpos:toggle)
+" 現在行がインデントのみの場合は，<Plug>(caw:hatpos:comment)を実行
+imap <expr><C-_> getline('.') =~# '\v^\s*$' ? "\<C-o><Plug>(caw:hatpos:comment)"
+      \ : "\<C-o><Plug>(caw:hatpos:toggle)"
 
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
