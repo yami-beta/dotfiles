@@ -730,8 +730,8 @@ augroup pencil
   if &background == 'dark'
     " autocmd ColorScheme pencil highlight CursorLine ctermbg=236 guibg=#303030
     autocmd ColorScheme pencil highlight clear CursorLine
-    autocmd ColorScheme pencil highlight CursorLineNr ctermbg=NONE guibg=NONE
-    autocmd ColorScheme pencil highlight Normal guibg=#262626
+    " autocmd ColorScheme pencil highlight CursorLineNr ctermbg=NONE guibg=NONE
+    " autocmd ColorScheme pencil highlight Normal guibg=#262626
     autocmd ColorScheme pencil highlight SpecialKey ctermfg=8 guifg=#424242
     autocmd ColorScheme pencil highlight Comment gui=NONE
     autocmd ColorScheme pencil highlight Search ctermfg=0 ctermbg=3 guifg=#212121 guibg=#A89C14
