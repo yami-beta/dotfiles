@@ -186,7 +186,12 @@ if dein#tap('unite.vim') "{{{2
   endif
 
   function! s:unite_on_source() abort
-    call unite#custom#default_action('file', 'tabswitch')
+    autocmd vimrc FileType unite imap <buffer> <C-c> <Plug>(unite_insert_leave)<Plug>(unite_all_exit)
+    autocmd vimrc FileType unite nmap <buffer> <C-c> <Plug>(unite_all_exit)
+    autocmd vimrc FileType unite inoremap <buffer><expr><silent> <C-t> unite#do_action('tabswitch')
+    autocmd vimrc FileType unite nnoremap <buffer><expr><silent> t unite#do_action('tabswitch')
+
+    call unite#custom#default_action('file, buffer', 'tabswitch')
     call unite#custom#profile('default', 'context', {
           \   'start_insert': 1,
           \   'winheight': 10,
@@ -654,9 +659,6 @@ nnoremap <silent> <Space>r :<C-u>Unite file_mru<CR>
 nnoremap <silent> <Space>g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 nnoremap <silent> <Space>gd :<C-u>Unite grep -buffer-name=search-buffer<CR>
 nnoremap <silent> <Space>gr :<C-u>UniteResume search-buffer<CR>
-
-autocmd vimrc FileType unite imap <buffer> <C-c> <Plug>(unite_insert_leave)<Plug>(unite_all_exit)
-autocmd vimrc FileType unite nmap <buffer> <C-c> <Plug>(unite_all_exit)
 
 nnoremap <silent> <Space>d :<C-u>VimFilerExplorer -toggle -winwidth=30<CR>
 
