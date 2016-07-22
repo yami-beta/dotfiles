@@ -438,6 +438,16 @@ call dein#add('cohama/lexima.vim')
 if dein#tap('lexima.vim') "{{{2
   " lexima.vimはInsertEnter時に初期化されるため注意が必要
   " <CR>等のmappingは初期化処理で上書きされる
+  function! s:lexima_mapping() abort
+    imap <expr><TAB> pumvisible() ?
+          \ "\<C-n>"
+          \ : neosnippet#expandable_or_jumpable() ?
+          \ "\<Plug>(neosnippet_expand_or_jump)"
+          \ : lexima#expand('<LT>TAB>', 'i')
+    imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
+          \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
+          \ neocomplete#close_popup()
+  endfunction
   function! s:lexima_on_post_source() abort
     call lexima#add_rule({'char': '<TAB>', 'at': '\%#[)}\]''"]', 'leave': 1})
     call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
@@ -615,16 +625,6 @@ smap <expr><C-s> !pumvisible() ?
       \ "\<C-s>"
       \ : "\<Plug>(neosnippet_expand_or_jump)"
 
-function! s:lexima_mapping() abort
-  imap <expr><TAB> pumvisible() ?
-        \ "\<C-n>"
-        \ : neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)"
-        \ : lexima#expand('<LT>TAB>', 'i')
-  imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
-        \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
-        \ neocomplete#close_popup()
-endfunction
 call s:lexima_mapping()
 
 vmap , <Plug>(EasyAlign)
