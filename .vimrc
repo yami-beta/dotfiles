@@ -501,21 +501,16 @@ if dein#tap('ctrlp.vim') "{{{2
   " 詳細: http://leafcage.hateblo.jp/entry/2013/09/26/234707
   autocmd vimrc CursorMoved ControlP let w:lightline = 0
 
-  function! s:ctrlp_filer_glob_func(path)
-    return map([".."] + glob(a:path . "/*", 0, 1) + glob(a:path . "/.??*", 0, 1), 'fnamemodify(v:val, ":t") . (isdirectory(v:val) ? "/" : "")')
-  endfunction
-  let g:Ctrlp_filer_glob_func = function('s:ctrlp_filer_glob_func')
-
   if executable('pt')
     let g:ctrlp_use_caching = 0
-    let g:ctrlp_user_command = 'pt %s --nocolor --nogroup -g .'
+    let g:ctrlp_user_command = 'pt %s --nocolor --nogroup --follow --hidden --ignore .git -g .'
   endif
 
   let g:ctrlp_funky_syntax_highlight = 1
   let g:ctrlp_funky_nolim = 1
 endif "}}}
+" call dein#add('yami-beta/ctrlp-explorer')
 " call dein#add('tacahiroy/ctrlp-funky')
-" call dein#add('yami-beta/ctrlp-filer', { 'rev' : 'personal' })
 " call dein#add('mhinz/vim-startify')
 
 " call neobundle#local("~/develop",
