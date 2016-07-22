@@ -10,6 +10,8 @@ source ~/.zplug/init.zsh
 # Make sure to use double quotes to prevent shell expansion
 zplug "zplug/zplug"
 zplug "zsh-users/zsh-syntax-highlighting"
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[path]='none'
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
 zplug "plugins/npm", from:oh-my-zsh
