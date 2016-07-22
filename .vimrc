@@ -25,7 +25,8 @@ setglobal iskeyword+=-               " '-'を単語区切りに追加
 setglobal shellslash                 " パス区切りをスラッシュにする
 setglobal formatoptions+=mM          " 整形オプションにマルチバイト系を追加
 setglobal clipboard+=unnamed         " クリップボードと無名レジスタを共有
-setglobal ambiwidth=double           " □とか○等の文字でカーソル位置がずれないようにする
+" setglobal ambiwidth=double           " □とか○等の文字でカーソル位置がずれないようにする
+setglobal ambiwidth=single           " □とか○等の文字でカーソル位置がずれないようにする
 setglobal backspace=indent,eol,start " BSで，インデント・改行の削除，挿入モード開始位置での削除を有効
 setglobal whichwrap+=h,l,<,>         " カーソルを行頭、行末で止まらないようにする
 setglobal hidden                     " 未保存状態でバッファの切り替えを可能にする
@@ -305,6 +306,11 @@ if dein#tap('lightline.vim') "{{{2
         \   'fileencoding': 'MyFileencoding',
         \   'mode': 'MyMode',
         \ },
+        \ 'component': {
+        \   'readonly': '%{&readonly?"\ue0a2":""}',
+        \ },
+        \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+        \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
         \ }
 
   function! MyUniteGetStatusString() abort
