@@ -26,7 +26,7 @@ setglobal shellslash                 " パス区切りをスラッシュにす�
 setglobal formatoptions+=mM          " 整形オプションにマルチバイト系を追加
 setglobal clipboard+=unnamed         " クリップボードと無名レジスタを共有
 " setglobal ambiwidth=double           " □とか○等の文字でカーソル位置がずれないようにする
-setglobal ambiwidth=single           " □とか○等の文字でカーソル位置がずれないようにする
+setglobal ambiwidth=single           " powerline patched font を使用するため
 setglobal backspace=indent,eol,start " BSで，インデント・改行の削除，挿入モード開始位置での削除を有効
 setglobal whichwrap+=h,l,<,>         " カーソルを行頭、行末で止まらないようにする
 setglobal hidden                     " 未保存状態でバッファの切り替えを可能にする
