@@ -319,7 +319,7 @@ if dein#tap('lightline.vim') "{{{2
           \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
           \  &ft == 'unite' ? MyUniteGetStatusString() :
           \  &ft == 'vimshell' ? vimshell#get_status_string() :
-          \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+          \ '' != expand('%:.') ? expand('%:.') : '[No Name]') .
           \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
   endfunction
 
