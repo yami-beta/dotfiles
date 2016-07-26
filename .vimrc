@@ -170,6 +170,10 @@ if dein#tap('neocomplete.vim') "{{{2
 endif "}}}
 call dein#add('Shougo/neosnippet.vim', { 'depends': ['neocomplete.vim'] })
 call dein#add('Shougo/neosnippet-snippets', { 'depends': ['neosnippet.vim'] })
+call dein#add('rhysd/github-complete.vim')
+if dein#tap('github-complete.vim') "{{{2
+  autocmd vimrc FileType gitcommit setl omnifunc=github_complete#complete
+endif "}}}
 
 call dein#add('Shougo/unite.vim', { 'depends': ['vimproc.vim'], 'lazy': 1 })
 if dein#tap('unite.vim') "{{{2 
