@@ -118,14 +118,7 @@ export EDITOR="vim"
 export PATH="/usr/local/sbin:$PATH"
 
 
-# rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-if type rbenv >/dev/null 2>&1; then
-  eval "$(rbenv init - zsh)"
-fi
 alias be="bundle exec"
 
-# nodebrew
-export PATH="$HOME/.nodebrew/current/bin:$PATH"
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
