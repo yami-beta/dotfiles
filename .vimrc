@@ -482,6 +482,11 @@ if dein#tap('vim-watchdogs') " {{{2
         \   'outputter/quickfix/open_cmd' : '',
         \   'hook/close_quickfix/enable_exit': 1,
         \ }
+  if executable('eslint')
+    let g:quickrun_config['javascript/watchdogs_checker'] = {
+          \   'type': 'watchdogs_checker/eslint',
+          \ }
+  endif
 endif " }}}
 call dein#add('KazuakiM/vim-qfsigns')
 if dein#tap('vim-qfsigns') "{{{2
