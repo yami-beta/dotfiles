@@ -703,7 +703,7 @@ augroup END
 set number " 行番号を表示
 set cursorline
 set list
-setglobal listchars=tab:»\ ,space:･
+setglobal listchars=tab:»\ ,space:･,eol:⏎
 setglobal showmatch " 括弧の対応をハイライト
 setglobal showmode "現在のモードを表示
 set conceallevel=0
