@@ -53,7 +53,6 @@ PROMPT="%{$fg[green]%}%n@%m%{$reset_color%}:%{$fg[cyan]%}%~%{$reset_color%}
 RPROMPT='${vcs_info_msg_0_}'
 
 # 補完
-autoload -Uz compinit && compinit
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # ssh設定
