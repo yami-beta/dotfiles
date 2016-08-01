@@ -12,8 +12,8 @@ zplug "zplug/zplug"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
-zplug "mafredri/zsh-async"
-zplug "sindresorhus/pure"
+zplug "mafredri/zsh-async", use:"async.zsh"
+zplug "sindresorhus/pure", use:"pure.zsh"
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
