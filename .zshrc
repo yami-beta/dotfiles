@@ -12,7 +12,6 @@ zplug "zplug/zplug"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
-zplug "plugins/npm", from:oh-my-zsh
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
@@ -118,5 +117,7 @@ export PATH="/usr/local/sbin:$PATH"
 
 alias be="bundle exec"
 
+# npm completion
+eval "$(npm completion 2>/dev/null)"
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
