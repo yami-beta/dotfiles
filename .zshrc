@@ -14,6 +14,7 @@ zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
 zplug "mafredri/zsh-async", use:"async.zsh"
 zplug "sindresorhus/pure", use:"pure.zsh"
+PURE_PROMPT_SYMBOL="%(!.#.$)"
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
