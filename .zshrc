@@ -9,9 +9,7 @@ source ~/.zplug/init.zsh
 
 # Make sure to use double quotes to prevent shell expansion
 zplug "zplug/zplug"
-zplug "zsh-users/zsh-syntax-highlighting"
-typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[path]='none'
+zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
 zplug "plugins/npm", from:oh-my-zsh
@@ -37,9 +35,9 @@ export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30
 export CLICOLOR=true
 unsetopt promptcr
 
-# prmptcmd() { eval "$PROMPT_COMMAND" }
-# precmd_functions=(prmptcmd)
-# PROMPT_COMMAND='/c/Program\ Files/ConEmu/ConEmu/ConEmuC -StoreCWD'
+# zsh-syntax-highlighting
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[path]='none'
 
 # プロンプト
 autoload -Uz vcs_info
