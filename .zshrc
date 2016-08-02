@@ -58,6 +58,7 @@ local prompt_username
 # root時に ユーザ名@ホスト名 を表示
 [[ $UID -eq 0 ]] && prompt_username="%F{green}%n@%m%f:"
 # prompt_subst は，シングルクォートで囲まれている場合のみ変数展開する
+# %(!.#.$) は，Conditional Substitution
 PROMPT="${prompt_username}%F{cyan}%~%f"' ${vcs_info_msg_0_}'"
 %(!.#.$) "
 
