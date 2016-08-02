@@ -26,12 +26,12 @@ fi
 zplug load
 
 bindkey -e
-disable r
-setopt nonomatch
+disable r # rコマンド(zsh)を無効化，R言語と重複する
+setopt nonomatch # glob展開による警告を無効 (e.g. rake new_post['post title'])
 autoload -Uz colors && colors
 # export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 export CLICOLOR=true
-unsetopt promptcr
+unsetopt promptcr # 改行のない出力も表示
 
 # zsh-syntax-highlighting
 typeset -A ZSH_HIGHLIGHT_STYLES
@@ -40,8 +40,8 @@ ZSH_HIGHLIGHT_STYLES[path]='none'
 # プロンプト
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
-# PROMPT変数内で変数参照する
-setopt prompt_subst
+
+setopt prompt_subst # PROMPT変数内で変数参照する
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
