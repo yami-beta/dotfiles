@@ -49,6 +49,14 @@ hosts=(
 )
 zstyle ':completion:*:hosts' hosts $hosts # ホスト名の補完
 
+# cd の履歴
+# $ cd -[tab]
+# auto_pushd: cd の履歴を保持
+# pushdminus: 候補順を時系列降順にする
+# pushdignoredups: 重複する履歴を記録しない
+DIRSTACKSIZE=5
+setopt auto_pushd pushdminus pushdignoredups
+
 # zsh-syntax-highlighting
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[path]='none'
