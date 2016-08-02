@@ -433,6 +433,7 @@ call dein#add('osyo-manga/vim-over', { 'on_cmd': ['OverCommandLine'] })
 
 call dein#add('cohama/lexima.vim')
 if dein#tap('lexima.vim') "{{{2
+  let g:lexima_enable_space_rules = 0
   " lexima.vimはInsertEnter時に初期化されるため注意が必要
   " <CR>等のmappingは初期化処理で上書きされる
   function! s:lexima_mapping() abort
