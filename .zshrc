@@ -33,6 +33,22 @@ autoload -Uz colors && colors
 export CLICOLOR=true
 unsetopt promptcr # 改行のない出力も表示
 
+# ----------
+# 補完
+# ----------
+zstyle ':completion:*:default' menu select=1
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# sshの補完候補
+zstyle ':completion:*' users off # ユーザの補完をオフ
+[ -r ~/.ssh/config ] && _ssh_config=($(cat ~/.ssh/config | sed -ne 's/Host[=\t ]//p')) || _ssh_config=()
+[ -r /etc/hosts ] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
+hosts=(
+  "$_ssh_config[@]"
+  localhost
+)
+zstyle ':completion:*:hosts' hosts $hosts # ホスト名の補完
+
 # zsh-syntax-highlighting
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[path]='none'
@@ -40,7 +56,6 @@ ZSH_HIGHLIGHT_STYLES[path]='none'
 # プロンプト
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
-
 setopt prompt_subst # PROMPT変数内で変数参照する
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
@@ -62,18 +77,6 @@ local prompt_username
 PROMPT="${prompt_username}%F{cyan}%~%f"' ${vcs_info_msg_0_}'"
 %(!.#.$) "
 
-# 補完
-zstyle ':completion:*:default' menu select=1
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# ssh設定
-zstyle ':completion:*' users off # ユーザの補完をオフ
-[ -r ~/.ssh/config ] && _ssh_config=($(cat ~/.ssh/config | sed -ne 's/Host[=\t ]//p')) || _ssh_config=()
-[ -r /etc/hosts ] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
-hosts=(
-  "$_ssh_config[@]"
-  localhost
-)
-zstyle ':completion:*:hosts' hosts $hosts # ホスト名の補完
 
 # history search
 bindkey '^P' history-beginning-search-backward
