@@ -12,9 +12,6 @@ zplug "zplug/zplug"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
-zplug "mafredri/zsh-async", use:"async.zsh"
-zplug "sindresorhus/pure", use:"pure.zsh"
-PURE_PROMPT_SYMBOL="%(!.#.$)"
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
@@ -41,18 +38,28 @@ typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[path]='none'
 
 # プロンプト
-# autoload -Uz vcs_info
+autoload -Uz vcs_info
+autoload -Uz add-zsh-hook
 # PROMPT変数内で変数参照する
-# setopt prompt_subst
-# zstyle ':vcs_info:git:*' check-for-changes true
-# zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-# zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-# zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
-# zstyle ':vcs_info:*' actionformats '[%b|%a]'
-# precmd() { vcs_info }
-# PROMPT="%{$fg[green]%}%n@%m%{$reset_color%}:%{$fg[cyan]%}%~%{$reset_color%}
-# %(!.#.$) "
-# RPROMPT='${vcs_info_msg_0_}'
+setopt prompt_subst
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
+function _update_vcs_info()
+{
+    vcs_info
+}
+add-zsh-hook precmd _update_vcs_info
+local prompt_username
+# sshログイン時に ユーザ名@ホスト名 を表示
+[[ "$SSH_CONNECTION" != '' ]] && prompt_username="%F{green}%n@%m%f:"
+# root時に ユーザ名@ホスト名 を表示
+[[ $UID -eq 0 ]] && prompt_username="%F{green}%n@%m%f:"
+# prompt_subst は，シングルクォートで囲まれている場合のみ変数展開する
+PROMPT="${prompt_username}%F{cyan}%~%f"' ${vcs_info_msg_0_}'"
+%(!.#.$) "
 
 # 補完
 zstyle ':completion:*:default' menu select=1
