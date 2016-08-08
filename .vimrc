@@ -289,13 +289,12 @@ endif "}}}
 
 " 見た目
 call dein#add('flazz/vim-colorschemes')
-" call dein#add('zsoltf/vim-maui')
-" call dein#add('machakann/vim-colorscheme-imas')
+call dein#add('yami-beta/vim-colors-ruri')
 " call dein#add('ap/vim-buftabline')
 call dein#add('itchyny/lightline.vim')
 if dein#tap('lightline.vim') "{{{2
   let g:lightline = {
-        \ 'colorscheme': 'pencil_dark',
+        \ 'colorscheme': 'ruri',
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ]
         \ },
@@ -366,7 +365,6 @@ if dein#tap('lightline.vim') "{{{2
           \    substitute(get(b:unite.msgs, 0, ''), '^\[.\{-}\]\s*', '', '')
   endfunction
 endif "}}}
-call dein#add('yami-beta/lightline-pencil.vim')
 
 call dein#add('kana/vim-submode')
 call dein#add('AndrewRadev/splitjoin.vim')
@@ -723,20 +721,7 @@ let &t_te .= "\e[23;0t"
 syntax on " シンタックスハイライト
 setglobal t_Co=256 " 256色ターミナルでVimを使用する
 setglobal background=dark
-augroup pencil
-  autocmd!
-  if &background == 'dark'
-    " autocmd ColorScheme pencil highlight CursorLine ctermbg=236 guibg=#303030
-    autocmd ColorScheme pencil highlight clear CursorLine
-    " autocmd ColorScheme pencil highlight CursorLineNr ctermbg=NONE guibg=NONE
-    " autocmd ColorScheme pencil highlight Normal guibg=#262626
-    autocmd ColorScheme pencil highlight SpecialKey ctermfg=8 guifg=#424242
-    autocmd ColorScheme pencil highlight Comment gui=NONE
-    autocmd ColorScheme pencil highlight Search ctermfg=0 ctermbg=3 guifg=#212121 guibg=#A89C14
-  endif
-augroup END
-colorscheme pencil
-let g:pencil_higher_contrast_ui=1 " 0=low (def), 1=high
+colorscheme ruri
 
 " vim kaoriyaで、txtファイルが自動改行されてしまうバグ対応
 autocmd vimrc FileType text setlocal textwidth=0
