@@ -312,7 +312,7 @@ if dein#tap('lightline.vim') "{{{2
   endfunction
 
   function! LightLineReadonly()
-    return &readonly ? "\ue0a2" : ''
+    return &readonly ? "RO" : ''
   endfunction
 
   function! LightLineFilename()
