@@ -52,7 +52,7 @@ setglobal wildchar=<tab>             " コマンド補完を開始するキー
 setglobal history=1000               " コマンド・検索パターンの履歴数
 setglobal wildmode=list:longest,full
 setglobal wildignorecase
-setglobal completeopt=menu,menuone
+setglobal completeopt=menuone,noselect,noinsert
 
 " htmlタグ移動
 packadd matchit
@@ -137,11 +137,6 @@ if dein#tap('neocomplete.vim') "{{{2
         \ 'hook_source': function('s:neocomplete_on_source')
         \ })
 
-  function! s:my_cr_function()
-    " return neocomplete#close_popup() . "\<CR>"
-    " For no inserting <CR> key.
-    return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-  endfunction
   " Define keyword.
   if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
@@ -603,6 +598,7 @@ inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y> neocomplete#close_popup()
 " inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<End>"
+inoremap <expr><C-c> pumvisible() ? neocomplete#cancel_popup() : "\<C-c>"
 
 xmap <Tab>     <Plug>(neosnippet_expand_target)
 smap <expr><TAB> pumvisible() ?
