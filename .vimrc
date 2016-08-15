@@ -654,7 +654,7 @@ nnoremap <silent> <Space>d :<C-u>VimFilerExplorer -toggle -winwidth=30<CR>
 
 nmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
 vmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
-autocmd vimrc FileType qf nnoremap <CR> <CR>
+autocmd vimrc FileType qf nnoremap <buffer><CR> <CR>
 
 noremap <Leader>/ /
 
