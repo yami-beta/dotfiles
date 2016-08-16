@@ -57,10 +57,6 @@ zstyle ':completion:*:hosts' hosts $hosts # ホスト名の補完
 DIRSTACKSIZE=5
 setopt auto_pushd pushdminus pushdignoredups
 
-# zsh-syntax-highlighting
-typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[path]='none'
-
 # プロンプト
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
