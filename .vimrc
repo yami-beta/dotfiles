@@ -104,12 +104,7 @@ endfunction
 
 " プラグイン "{{{1
 if has('vim_starting')
-  set rtp+=~/.vim/plugged/vim-plug
-  if !isdirectory(expand('~/.vim/plugged/vim-plug'))
-    echo 'install vim-plug...'
-    call mkdir('~/.vim/plugged/vim-plug', 'p')
-    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/plugged/vim-plug/autoload')
-  end
+  set runtimepath+=~/.vim/plugged/vim-plug
 endif
 call plug#begin('~/.vim/plugged')
 
