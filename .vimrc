@@ -358,12 +358,11 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tyru/caw.vim'
 
 Plug 'kana/vim-operator-user'
-Plug 'rhysd/vim-operator-surround'
+Plug 'machakann/vim-sandwich'
 Plug 'kana/vim-operator-replace'
 "
 Plug 'kana/vim-textobj-user'
 Plug 'rhysd/vim-textobj-ruby'
-Plug 'osyo-manga/vim-textobj-multiblock'
 Plug 'kana/vim-textobj-indent'
 
 Plug 'pangloss/vim-javascript'
@@ -593,19 +592,7 @@ imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
 
 vmap , <Plug>(EasyAlign)
 
-omap ab <Plug>(textobj-multiblock-a)
-omap ib <Plug>(textobj-multiblock-i)
-vmap ab <Plug>(textobj-multiblock-a)
-vmap ib <Plug>(textobj-multiblock-i)
-
 nmap <silent> <Leader>r <Plug>(operator-replace)
-
-map <silent>sa <Plug>(operator-surround-append)
-map <silent>sd <Plug>(operator-surround-delete)
-map <silent>sr <Plug>(operator-surround-replace)
-
-nmap <silent>sdd <Plug>(operator-surround-delete)<Plug>(textobj-multiblock-a)
-nmap <silent>srr <Plug>(operator-surround-replace)<Plug>(textobj-multiblock-a)
 
 " nnoremap <Space>o :<C-u>CtrlPFunky<CR>
 " nnoremap <Space>f :<C-u>CtrlPFiler<CR>
