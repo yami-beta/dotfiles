@@ -91,7 +91,7 @@ augroup SessionAutoCommands
   " autocmd VimLeave * execute ':mks! Session.vim'
   autocmd VimEnter * nested call <SID>RestoreSessionWithConfirm()
 augroup END
-command! SSave :mks! Session.vim
+" command! SSave :mks! Session.vim
 
 function! s:RestoreSessionWithConfirm()
   let msg = 'Do you want to restore previous session?'
@@ -161,6 +161,26 @@ Plug 'rhysd/github-complete.vim'
 " github-complete.vim "{{{2
 autocmd vimrc FileType gitcommit setl omnifunc=github_complete#complete
 " }}}
+
+Plug 'ctrlpvim/ctrlp.vim'
+" ctrlp.vim "{{{2
+let g:ctrlp_switch_buffer = 'ET'
+let g:ctrlp_path_nolim = 1
+" 詳細: http://leafcage.hateblo.jp/entry/2013/09/26/234707
+autocmd vimrc CursorMoved ControlP let w:lightline = 0
+
+if executable('pt')
+  let g:ctrlp_use_caching = 0
+  let g:ctrlp_user_command = 'pt %s --nocolor --nogroup --follow --hidden --ignore .git -g .'
+endif
+
+let g:ctrlp_funky_syntax_highlight = 1
+let g:ctrlp_funky_nolim = 1
+" }}}
+Plug 'yami-beta/ctrlp-session'
+Plug 'yami-beta/ctrlp-explorer'
+" Plug 'tacahiroy/ctrlp-funky'
+
 Plug 'Shougo/unite.vim'
 " unite.vim "{{{2
 let g:unite_force_overwrite_statusline = 0
@@ -219,53 +239,53 @@ endfunction
 " }}}
 Plug 'yami-beta/unite-filters'
 Plug 'Shougo/unite-outline'
-Plug 'Shougo/unite-session'
-" unite-session "{{{2
-let g:unite_source_session_path = $HOME . '/.vim/session'
-command! -nargs=? -complete=customlist,unite#sources#session#_complete
-      \ SSave call s:unite_session_save(<q-args>)
-function! s:unite_session_save(filename, ...)
-  if unite#util#is_cmdwin()
-    return
-  endif
-
-  if !isdirectory(g:unite_source_session_path)
-    call mkdir(g:unite_source_session_path, 'p')
-  endif
-
-  let filename = s:get_session_path(a:filename)
-
-  " Check if this overrides an existing session
-  if filereadable(filename) && a:0 && a:1
-    call unite#print_error('Session already exists.')
-    return
-  endif
-
-  execute 'silent mksession!' filename
-endfunction
-function! s:get_session_path(filename)
-  let filename = a:filename
-  if filename == ''
-    let filename = v:this_session
-  endif
-  if filename == ''
-    let filename = g:unite_source_session_default_session_name
-  endif
-
-  let filename = unite#util#substitute_path_separator(filename)
-
-  if filename !~ '.vim$'
-    let filename .= '.vim'
-  endif
-
-  if filename !~ '^\%(/\|\a\+:/\)'
-    " Relative path.
-    let filename = g:unite_source_session_path . '/' . filename
-  endif
-
-  return filename
-endfunction
-" }}}
+" Plug 'Shougo/unite-session'
+" " unite-session "{{{2
+" let g:unite_source_session_path = $HOME . '/.vim/session'
+" " command! -nargs=? -complete=customlist,unite#sources#session#_complete
+" "       \ SSave call s:unite_session_save(<q-args>)
+" function! s:unite_session_save(filename, ...)
+"   if unite#util#is_cmdwin()
+"     return
+"   endif
+"
+"   if !isdirectory(g:unite_source_session_path)
+"     call mkdir(g:unite_source_session_path, 'p')
+"   endif
+"
+"   let filename = s:get_session_path(a:filename)
+"
+"   " Check if this overrides an existing session
+"   if filereadable(filename) && a:0 && a:1
+"     call unite#print_error('Session already exists.')
+"     return
+"   endif
+"
+"   execute 'silent mksession!' filename
+" endfunction
+" function! s:get_session_path(filename)
+"   let filename = a:filename
+"   if filename == ''
+"     let filename = v:this_session
+"   endif
+"   if filename == ''
+"     let filename = g:unite_source_session_default_session_name
+"   endif
+"
+"   let filename = unite#util#substitute_path_separator(filename)
+"
+"   if filename !~ '.vim$'
+"     let filename .= '.vim'
+"   endif
+"
+"   if filename !~ '^\%(/\|\a\+:/\)'
+"     " Relative path.
+"     let filename = g:unite_source_session_path . '/' . filename
+"   endif
+"
+"   return filename
+" endfunction
+" " }}}
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/vimfiler.vim', { 'on': ['VimFiler'] }
 " vimfiler.vim "{{{2
@@ -458,26 +478,6 @@ let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/enable_exit'] 
 let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/priority_exit'] = 1
 " }}}
 
-" Plug 'ctrlpvim/ctrlp.vim'
-" ctrlp.vim "{{{2
-let g:ctrlp_switch_buffer = 'ET'
-let g:ctrlp_path_nolim = 1
-let g:ctrlp_open_new_file = 't'
-" 詳細: http://leafcage.hateblo.jp/entry/2013/09/26/234707
-autocmd vimrc CursorMoved ControlP let w:lightline = 0
-
-if executable('pt')
-  let g:ctrlp_use_caching = 0
-  let g:ctrlp_user_command = 'pt %s --nocolor --nogroup --follow --hidden --ignore .git -g .'
-endif
-
-let g:ctrlp_funky_syntax_highlight = 1
-let g:ctrlp_funky_nolim = 1
-" }}}
-" Plug 'yami-beta/ctrlp-explorer'
-" Plug 'tacahiroy/ctrlp-funky'
-" Plug 'mhinz/vim-startify'
-
 call plug#end()
 filetype plugin indent on
 
@@ -595,8 +595,9 @@ vmap , <Plug>(EasyAlign)
 nmap <silent> <Leader>r <Plug>(operator-replace)
 
 " nnoremap <Space>o :<C-u>CtrlPFunky<CR>
-" nnoremap <Space>f :<C-u>CtrlPFiler<CR>
-" nnoremap <Space>f :<C-u>CtrlPFilerWithBufferDir<CR>
+" nnoremap <Space>f :<C-u>CtrlPExplorer<CR>
+nnoremap <Space>f :<C-u>CtrlPExplorerWithBufDir<CR>
+nnoremap <Space>s :<C-u>CtrlPSession<CR>
 
 nnoremap <silent> <Space>u :<C-u>UniteWithBufferDir -multi-line file file/new<CR>
 nnoremap <silent> <Space><C-u> :<C-u>Unite file file/new<CR>
@@ -605,7 +606,7 @@ nnoremap <silent> <Space>i :<C-u>call AutoSelectUniteFileRec()<CR>
 nnoremap <silent> <Space>b :<C-u>Unite buffer -force-redraw<CR>
 nnoremap <silent> <Space>t :<C-u>Unite tab -force-redraw<CR>
 nnoremap <silent> <Space>o :<C-u>Unite outline -direction=botright -vertical -winwidth=40<CR>
-nnoremap <silent> <Space>s :<C-u>Unite session<CR>
+" nnoremap <silent> <Space>s :<C-u>Unite session<CR>
 nnoremap <silent> <Space>r :<C-u>Unite file_mru<CR>
 nnoremap <silent> <Space>g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 nnoremap <silent> <Space>gd :<C-u>Unite grep -buffer-name=search-buffer<CR>
