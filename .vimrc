@@ -598,12 +598,13 @@ nmap <silent> <Leader>r <Plug>(operator-replace)
 " nnoremap <Space>f :<C-u>CtrlPExplorer<CR>
 nnoremap <Space>f :<C-u>CtrlPExplorerWithBufDir<CR>
 nnoremap <Space>s :<C-u>CtrlPSession<CR>
+nnoremap <Space>b :<C-u>CtrlPBuffer<CR>
 
 nnoremap <silent> <Space>u :<C-u>UniteWithBufferDir -multi-line file file/new<CR>
 nnoremap <silent> <Space><C-u> :<C-u>Unite file file/new<CR>
 nnoremap <silent> <Space>i :<C-u>call AutoSelectUniteFileRec()<CR>
 " nnoremap <silent> <Space>i :<C-u>Unite file_rec/async<CR>
-nnoremap <silent> <Space>b :<C-u>Unite buffer -force-redraw<CR>
+" nnoremap <silent> <Space>b :<C-u>Unite buffer -force-redraw<CR>
 nnoremap <silent> <Space>t :<C-u>Unite tab -force-redraw<CR>
 nnoremap <silent> <Space>o :<C-u>Unite outline -direction=botright -vertical -winwidth=40<CR>
 " nnoremap <silent> <Space>s :<C-u>Unite session<CR>
