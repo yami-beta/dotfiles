@@ -434,6 +434,7 @@ let g:lexima_enable_space_rules = 0
 function! s:lexima_on_post_source() abort
   call lexima#add_rule({'char': '<TAB>', 'at': '\%#[)}\]''"]', 'leave': 1})
   call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
+  call lexima#insmode#map_hook('before', '<BS>', "\<C-r>=neocomplete#smart_close_popup()\<CR>")
 endfunction
 autocmd vimrc User plug_on_load call s:lexima_on_post_source()
 " }}}
@@ -560,7 +561,7 @@ imap <expr><C-_> getline('.') =~# '\v^\s*$' ? "\<C-o><Plug>(caw:hatpos:comment)"
       \ : "\<C-o><Plug>(caw:hatpos:toggle)"
 
 inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y> neocomplete#close_popup()
 " inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<End>"
 inoremap <expr><C-c> pumvisible() ? neocomplete#cancel_popup() : "\<C-c>"
