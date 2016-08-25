@@ -166,6 +166,17 @@ Plug 'ctrlpvim/ctrlp.vim'
 " ctrlp.vim "{{{2
 let g:ctrlp_switch_buffer = 'ET'
 let g:ctrlp_path_nolim = 1
+" 詳細: https://github.com/ctrlpvim/ctrlp.vim/issues/196
+let g:ctrlp_abbrev = {
+      \   'gmode': 'i',
+      \   'abbrevs': [
+      \     {
+      \       'pattern': '\(^@.\+\|\\\@<!:.\+\)\@<! ',
+      \       'expanded': '',
+      \       'mode': 'pfrz',
+      \     },
+      \   ]
+      \ }
 " 詳細: http://leafcage.hateblo.jp/entry/2013/09/26/234707
 autocmd vimrc CursorMoved ControlP let w:lightline = 0
 
