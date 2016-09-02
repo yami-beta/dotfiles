@@ -299,7 +299,7 @@ Plug 'Shougo/unite-outline'
 " endfunction
 " " }}}
 Plug 'Shougo/neomru.vim'
-Plug 'Shougo/vimfiler.vim', { 'on': ['VimFiler'] }
+Plug 'Shougo/vimfiler.vim'
 " vimfiler.vim "{{{2
 let g:vimfiler_edit_action = 'tabopen'
 let g:vimfiler_as_default_explorer = 1
