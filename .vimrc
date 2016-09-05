@@ -401,10 +401,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'rhysd/vim-textobj-ruby'
 Plug 'kana/vim-textobj-indent'
 
-Plug 'pangloss/vim-javascript'
-" vim-javascript "{{{2
-let g:javascript_enable_domhtmlcss = 1
-" }}}
+Plug 'othree/yajs.vim'
 Plug 'mattn/emmet-vim'
 " emmet-vim "{{{2
 let g:user_emmet_leader_key = '<C-g>'
@@ -699,7 +696,8 @@ syntax on " シンタックスハイライト
 setglobal t_Co=256 " 256色ターミナルでVimを使用する
 setglobal background=dark
 colorscheme ruri
-
+" ハイライト確認コマンド
+command! VimShowHlItem echo synIDattr(synID(line("."), col("."), 1), "name")
 " vim kaoriyaで、txtファイルが自動改行されてしまうバグ対応
 autocmd vimrc FileType text setlocal textwidth=0
 
