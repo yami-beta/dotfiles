@@ -180,14 +180,13 @@ let g:ctrlp_abbrev = {
 " 詳細: http://leafcage.hateblo.jp/entry/2013/09/26/234707
 autocmd vimrc CursorMoved ControlP let w:lightline = 0
 
-if executable('ag')
+if executable('pt')
+  let g:ctrlp_use_caching = 0
+  let g:ctrlp_user_command = 'pt %s --nocolor --nogroup --follow --hidden -g .'
+elseif executable('ag')
   let g:ctrlp_use_caching=0
   let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
 endif
-" if executable('pt')
-"   let g:ctrlp_use_caching = 0
-"   let g:ctrlp_user_command = 'pt %s --nocolor --nogroup --follow --hidden --ignore .git -g .'
-" endif
 
 let g:ctrlp_funky_syntax_highlight = 1
 let g:ctrlp_funky_nolim = 1
