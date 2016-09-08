@@ -386,6 +386,7 @@ function! s:unite_get_status_tail_string() abort
         \    substitute(get(b:unite.msgs, 0, ''), '^\[.\{-}\]\s*', '', '')
 endfunction
 " }}}
+Plug 'lilydjwg/colorizer'
 
 Plug 'kana/vim-submode'
 Plug 'AndrewRadev/splitjoin.vim'
