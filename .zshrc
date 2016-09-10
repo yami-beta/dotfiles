@@ -116,7 +116,7 @@ code () {
 
 # peco
 function _peco_tmux_session() {
-  local session="$( tmux ls | peco | awk -F':' '{print $1}')"
+  local session=$( echo -e "$(tmux ls)" | peco | awk -F':' '{print $1}')
   echo $session
   if [ -n "$session" ]; then
     tmux attach -t $session;
