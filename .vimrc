@@ -166,6 +166,10 @@ Plug 'ctrlpvim/ctrlp.vim'
 " ctrlp.vim "{{{2
 let g:ctrlp_switch_buffer = 'ET'
 let g:ctrlp_path_nolim = 1
+" <F7>での削除を Shift + d に変更
+let g:ctrlp_prompt_mappings = {
+    \ 'PrtDeleteEnt()':       ['<S-d>'],
+    \ }
 " 詳細: https://github.com/ctrlpvim/ctrlp.vim/issues/196
 let g:ctrlp_abbrev = {
       \   'gmode': 'i',
