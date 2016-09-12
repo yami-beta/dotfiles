@@ -406,6 +406,7 @@ Plug 'rhysd/vim-textobj-ruby'
 Plug 'kana/vim-textobj-indent'
 
 Plug 'othree/yajs.vim'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'mattn/emmet-vim'
 " emmet-vim "{{{2
 let g:user_emmet_leader_key = '<C-g>'
