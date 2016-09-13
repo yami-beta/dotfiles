@@ -108,6 +108,7 @@ if &compatible
 endif
 set runtimepath^=~/.cache/dein/repos/github.com/Shougo/dein.vim
 autocmd vimrc VimEnter * call dein#call_hook('post_source')
+let g:dein#install_progress_type='echo'
 
 call dein#begin(expand('~/.cache/dein'))
 
