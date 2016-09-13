@@ -170,6 +170,45 @@ if dein#tap('github-complete.vim') "{{{2
   autocmd vimrc FileType gitcommit setl omnifunc=github_complete#complete
 endif "}}}
 
+call dein#add('ctrlpvim/ctrlp.vim')
+if dein#tap('ctrlp.vim') "{{{2
+  let g:ctrlp_switch_buffer = 'ET'
+  let g:ctrlp_path_nolim = 1
+  let g:ctrlp_open_new_file = 't'
+  " <F7>での削除を Shift + d に変更
+  let g:ctrlp_prompt_mappings = {
+      \ 'PrtDeleteEnt()':       ['<S-d>'],
+      \ }
+  " 詳細: https://github.com/ctrlpvim/ctrlp.vim/issues/196
+  let g:ctrlp_abbrev = {
+        \   'gmode': 'i',
+        \   'abbrevs': [
+        \     {
+        \       'pattern': '\(^@.\+\|\\\@<!:.\+\)\@<! ',
+        \       'expanded': '',
+        \       'mode': 'pfrz',
+        \     },
+        \   ]
+        \ }
+  " 詳細: http://leafcage.hateblo.jp/entry/2013/09/26/234707
+  autocmd vimrc CursorMoved ControlP let w:lightline = 0
+
+  if executable('pt')
+    let g:ctrlp_use_caching = 0
+    let g:ctrlp_user_command = 'pt %s --nocolor --nogroup --follow --hidden -g .'
+  elseif executable('ag')
+    let g:ctrlp_use_caching=0
+    let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
+  endif
+
+  let g:ctrlp_funky_syntax_highlight = 1
+  let g:ctrlp_funky_nolim = 1
+endif "}}}
+call dein#add('yami-beta/ctrlp-explorer')
+call dein#add('yami-beta/ctrlp-session')
+call dein#add('DeaR/ctrlp-tabpage')
+" call dein#add('tacahiroy/ctrlp-funky')
+
 call dein#add('Shougo/unite.vim', { 'depends': ['vimproc.vim'], 'lazy': 1 })
 if dein#tap('unite.vim') "{{{2 
   let g:unite_force_overwrite_statusline = 0
@@ -228,7 +267,7 @@ if dein#tap('unite.vim') "{{{2
 endif "}}}
 call dein#add('yami-beta/unite-filters')
 call dein#add('Shougo/unite-outline')
-call dein#add('Shougo/unite-session')
+" call dein#add('Shougo/unite-session')
 if dein#tap('unite-session') "{{{2
   let g:unite_source_session_path = $HOME . '/.vim/session'
   command! -nargs=? -complete=customlist,unite#sources#session#_complete
@@ -405,7 +444,6 @@ if dein#tap('vimtex') "{{{2
     let g:neocomplete#sources#omni#input_patterns = {}
   endif
 
-
   let g:neocomplete#sources#omni#input_patterns.tex = '\v\\\a*(ref|cite)\a*([^]]*\])?\{([^}]*,)*[^}]*'
 endif "}}}
 call dein#add('evanmiller/nginx-vim-syntax')
@@ -489,47 +527,6 @@ if dein#tap('vim-qfsigns') "{{{2
   let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/enable_exit'] = 1
   let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/priority_exit'] = 1
 endif " }}}
-
-call dein#add('ctrlpvim/ctrlp.vim')
-if dein#tap('ctrlp.vim') "{{{2
-  let g:ctrlp_switch_buffer = 'ET'
-  let g:ctrlp_path_nolim = 1
-  let g:ctrlp_open_new_file = 't'
-  " <F7>での削除を Shift + d に変更
-  let g:ctrlp_prompt_mappings = {
-      \ 'PrtDeleteEnt()':       ['<S-d>'],
-      \ }
-  " 詳細: https://github.com/ctrlpvim/ctrlp.vim/issues/196
-  let g:ctrlp_abbrev = {
-        \   'gmode': 'i',
-        \   'abbrevs': [
-        \     {
-        \       'pattern': '\(^@.\+\|\\\@<!:.\+\)\@<! ',
-        \       'expanded': '',
-        \       'mode': 'pfrz',
-        \     },
-        \   ]
-        \ }
-  " 詳細: http://leafcage.hateblo.jp/entry/2013/09/26/234707
-  autocmd vimrc CursorMoved ControlP let w:lightline = 0
-
-  if executable('pt')
-    let g:ctrlp_use_caching = 0
-    let g:ctrlp_user_command = 'pt %s --nocolor --nogroup --follow --hidden -g .'
-  elseif executable('ag')
-    let g:ctrlp_use_caching=0
-    let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
-  endif
-
-  let g:ctrlp_funky_syntax_highlight = 1
-  let g:ctrlp_funky_nolim = 1
-endif "}}}
-call dein#add('yami-beta/ctrlp-explorer')
-call dein#add('yami-beta/ctrlp-session')
-call dein#add('DeaR/ctrlp-tabpage')
-
-" call dein#add('tacahiroy/ctrlp-funky')
-" call dein#add('mhinz/vim-startify')
 
 call dein#end()
 filetype plugin indent on
