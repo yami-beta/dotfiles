@@ -399,7 +399,7 @@ if dein#tap('lightline.vim') "{{{2
           \    substitute(get(b:unite.msgs, 0, ''), '^\[.\{-}\]\s*', '', '')
   endfunction
 endif "}}}
-call dein#add('lilydjwg/colorizer')
+" call dein#add('lilydjwg/colorizer')
 
 call dein#add('kana/vim-submode')
 call dein#add('AndrewRadev/splitjoin.vim')
