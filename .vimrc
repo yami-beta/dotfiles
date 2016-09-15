@@ -660,8 +660,8 @@ nnoremap <silent> <Space>gr :<C-u>UniteResume search-buffer<CR>
 
 nnoremap <silent> <Space>d :<C-u>VimFilerExplorer -toggle -winwidth=30<CR>
 
-nmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
-vmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
+nmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
+vmap <CR> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
 autocmd vimrc FileType qf nnoremap <buffer><CR> <CR>
 
 noremap <Leader>/ /
@@ -671,8 +671,8 @@ map ? <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n-with-echo)
 nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N-with-echo)
-map *  <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)
-map g* <Plug>(incsearch-nohl0)<Plug>(asterisk-gz*)
+map *  <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
+map g* <Plug>(incsearch-nohl0)<Plug>(asterisk-gz*)<Plug>(anzu-update-search-status-with-echo)
 map #  <Plug>(incsearch-nohl0)<Plug>(asterisk-z#)
 map g# <Plug>(incsearch-nohl0)<Plug>(asterisk-gz#)
 
