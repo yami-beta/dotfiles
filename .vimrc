@@ -476,7 +476,11 @@ if dein#tap('lexima.vim') "{{{2
   " lexima.vimはInsertEnter時に初期化されるため注意が必要
   " 初期化処理はautoload/lexima.vimにあるため，lexima#add_ruleを呼んだ時点で初期化が行われる
   " <CR>等のmappingは初期化処理で上書きされる
-  function! s:lexima_mapping() abort
+  function! s:lexima_on_post_source() abort
+    call lexima#add_rule({'char': '<TAB>', 'at': '\%#[)}\]''"]', 'leave': 1})
+    call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
+    call lexima#insmode#map_hook('before', '<BS>', "\<C-r>=neocomplete#smart_close_popup()\<CR>")
+    " <TAB>と<CR>のマッピングを元に戻す
     imap <expr><TAB> pumvisible() ?
           \ "\<C-n>"
           \ : neosnippet#expandable_or_jumpable() ?
@@ -485,13 +489,6 @@ if dein#tap('lexima.vim') "{{{2
     imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
           \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
           \ neocomplete#close_popup()
-  endfunction
-  function! s:lexima_on_post_source() abort
-    call lexima#add_rule({'char': '<TAB>', 'at': '\%#[)}\]''"]', 'leave': 1})
-    call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
-    call lexima#insmode#map_hook('before', '<BS>', "\<C-r>=neocomplete#smart_close_popup()\<CR>")
-    " <TAB>と<CR>のマッピングを元に戻す
-    call s:lexima_mapping()
   endfunction
   call dein#config({
         \ 'hook_post_source': function('s:lexima_on_post_source')
@@ -642,8 +639,6 @@ imap <expr><C-s> !pumvisible() ?
 smap <expr><C-s> !pumvisible() ?
       \ "\<C-s>"
       \ : "\<Plug>(neosnippet_expand_or_jump)"
-
-call s:lexima_mapping()
 
 vmap , <Plug>(EasyAlign)
 
