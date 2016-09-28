@@ -143,9 +143,7 @@ if dein#tap('neocomplete.vim')
           \ 'scheme' : $HOME.'/.gosh_completions'
           \ }
   endfunction
-  call dein#config({
-        \ 'hook_source': function('s:neocomplete_on_source')
-        \ })
+  call dein#config({ 'hook_source': function('s:neocomplete_on_source') })
 
   " Define keyword.
   if !exists('g:neocomplete#keyword_patterns')
@@ -262,7 +260,7 @@ if dein#tap('unite.vim')
           \ ], 
           \ '\|'))
   endfunction
-  call dein#config({'hook_source': function('s:unite_on_source')})
+  call dein#config({ 'hook_source': function('s:unite_on_source') })
 
   function! AutoSelectUniteFileRec()
     if isdirectory(getcwd().'/.git')
@@ -487,9 +485,7 @@ if dein#tap('lexima.vim')
           \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
           \ neocomplete#close_popup()
   endfunction
-  call dein#config({
-        \ 'hook_post_source': function('s:lexima_on_post_source')
-        \ })
+  call dein#config({ 'hook_post_source': function('s:lexima_on_post_source') })
 endif
 
 " vimproc
