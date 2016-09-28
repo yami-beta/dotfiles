@@ -123,7 +123,7 @@ call dein#begin(expand('~/.cache/dein'))
 
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/neocomplete.vim', { 'on_i': 1 })
-if dein#tap('neocomplete.vim') "{{{2
+if dein#tap('neocomplete.vim')
   function! s:neocomplete_on_source() abort
     " Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
     " Disable AutoComplPop.
@@ -172,16 +172,16 @@ if dein#tap('neocomplete.vim') "{{{2
   " For perlomni.vim setting.
   " https://github.com/c9s/perlomni.vim
   let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-endif "}}}
+endif
 call dein#add('Shougo/neosnippet.vim', { 'depends': ['neocomplete.vim'] })
 call dein#add('Shougo/neosnippet-snippets', { 'depends': ['neosnippet.vim'] })
 call dein#add('rhysd/github-complete.vim')
-if dein#tap('github-complete.vim') "{{{2
+if dein#tap('github-complete.vim')
   autocmd vimrc FileType gitcommit setl omnifunc=github_complete#complete
-endif "}}}
+endif
 
 call dein#add('ctrlpvim/ctrlp.vim')
-if dein#tap('ctrlp.vim') "{{{2
+if dein#tap('ctrlp.vim')
   let g:ctrlp_switch_buffer = 'ET'
   let g:ctrlp_path_nolim = 1
   let g:ctrlp_open_new_file = 't'
@@ -210,17 +210,14 @@ if dein#tap('ctrlp.vim') "{{{2
     let g:ctrlp_use_caching=0
     let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
   endif
-
-  let g:ctrlp_funky_syntax_highlight = 1
-  let g:ctrlp_funky_nolim = 1
-endif "}}}
+endif
 call dein#add('yami-beta/ctrlp-explorer')
 call dein#add('yami-beta/ctrlp-session')
 call dein#add('DeaR/ctrlp-tabpage')
 " call dein#add('tacahiroy/ctrlp-funky')
 
 call dein#add('Shougo/unite.vim', { 'depends': ['vimproc.vim'], 'lazy': 1 })
-if dein#tap('unite.vim') "{{{2 
+if dein#tap('unite.vim') 
   let g:unite_force_overwrite_statusline = 0
 
   if executable('ag')
@@ -274,11 +271,11 @@ if dein#tap('unite.vim') "{{{2
       Unite -start-insert file_rec/async
     endif
   endfunction
-endif "}}}
+endif
 call dein#add('yami-beta/unite-filters')
 call dein#add('Shougo/unite-outline')
 " call dein#add('Shougo/unite-session')
-if dein#tap('unite-session') "{{{2
+if dein#tap('unite-session')
   let g:unite_source_session_path = $HOME . '/.vim/session'
   command! -nargs=? -complete=customlist,unite#sources#session#_complete
         \ SSave call s:unite_session_save(<q-args>)
@@ -323,20 +320,20 @@ if dein#tap('unite-session') "{{{2
 
     return filename
   endfunction
-endif "}}}
+endif
 call dein#add('Shougo/neomru.vim', { 'depends': ['unite.vim'] })
 call dein#add('Shougo/vimfiler.vim', { 'on_cmd': ['VimFiler'] })
-if dein#tap('vimfiler.vim') "{{{2
+if dein#tap('vimfiler.vim')
   let g:vimfiler_edit_action = 'tabopen'
   let g:vimfiler_as_default_explorer = 1
-endif "}}}
+endif
 
 " 見た目
 call dein#add('flazz/vim-colorschemes')
 call dein#add('yami-beta/vim-colors-ruri')
 " call dein#add('ap/vim-buftabline')
 call dein#add('itchyny/lightline.vim')
-if dein#tap('lightline.vim') "{{{2
+if dein#tap('lightline.vim')
   let g:lightline = {
         \ 'colorscheme': 'ruri',
         \ 'active': {
@@ -408,7 +405,7 @@ if dein#tap('lightline.vim') "{{{2
           \    (get(b:unite.msgs, 0, '') == '') ? '' :
           \    substitute(get(b:unite.msgs, 0, ''), '^\[.\{-}\]\s*', '', '')
   endfunction
-endif "}}}
+endif
 " call dein#add('lilydjwg/colorizer')
 
 call dein#add('kana/vim-submode')
@@ -427,18 +424,18 @@ call dein#add('kana/vim-textobj-indent', {'depends': ['vim-textobj-user']})
 call dein#add('othree/yajs.vim')
 call dein#add('maxmellon/vim-jsx-pretty')
 call dein#add('mattn/emmet-vim', { 'on_i': 1 })
-if dein#tap('emmet-vim') "{{{2
+if dein#tap('emmet-vim')
   let g:user_emmet_leader_key = '<C-g>'
   let g:user_emmet_settings = {
         \   'variables': {
         \     'lang': 'ja'
         \   }
         \ }
-endif "}}}
+endif
 call dein#add('plasticboy/vim-markdown')
-if dein#tap('vim-markdown') "{{{2
+if dein#tap('vim-markdown')
   let g:vim_markdown_folding_disabled=1
-endif "}}}
+endif
 " call dein#add('kannokanno/previm')
 if dein#tap('previm') " {{{2
   if s:is_mac
@@ -449,29 +446,29 @@ if dein#tap('previm') " {{{2
 endif " }}}
 call dein#add('elzr/vim-json')
 " call dein#add('lervag/vimtex')
-if dein#tap('vimtex') "{{{2
+if dein#tap('vimtex')
   if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
   endif
 
   let g:neocomplete#sources#omni#input_patterns.tex = '\v\\\a*(ref|cite)\a*([^]]*\])?\{([^}]*,)*[^}]*'
-endif "}}}
+endif
 call dein#add('evanmiller/nginx-vim-syntax')
 
 " 検索・置換を便利にする
 call dein#add('tpope/vim-abolish')
 call dein#add('haya14busa/incsearch.vim')
-if dein#tap('incsearch.vim') "{{{2
+if dein#tap('incsearch.vim')
   let g:incsearch#auto_nohlsearch = 1
   let g:incsearch#magic = '\v'
-endif "}}}
+endif
 call dein#add('haya14busa/incsearch-migemo.vim', { 'depends': ['incsearch.vim'] })
 call dein#add('haya14busa/vim-asterisk')
 call dein#add('osyo-manga/vim-anzu')
 call dein#add('osyo-manga/vim-over', { 'on_cmd': ['OverCommandLine'] })
 
 call dein#add('cohama/lexima.vim')
-if dein#tap('lexima.vim') "{{{2
+if dein#tap('lexima.vim')
   let g:lexima_enable_space_rules = 0
   " lexima.vimはInsertEnter時に初期化されるため注意が必要
   " 初期化処理はautoload/lexima.vimにあるため，lexima#add_ruleを呼んだ時点で初期化が行われる
@@ -493,13 +490,13 @@ if dein#tap('lexima.vim') "{{{2
   call dein#config({
         \ 'hook_post_source': function('s:lexima_on_post_source')
         \ })
-endif "}}}
+endif
 
 " vimproc
 let g:vimproc#download_windows_dll = 1
 call dein#add('Shougo/vimproc.vim', { 'build' : 'make' })
 call dein#add('thinca/vim-quickrun')
-if dein#tap('vim-quickrun') "{{{2
+if dein#tap('vim-quickrun')
   let g:quickrun_config = {
         \ "_": {
         \   "outputter/buffer/split" : ":botright",
@@ -529,7 +526,7 @@ if dein#tap('vim-watchdogs') " {{{2
   endif
 endif " }}}
 call dein#add('KazuakiM/vim-qfsigns')
-if dein#tap('vim-qfsigns') "{{{2
+if dein#tap('vim-qfsigns')
   let g:qfsigns#AutoJump = 0
   let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/enable_exit'] = 1
   let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/priority_exit'] = 1
