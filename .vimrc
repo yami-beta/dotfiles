@@ -509,7 +509,13 @@ noremap <C-e> $
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-h> <C-g>U<Left>
-inoremap <C-l> <C-g>U<Right>
+" inoremap <C-l> <C-g>U<Right>
+" lexima.vimによって自動入力された括弧・引用符内にいる場合は，lexima.vimのleaveで右移動
+" それ以外は<C-G>U<RIGHT>による右移動
+" 以下のような，閉じ括弧を入力した際に括弧を抜ける挙動を<C-l>で実現する
+"   before      input        after
+"    (|)          )           ()|
+inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
 inoremap <Left>  <C-G>U<Left>
 inoremap <Right> <C-G>U<Right>
 
