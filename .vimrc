@@ -185,7 +185,7 @@ if dein#tap('ctrlp.vim')
   let g:ctrlp_open_new_file = 't'
   " <F7>での削除を Shift + d に変更
   let g:ctrlp_prompt_mappings = {
-      \ 'PrtDeleteEnt()':       ['<S-d>'],
+      \ 'PrtDeleteEnt()':       ['<S-d>', '<F7>'],
       \ }
   " 詳細: https://github.com/ctrlpvim/ctrlp.vim/issues/196
   let g:ctrlp_abbrev = {
