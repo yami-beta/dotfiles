@@ -1,7 +1,9 @@
 set encoding=utf-8
 scriptencoding utf-8
 
-" 初期化 "{{{1
+" --------------------------------
+" 初期化
+" --------------------------------
 augroup vimrc
   autocmd!
 augroup END
@@ -10,7 +12,10 @@ let s:is_windows = has('win32') || has('win64')
 let s:is_mac = has('mac') || system('uname') =~? '^darwin'
 let s:is_linux = !s:is_mac && has('unix')
 
-" 基本設定 "{{{1
+
+" --------------------------------
+" 基本設定
+" --------------------------------
 setglobal confirm
 setglobal cmdheight=2                " 画面下部のコマンドラインの高さ
 setglobal showcmd
@@ -85,7 +90,9 @@ endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
-" セッションの自動保存 "{{{1
+" --------------------------------
+" セッションの自動保存
+" --------------------------------
 augroup SessionAutoCommands
   autocmd!
   " autocmd VimLeave * execute ':mks! Session.vim'
@@ -102,7 +109,9 @@ function! s:RestoreSessionWithConfirm()
 endfunction
 
 
-" プラグイン "{{{1
+" --------------------------------
+" プラグイン
+" --------------------------------
 if &compatible
   set nocompatible
 endif
@@ -533,7 +542,9 @@ call dein#end()
 filetype plugin indent on
 
 
-" キーマッピング "{{{1
+" --------------------------------
+" キーマッピング
+" --------------------------------
 noremap ; :
 noremap : ;
 
@@ -684,7 +695,9 @@ nnoremap <silent> <Space>m :OverCommandLine %s/\v<CR>
 vnoremap <silent> <Space>m :OverCommandLine s/\v<CR>
 
 
-" インデント "{{{1
+" ------------
+" インデント
+" ------------
 setglobal autoindent      " オートインデント
 setglobal smartindent     " スマートインデント
 setglobal cindent         " C プログラムの自動インデント
@@ -693,7 +706,9 @@ setglobal tabstop=4       " タブ幅
 setglobal shiftwidth=4    " インデントの幅
 setglobal softtabstop=-1  " Tab キー押下時に挿入される空白の量(マイナスでshiftwidthと同じ)
 
-" ファイル別設定 "{{{1
+" ------------
+" ファイル別設定
+" ------------
 augroup vimrc_filetype
   autocmd!
   autocmd FileType ruby,eruby setlocal tabstop=2 shiftwidth=2
@@ -705,7 +720,9 @@ augroup vimrc_filetype
 augroup END
 
 
-" 表示 "{{{1
+" ------------
+" 表示
+" ------------
 set number " 行番号を表示
 set cursorline
 set list
@@ -732,8 +749,9 @@ command! VimShowHlItem echo synIDattr(synID(line("."), col("."), 1), "name")
 autocmd vimrc FileType text setlocal textwidth=0
 
 
-
-" 折り畳み "{{{1
+" ------------
+" 折り畳み
+" ------------
 setglobal foldlevel=100
 setglobal foldmethod=indent
 
@@ -748,11 +766,11 @@ function! MyFoldText()
 endfunction
 
 
-" __END__ "{{{1
+" ------------
+" local設定読み込み
+" ------------
 if filereadable(expand($HOME.'/.vimrc_local'))
   source $HOME/.vimrc_local
 endif
 
 " vim: expandtab softtabstop=-1 shiftwidth=2
-" vim: foldmethod=marker
-" vim: foldlevel=0
