@@ -636,9 +636,9 @@ nnoremap <silent> <Space>m :OverCommandLine %s/\v<CR>
 vnoremap <silent> <Space>m :OverCommandLine s/\v<CR>
 
 
-" ------------
+" --------------------------------
 " インデント
-" ------------
+" --------------------------------
 setglobal autoindent      " オートインデント
 setglobal smartindent     " スマートインデント
 setglobal cindent         " C プログラムの自動インデント
@@ -647,9 +647,9 @@ setglobal tabstop=4       " タブ幅
 setglobal shiftwidth=4    " インデントの幅
 setglobal softtabstop=-1  " Tab キー押下時に挿入される空白の量(マイナスでshiftwidthと同じ)
 
-" ------------
+" --------------------------------
 " ファイル別設定
-" ------------
+" --------------------------------
 augroup vimrc_filetype
   autocmd!
   autocmd FileType ruby,eruby setlocal tabstop=2 shiftwidth=2
@@ -661,9 +661,9 @@ augroup vimrc_filetype
 augroup END
 
 
-" ------------
+" --------------------------------
 " 表示
-" ------------
+" --------------------------------
 set number " 行番号を表示
 set cursorline
 set list
@@ -690,9 +690,9 @@ command! VimShowHlItem echo synIDattr(synID(line("."), col("."), 1), "name")
 autocmd vimrc FileType text setlocal textwidth=0
 
 
-" ------------
+" --------------------------------
 " 折り畳み
-" ------------
+" --------------------------------
 setglobal foldlevel=100
 setglobal foldmethod=indent
 
@@ -707,9 +707,9 @@ function! MyFoldText()
 endfunction
 
 
-" ------------
+" --------------------------------
 " local設定読み込み
-" ------------
+" --------------------------------
 if filereadable(expand($HOME.'/.vimrc_local'))
   source $HOME/.vimrc_local
 endif
