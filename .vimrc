@@ -432,8 +432,8 @@ if dein#tap('lexima.vim')
     " <TAB>と<CR>のマッピングを元に戻す
     imap <expr><TAB> pumvisible() ?
           \ "\<C-n>"
-          \ : neosnippet#expandable_or_jumpable() ?
-          \ "\<Plug>(neosnippet_expand_or_jump)"
+          \ : neosnippet#jumpable() ?
+          \ "\<Plug>(neosnippet_jump)"
           \ : lexima#expand('<LT>TAB>', 'i')
     imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
           \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
@@ -621,6 +621,7 @@ nnoremap <silent> <Space>d :<C-u>VimFilerExplorer -toggle -winwidth=30<CR>
 
 nmap <C-k> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
 vmap <C-k> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
+autocmd vimrc FileType qf nnoremap <buffer><CR> <CR>
 
 noremap <Leader>/ /
 
