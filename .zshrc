@@ -33,6 +33,19 @@ autoload -Uz colors && colors
 export CLICOLOR=true
 unsetopt promptcr # 改行のない出力も表示
 
+
+# ----------
+# 履歴
+# ----------
+export HISTFILE=${HOME}/.zsh_history
+export HISTSIZE=1000
+export SAVEHIST=100000
+# 重複を記録しない
+setopt hist_ignore_dups
+# 履歴ファイルにタイムスタンプを記録
+setopt EXTENDED_HISTORY
+
+
 # ----------
 # 補完
 # ----------
