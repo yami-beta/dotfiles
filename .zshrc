@@ -110,23 +110,6 @@ if type brew >/dev/null 2>&1; then
   export PATH="$(brew --prefix)/bin:$PATH"
 fi
 
-#MacVim-KaoriYa
-export PATH="/Applications/MacVim.app/Contents/MacOS:$PATH"
-#alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-alias vim='Vim'
-alias gvim='mvim'
-
-# Visual Studio Code
-code () {
-  if [[ $# = 0 ]]
-  then
-    open -a "Visual Studio Code"
-  else
-    [[ $1 = /* ]] && F="$1" || F="$PWD/${1#./}"
-    open -a "Visual Studio Code" "$F"
-  fi
-}
-
 # peco
 function _peco_tmux_session() {
   local session=$( echo -e "$(tmux ls)" | peco | awk -F':' '{print $1}')
