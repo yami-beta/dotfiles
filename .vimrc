@@ -473,6 +473,9 @@ if dein#tap('vim-watchdogs') " {{{2
     let g:quickrun_config['javascript/watchdogs_checker'] = {
           \   'type': 'watchdogs_checker/eslint',
           \ }
+    let g:quickrun_config['javascript.jsx/watchdogs_checker'] = {
+          \   'type': 'watchdogs_checker/eslint',
+          \ }
   endif
 endif " }}}
 call dein#add('KazuakiM/vim-qfsigns')
