@@ -166,6 +166,7 @@ Plug 'rhysd/github-complete.vim'
 autocmd vimrc FileType gitcommit setl omnifunc=github_complete#complete
 
 Plug 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_match_window = 'order:ttb'
 let g:ctrlp_switch_buffer = 'ET'
 let g:ctrlp_path_nolim = 1
 let g:ctrlp_open_new_file = 't'
