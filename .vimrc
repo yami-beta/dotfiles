@@ -169,7 +169,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_switch_buffer = 'ET'
 let g:ctrlp_path_nolim = 1
 let g:ctrlp_open_new_file = 't'
-" <F7>での削除を Shift + d に変更
+" <F7>での削除を Ctrl + d に変更
 let g:ctrlp_prompt_mappings = {
     \ 'PrtDeleteEnt()':       ['<c-d>', '<F7>'],
     \ 'ToggleByFname()':      ['<c-s>'],
