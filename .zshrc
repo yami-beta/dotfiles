@@ -12,7 +12,6 @@ zplug "zplug/zplug"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-autosuggestions"
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
