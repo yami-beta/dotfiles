@@ -48,6 +48,7 @@ setglobal wrap
 set breakindent                      " 折り返しにインデントを反映する
 setglobal directory=~/.vim/tmp       " swpファイルの作成先
 setglobal undodir=~/.vim/tmp         " undoファイルの作成先
+setglobal undofile                   " persistent_undoを有効化
 setglobal sessionoptions-=options
 setglobal laststatus=2
 setglobal showtabline=2              " tablineを常時表示
