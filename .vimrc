@@ -269,6 +269,8 @@ let g:vimfiler_as_default_explorer = 1
 Plug 'flazz/vim-colorschemes'
 Plug 'yami-beta/vim-colors-ruri'
 " Plug 'ap/vim-buftabline'
+Plug 'osyo-manga/vim-brightest'
+let g:brightest#highlight = { "group": "BrightestUnderline" }
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
       \ 'colorscheme': 'ruri',
