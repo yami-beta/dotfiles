@@ -631,6 +631,7 @@ setglobal tabstop=4       " タブ幅
 setglobal shiftwidth=4    " インデントの幅
 setglobal softtabstop=-1  " Tab キー押下時に挿入される空白の量(マイナスでshiftwidthと同じ)
 
+
 " --------------------------------
 " ファイル別設定
 " --------------------------------
@@ -638,6 +639,8 @@ augroup vimrc_filetype
   autocmd!
   autocmd FileType ruby,eruby setlocal tabstop=2 shiftwidth=2
   autocmd FileType vim        setlocal tabstop=2 shiftwidth=2
+  autocmd FileType tex        setlocal formatexpr=""
+  autocmd FileType tex        let &formatprg="pandoc --from=markdown --to=latex"
   autocmd FileType tex        setlocal tabstop=2 shiftwidth=2
   autocmd FileType html       setlocal tabstop=2 shiftwidth=2
   autocmd FileType css,scss   setlocal tabstop=2 shiftwidth=2
