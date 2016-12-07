@@ -49,6 +49,8 @@ setopt EXTENDED_HISTORY
 # ----------
 # 補完
 # ----------
+# 大文字小文字を無視して補完
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
