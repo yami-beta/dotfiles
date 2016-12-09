@@ -200,7 +200,7 @@ endif
 
 Plug 'yami-beta/ctrlp-explorer'
 Plug 'yami-beta/ctrlp-session'
-Plug 'DeaR/ctrlp-tabpage'
+Plug 'yami-beta/ctrlp-tabpage'
 " Plug 'tacahiroy/ctrlp-funky'
 
 Plug 'Shougo/unite.vim'
