@@ -641,7 +641,7 @@ augroup vimrc_filetype
   autocmd FileType ruby,eruby setlocal tabstop=2 shiftwidth=2
   autocmd FileType vim        setlocal tabstop=2 shiftwidth=2
   autocmd FileType tex        setlocal formatexpr=""
-  autocmd FileType tex        let &formatprg="pandoc --from=markdown --to=latex"
+  autocmd FileType tex        let &formatprg="pandoc --from=markdown --to=latex --top-level-division=chapter"
   autocmd FileType tex        setlocal tabstop=2 shiftwidth=2
   autocmd FileType html       setlocal tabstop=2 shiftwidth=2
   autocmd FileType css,scss   setlocal tabstop=2 shiftwidth=2
