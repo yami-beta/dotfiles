@@ -673,6 +673,10 @@ setglobal t_Co=256 " 256色ターミナルでVimを使用する
 " tmux上でvimを起動した際に余白部分の背景色が描画されないため
 set t_ut=
 setglobal termguicolors " ターミナルでtrue colorを使用する
+if &term =~# '^screen'
+  set t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+  set t_8b="\<Esc>[48;2;%lu;%lu;%lum"
+endif
 setglobal background=dark
 colorscheme ruri
 " ハイライト確認コマンド
