@@ -112,9 +112,10 @@ if type brew >/dev/null 2>&1; then
   export PATH="$(brew --prefix)/bin:$PATH"
 fi
 
-# peco
-function _peco_tmux_session() {
-  local session=$( echo -e "$(tmux ls)" | peco | awk -F':' '{print $1}')
+# fzf
+export FZF_DEFAULT_OPTS='--reverse'
+function fzf_tmux_session() {
+  local session=$( tmux ls | fzf | awk -F':' '{print $1}')
   echo $session
   if [ -n "$session" ]; then
     tmux attach -t $session;
@@ -123,22 +124,22 @@ function _peco_tmux_session() {
 
 # tmux
 alias ts='tmux new -s $(basename `pwd`)'
-alias ta='_peco_tmux_session'
+alias ta='fzf_tmux_session'
 
 # history
-function peco-select-history() {
+function fzf_select_history() {
     local tac
     if which tac > /dev/null; then
         tac="tac"
     else
         tac="tail -r"
     fi
-    BUFFER=$(history -n 1 | eval $tac | peco --query "$LBUFFER")
+    BUFFER=$(history -n 1 | eval $tac | fzf-tmux --query "$LBUFFER")
     CURSOR=$#BUFFER
     zle clear-screen
 }
-zle -N peco-select-history
-bindkey '^r' peco-select-history
+zle -N fzf_select_history
+bindkey '^r' fzf_select_history
 
 export EDITOR="vim"
 export PATH="/usr/local/sbin:$PATH"
@@ -150,3 +151,4 @@ alias be="bundle exec"
 eval "$(npm completion 2>/dev/null)"
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
