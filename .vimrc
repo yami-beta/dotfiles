@@ -271,6 +271,8 @@ Plug 'yami-beta/vim-colors-ruri'
 " Plug 'ap/vim-buftabline'
 Plug 'osyo-manga/vim-brightest'
 let g:brightest#highlight = { "group": "BrightestUnderline" }
+
+Plug 'yami-beta/vim-responsive-tabline'
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
       \ 'colorscheme': 'ruri',
@@ -283,7 +285,8 @@ let g:lightline = {
       \   'filetype': 'LightLineFiletype',
       \   'fileencoding': 'LightLineFileencoding',
       \   'mode': 'LightLineMode'
-      \ }
+      \ },
+      \ 'enable': { 'tabline': 0 }
       \ }
 
 function! LightLineModified()
