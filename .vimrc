@@ -432,35 +432,34 @@ let g:quickrun_config = {
       \ "_": {
       \   "outputter/buffer/split" : ":botright",
       \   "outputter/buffer/close_on_empty" : 1, 
-      \   "runner": "vimproc",
-      \   "runner/vimproc/updatetime": 60,
+      \   "runner": "job",
       \ },
       \ }
 
-Plug 'osyo-manga/shabadou.vim'
-Plug 'osyo-manga/vim-watchdogs'
-let g:watchdogs_check_BufWritePost_enable = 1
-let g:watchdogs_check_CursorHold_enable = 0
-if !exists("g:quickrun_config")
-  let g:quickrun_config = {}
-endif
-let g:quickrun_config['watchdogs_checker/_'] = {
-      \   'outputter/quickfix/open_cmd' : '',
-      \   'hook/close_quickfix/enable_exit': 1,
-      \ }
-if executable('eslint')
-  let g:quickrun_config['javascript/watchdogs_checker'] = {
-        \   'type': 'watchdogs_checker/eslint',
-        \ }
-  let g:quickrun_config['javascript.jsx/watchdogs_checker'] = {
-        \   'type': 'watchdogs_checker/eslint',
-        \ }
-endif
+" Plug 'osyo-manga/shabadou.vim'
+" Plug 'osyo-manga/vim-watchdogs'
+" let g:watchdogs_check_BufWritePost_enable = 1
+" let g:watchdogs_check_CursorHold_enable = 0
+" if !exists("g:quickrun_config")
+"   let g:quickrun_config = {}
+" endif
+" let g:quickrun_config['watchdogs_checker/_'] = {
+"       \   'outputter/quickfix/open_cmd' : '',
+"       \   'hook/close_quickfix/enable_exit': 1,
+"       \ }
+" if executable('eslint')
+"   let g:quickrun_config['javascript/watchdogs_checker'] = {
+"         \   'type': 'watchdogs_checker/eslint',
+"         \ }
+"   let g:quickrun_config['javascript.jsx/watchdogs_checker'] = {
+"         \   'type': 'watchdogs_checker/eslint',
+"         \ }
+" endif
 
-Plug 'KazuakiM/vim-qfsigns'
-let g:qfsigns#AutoJump = 0
-let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/enable_exit'] = 1
-let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/priority_exit'] = 1
+" Plug 'KazuakiM/vim-qfsigns'
+" let g:qfsigns#AutoJump = 0
+" let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/enable_exit'] = 1
+" let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/priority_exit'] = 1
 
 call plug#end()
 " trigger plug_on_load event to execute function after plugin is loaded
