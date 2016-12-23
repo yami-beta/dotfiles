@@ -151,3 +151,5 @@ eval "$(npm completion 2>/dev/null)"
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+typeset -U path
