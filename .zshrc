@@ -114,7 +114,7 @@ fi
 
 # fzf
 function fzf_tmux_session() {
-  local session=$( tmux ls | fzf | awk -F':' '{print $1}')
+  local session=$( tmux ls | awk -F':' '{print $1}' | fzf )
   echo $session
   if [ -n "$session" ]; then
     tmux attach -t $session;
