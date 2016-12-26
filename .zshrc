@@ -9,7 +9,7 @@ source ~/.zplug/init.zsh
 
 # Make sure to use double quotes to prevent shell expansion
 zplug "zplug/zplug"
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
 
