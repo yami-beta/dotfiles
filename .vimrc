@@ -267,7 +267,7 @@ let g:vimfiler_as_default_explorer = 1
 
 " 見た目
 Plug 'flazz/vim-colorschemes'
-Plug 'yami-beta/vim-colors-ruri'
+Plug 'yami-beta/vim-colors-yuzu'
 " Plug 'ap/vim-buftabline'
 Plug 'osyo-manga/vim-brightest'
 let g:brightest#highlight = { "group": "BrightestUnderline" }
@@ -275,7 +275,7 @@ let g:brightest#highlight = { "group": "BrightestUnderline" }
 Plug 'yami-beta/vim-responsive-tabline'
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
-      \ 'colorscheme': 'ruri',
+      \ 'colorscheme': 'yuzu',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ]
       \ },
@@ -455,7 +455,7 @@ let g:quickrun_config = {
 "         \   'type': 'watchdogs_checker/eslint',
 "         \ }
 " endif
-
+"
 " Plug 'KazuakiM/vim-qfsigns'
 " let g:qfsigns#AutoJump = 0
 " let g:quickrun_config['watchdogs_checker/_']['hook/qfsigns_update/enable_exit'] = 1
@@ -679,7 +679,7 @@ if &term =~# '^screen'
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 setglobal background=dark
-colorscheme ruri
+colorscheme yuzu
 " ハイライト確認コマンド
 command! VimShowHlItem echo synIDattr(synID(line("."), col("."), 1), "name")
 " vim kaoriyaで、txtファイルが自動改行されてしまうバグ対応
