@@ -206,10 +206,7 @@ let g:ctrlp_abbrev = {
 " 詳細: http://leafcage.hateblo.jp/entry/2013/09/26/234707
 autocmd vimrc CursorMoved ControlP let w:lightline = 0
 
-if executable('jvgrep')
-  let g:ctrlp_use_caching = 0
-  let g:ctrlp_user_command = 'jvgrep "" -i -r --no-color --exclude "(^|\/)\.git$|(^|\/)\.svn$|(^|\/)\.hg$|\.o$|\.obj$|\.a$|\.exe~?$|(^|\/)tags$|(^|\/)node_modules$" -l %s'
-elseif executable('pt')
+if executable('pt')
   let g:ctrlp_use_caching = 0
   let g:ctrlp_user_command = 'pt %s --nocolor --nogroup --follow --hidden -g .'
 elseif executable('ag')
