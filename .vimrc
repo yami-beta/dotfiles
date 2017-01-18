@@ -61,6 +61,9 @@ setglobal wildmode=list:longest,full
 setglobal wildignorecase
 setglobal completeopt=menuone,noselect,noinsert
 
+" ウィンドウ移動時に変更チェック
+autocmd vimrc WinEnter * checktime
+
 " htmlタグ移動
 packadd matchit
 
