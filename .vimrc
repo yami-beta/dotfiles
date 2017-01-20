@@ -676,6 +676,7 @@ augroup vimrc_filetype
   autocmd FileType javascript setlocal tabstop=2 shiftwidth=2
 augroup END
 
+let g:vim_indent_cont = 0
 
 " --------------------------------
 " 表示
