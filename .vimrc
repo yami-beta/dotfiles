@@ -431,12 +431,13 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'osyo-manga/vim-over'
 
 Plug 'cohama/lexima.vim'
-let g:lexima_enable_space_rules = 0
 " lexima.vimはInsertEnter時に初期化されるため注意が必要
 " 初期化処理はautoload/lexima.vimにあるため，lexima#add_ruleを呼んだ時点で初期化が行われる
 " <CR>等のmappingは初期化処理で上書きされる
 function! s:lexima_on_post_source() abort
   call lexima#add_rule({'char': '<TAB>', 'at': '\%#[)}\]''"]', 'leave': 1})
+  " for todo list (e.g. `- [ ] todo`)
+  call lexima#add_rule({'char': '<Space>', 'at': '\[\%#]', 'input': '<Space>', 'filetype': 'markdown'})
   call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
   call lexima#insmode#map_hook('before', '<BS>', "\<C-r>=neocomplete#smart_close_popup()\<CR>")
   " <TAB>と<CR>のマッピングを元に戻す
@@ -659,7 +660,6 @@ setglobal expandtab       " Tab文字を空白に展開
 setglobal tabstop=4       " タブ幅
 setglobal shiftwidth=4    " インデントの幅
 setglobal softtabstop=-1  " Tab キー押下時に挿入される空白の量(マイナスでshiftwidthと同じ)
-
 
 " --------------------------------
 " ファイル別設定
