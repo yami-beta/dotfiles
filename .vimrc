@@ -191,8 +191,8 @@ function! Ctrlp_open_handler(action, line)
   call ctrlp#acceptfile(action, a:line)
 endfunction
 let g:ctrlp_open_func = {
-  \ 'files'     : 'Ctrlp_open_handler',
-  \ }
+\ 'files': 'Ctrlp_open_handler',
+\ }
 let g:ctrlp_switch_buffer = 'ET'
 let g:ctrlp_path_nolim = 1
 let g:ctrlp_open_new_file = 't'
