@@ -78,8 +78,8 @@ autoload -Uz add-zsh-hook
 setopt prompt_subst # PROMPT変数内で変数参照する
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
+zstyle ':vcs_info:git:*' unstagedstr "%F{magenta}+"
+zstyle ':vcs_info:*' formats "%F{blue}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 function _update_vcs_info()
 {
