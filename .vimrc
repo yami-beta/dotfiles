@@ -183,11 +183,9 @@ function! Ctrlp_open_handler(action, line)
   let action = a:action
   let alternate_bufnr = winbufnr(winnr('#'))
   let altername_bufname = getbufinfo(alternate_bufnr)[0].name
-  echomsg altername_bufname
   if altername_bufname ==# '' && action == 't'
     let action = 'e'
   endif
-
   call ctrlp#acceptfile(action, a:line)
 endfunction
 let g:ctrlp_open_func = {
@@ -196,6 +194,8 @@ let g:ctrlp_open_func = {
 let g:ctrlp_switch_buffer = 'ET'
 let g:ctrlp_path_nolim = 1
 let g:ctrlp_open_new_file = 't'
+" 上から下へ候補を表示
+let g:ctrlp_match_window = 'order:ttb'
 " <F7>での削除を Ctrl + d に変更
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<c-t>', '<2-LeftMouse>'],
