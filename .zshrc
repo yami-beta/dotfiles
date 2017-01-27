@@ -113,6 +113,7 @@ if type brew >/dev/null 2>&1; then
 fi
 
 # fzf
+export FZF_DEFAULT_OPTS='--reverse'
 function fzf_tmux_session() {
   local session=$( tmux ls | awk -F':' '{print $1}' | fzf )
   echo $session
