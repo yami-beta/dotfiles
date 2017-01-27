@@ -606,27 +606,19 @@ vmap , <Plug>(EasyAlign)
 
 nmap <silent> <Leader>r <Plug>(operator-replace)
 
-" nnoremap <Space>o :<C-u>CtrlPFunky<CR>
-" nnoremap <Space>f :<C-u>CtrlPExplorer<CR>
+nnoremap <silent> <Space>d :<C-u>Vaffle<CR>
+
+nnoremap <silent> <Space>e :<C-u>CtrlPExplorer<CR>
 nnoremap <silent> <Space>f :<C-u>CtrlPExplorerWithBufDir<CR>
+nnoremap <silent> <Space>r :<C-u>CtrlPMRUFiles<CR>
 nnoremap <silent> <Space>s :<C-u>CtrlPSession<CR>
 nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> <Space>t :<C-u>CtrlPTabpage<CR>
 
-nnoremap <silent> <Space>u :<C-u>UniteWithBufferDir -multi-line file file/new<CR>
-nnoremap <silent> <Space><C-u> :<C-u>Unite file file/new<CR>
-nnoremap <silent> <Space>i :<C-u>call AutoSelectUniteFileRec()<CR>
-" nnoremap <silent> <Space>i :<C-u>Unite file_rec/async<CR>
-" nnoremap <silent> <Space>b :<C-u>Unite buffer -force-redraw<CR>
-" nnoremap <silent> <Space>t :<C-u>Unite tab -force-redraw<CR>
 nnoremap <silent> <Space>o :<C-u>Unite outline -direction=botright -vertical -winwidth=40<CR>
-" nnoremap <silent> <Space>s :<C-u>Unite session<CR>
-nnoremap <silent> <Space>r :<C-u>Unite file_mru<CR>
 nnoremap <silent> <Space>g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 nnoremap <silent> <Space>gd :<C-u>Unite grep -buffer-name=search-buffer<CR>
 nnoremap <silent> <Space>gr :<C-u>UniteResume search-buffer<CR>
-
-nnoremap <silent> <Space>d :<C-u>VimFilerExplorer -toggle -winwidth=30<CR>
 
 nmap <C-k> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
 vmap <C-k> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
