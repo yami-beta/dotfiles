@@ -288,9 +288,11 @@ endfunction
 Plug 'yami-beta/unite-filters'
 Plug 'Shougo/unite-outline'
 Plug 'Shougo/neomru.vim'
-Plug 'Shougo/vimfiler.vim'
-let g:vimfiler_edit_action = 'tabopen'
-let g:vimfiler_as_default_explorer = 1
+" Plug 'Shougo/vimfiler.vim'
+" let g:vimfiler_edit_action = 'tabopen'
+" let g:vimfiler_as_default_explorer = 1
+
+Plug 'cocopon/vaffle.vim'
 
 " 見た目
 Plug 'flazz/vim-colorschemes'
