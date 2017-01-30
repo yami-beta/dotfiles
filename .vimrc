@@ -288,9 +288,6 @@ endfunction
 Plug 'yami-beta/unite-filters'
 Plug 'Shougo/unite-outline'
 Plug 'Shougo/neomru.vim'
-" Plug 'Shougo/vimfiler.vim'
-" let g:vimfiler_edit_action = 'tabopen'
-" let g:vimfiler_as_default_explorer = 1
 
 Plug 'cocopon/vaffle.vim'
 
@@ -376,10 +373,8 @@ function! s:unite_get_status_tail_string() abort
         \    substitute(get(b:unite.msgs, 0, ''), '^\[.\{-}\]\s*', '', '')
 endfunction
 
-" Plug 'lilydjwg/colorizer'
 
 Plug 'kana/vim-submode'
-Plug 'AndrewRadev/splitjoin.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'tyru/caw.vim'
 
@@ -454,9 +449,6 @@ function! s:lexima_on_post_source() abort
 endfunction
 autocmd vimrc User plug_on_load call s:lexima_on_post_source()
 
-" vimproc
-let g:vimproc#download_windows_dll = 1
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'thinca/vim-quickrun'
 let g:quickrun_config = {
       \ "_": {
