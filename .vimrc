@@ -50,7 +50,7 @@ setglobal directory=~/.vim/tmp       " swpファイルの作成先
 setglobal undodir=~/.vim/tmp         " undoファイルの作成先
 set undofile                         " persistent_undoを有効化
 setglobal sessionoptions-=options
-setglobal sessionoptions-=black
+setglobal sessionoptions-=blank
 setglobal laststatus=2
 setglobal showtabline=2              " tablineを常時表示
 setglobal guioptions-=e              " tablineをCUIで表示
