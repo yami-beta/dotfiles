@@ -104,25 +104,6 @@ endif
 
 
 " --------------------------------
-" セッションの自動保存
-" --------------------------------
-augroup SessionAutoCommands
-  autocmd!
-  " autocmd VimLeave * execute ':mks! Session.vim'
-  autocmd VimEnter * nested call <SID>RestoreSessionWithConfirm()
-augroup END
-" command! SSave :mks! Session.vim
-
-function! s:RestoreSessionWithConfirm()
-  let msg = 'Do you want to restore previous session?'
-
-  if !argc() && filereadable('Session.vim') && confirm(msg, "&Yes\n&No", 1, 'Question') == 1
-    execute ':source Session.vim'
-  endif
-endfunction
-
-
-" --------------------------------
 " プラグイン
 " --------------------------------
 call plug#begin('~/.vim/plug')
