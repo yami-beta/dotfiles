@@ -250,7 +250,6 @@ function! s:unite_on_source() abort
   autocmd vimrc FileType unite inoremap <buffer><expr><silent> <C-t> unite#do_action('tabswitch')
   autocmd vimrc FileType unite nnoremap <buffer><expr><silent> t unite#do_action('tabswitch')
 
-  call unite#custom#default_action('file, buffer', 'tabswitch')
   call unite#custom#profile('default', 'context', {
         \   'start_insert': 1,
         \   'winheight': 10,
@@ -258,36 +257,10 @@ function! s:unite_on_source() abort
         \   'direction': 'botright',
         \   'prompt_direction': 'top',
         \ })
-  call unite#custom#source('file, file_rec/async, file_rec/git', 'converters', ['converter_simplify_file_directory'])
-  call unite#custom#source('file', 'white_globs', ['..'])
-  call unite#custom#source('file_rec,file_rec/async', 'sorters', ['sorter_word'])
-  call unite#custom#source('file_rec,file_rec/async', 'ignore_pattern', join([
-        \ '\.\(git\|svn\|vagrant\)\/', 
-        \ 'tmp\/',
-        \ 'app\/storage\/',
-        \ 'bower_components\/',
-        \ 'fonts\/',
-        \ 'sass-cache\/',
-        \ 'node_modules\/',
-        \ 'vendor/bundle\/',
-        \ '.bundle\/',
-        \ '\.\(jpe?g\|gif\|png\)$',
-        \ ], 
-        \ '\|'))
 endfunction
 autocmd vimrc User plug_on_load call s:unite_on_source()
 
-function! AutoSelectUniteFileRec()
-  if isdirectory(getcwd().'/.git')
-    Unite -start-insert file_rec/git
-  else
-    Unite -start-insert file_rec/async
-  endif
-endfunction
-
-Plug 'yami-beta/unite-filters'
 Plug 'Shougo/unite-outline'
-Plug 'Shougo/neomru.vim'
 
 Plug 'cocopon/vaffle.vim'
 
@@ -326,7 +299,7 @@ endfunction
 function! LightLineFilename()
   return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
         \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft == 'unite' ? MyUniteGetStatusString() :
+        \  &ft == 'unite' ? unite#get_status_string() :
         \  &ft == 'vimshell' ? vimshell#get_status_string() :
         \ '' != expand('%:.') ? expand('%:.') : '[No Name]') .
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
@@ -353,26 +326,6 @@ function! LightLineMode()
         \ &ft == 'vimshell' ? 'VimShell' :
         \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
-
-function! MyUniteGetStatusString() abort
-  if !exists('b:unite')
-    return ''
-  endif
-
-  return unite#view#_get_status_plane_string()
-        \ . ' | '. s:unite_get_status_tail_string()
-endfunction
-
-function! s:unite_get_status_tail_string() abort
-  if !exists('b:unite')
-    return ''
-  endif
-
-  return b:unite.context.path != '' ? '['. simplify(b:unite.context.path) .']' :
-        \    (get(b:unite.msgs, 0, '') == '') ? '' :
-        \    substitute(get(b:unite.msgs, 0, ''), '^\[.\{-}\]\s*', '', '')
-endfunction
-
 
 Plug 'kana/vim-submode'
 Plug 'junegunn/vim-easy-align'
