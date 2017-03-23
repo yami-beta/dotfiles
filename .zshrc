@@ -114,6 +114,13 @@ fi
 
 # fzf
 export FZF_DEFAULT_OPTS='--reverse'
+
+function repo()
+{
+    local repo
+    local=$(ghq list | fzf-tmux) && cd $(ghq root)/$local
+}
+
 function fzf_tmux_session() {
   local session=$( tmux ls | awk -F':' '{print $1}' | fzf )
   echo $session
