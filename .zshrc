@@ -115,10 +115,9 @@ fi
 # fzf
 export FZF_DEFAULT_OPTS='--reverse'
 
-function repo()
-{
-    local repo
-    local=$(ghq list | fzf-tmux) && cd $(ghq root)/$local
+function repo() {
+    local repo_dir=$(ghq list | fzf-tmux)
+    cd ${GOPATH}/src/${repo_dir}
 }
 
 function fzf_tmux_session() {
