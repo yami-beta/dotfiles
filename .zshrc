@@ -120,6 +120,29 @@ function repo() {
     cd ${GOPATH}/src/${repo_dir}
 }
 
+function git_branch() {
+    local branch=$(git branch | fzf-tmux | awk '{gsub(/^[ \t*]*/, "", $0); print $0}')
+    if [ -n "$branch" ]; then
+        BUFFER="$LBUFFER $branch"
+        CURSOR=${#BUFFER}
+    fi
+    zle redisplay
+}
+# 関数をウィジェットに登録
+zle -N git_branch
+bindkey '^g^b' git_branch
+
+function git_add() {
+    local files=$(git status --short | fzf-tmux --multi --ansi --prompt='git add > ' | awk '{print $2}')
+    if [ -n "$files" ]; then
+        BUFFER="${BUFFER}$(echo $files | tr '\n' ' ')"
+        CURSOR=${#BUFFER}
+    fi
+    zle redisplay
+}
+zle -N git_add
+bindkey '^g^f' git_add
+
 function fzf_tmux_session() {
   local session=$( tmux ls | awk -F':' '{print $1}' | fzf )
   echo $session
