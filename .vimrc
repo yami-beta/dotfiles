@@ -421,14 +421,14 @@ noremap <C-e> $
 
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
-inoremap <C-h> <C-g>U<Left>
+inoremap <C-b> <C-g>U<Left>
 " inoremap <C-l> <C-g>U<Right>
 " lexima.vimによって自動入力された括弧・引用符内にいる場合は，lexima.vimのleaveで右移動
 " それ以外は<C-G>U<RIGHT>による右移動
 " 以下のような，閉じ括弧を入力した際に括弧を抜ける挙動を<C-l>で実現する
 "   before      input        after
 "    (|)          )           ()|
-inoremap <C-l> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
+inoremap <C-f> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
 inoremap <Left>  <C-G>U<Left>
 inoremap <Right> <C-G>U<Right>
 
@@ -440,10 +440,6 @@ inoremap <expr> <C-a> col('.') == match(getline('.'), '\S') + 1 ?
       \     repeat('<C-G>U<Right>', match(getline('.'), '\S') + 0) :
       \     repeat('<C-G>U<Left>', col('.') - 1 - match(getline('.'), '\S')))
 inoremap <expr> <C-e> repeat('<C-G>U<Right>', col('$') - col('.'))
-
-" 行ごと移動
-vnoremap <S-Up> "zx<Up>"zP`[V`]
-vnoremap <S-Down> "zx"zp`[V`]
 
 " タブ移動
 nnoremap <S-h> gT
@@ -481,7 +477,7 @@ vmap <C-_> <Plug>(caw:hatpos:toggle)
 imap <expr><C-_> getline('.') =~# '\v^\s*$' ? "\<C-o><Plug>(caw:hatpos:comment)"
       \ : "\<C-o><Plug>(caw:hatpos:toggle)"
 
-inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-g> neocomplete#undo_completion()
 " inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y> neocomplete#close_popup()
 " inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<End>"
