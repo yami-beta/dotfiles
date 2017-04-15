@@ -117,7 +117,9 @@ export FZF_DEFAULT_OPTS='--reverse'
 
 function repo() {
     local repo_dir=$(ghq list | fzf-tmux)
-    cd ${GOPATH}/src/${repo_dir}
+    if [ -n "$repo_dir" ]; then
+        cd ${GOPATH}/src/${repo_dir}
+    fi
 }
 
 function git_branch() {
