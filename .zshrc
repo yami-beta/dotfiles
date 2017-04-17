@@ -149,7 +149,7 @@ bindkey '^g^f' git_add
 
 function ggraph() {
     git log --graph --color=always --date-order --all -C -M --pretty=format:"%C(auto)[%h] %C(cyan)%ad%Creset %C(blue)%an%Creset %C(auto)%d %s" --date=short |
-    fzf-tmux --ansi --no-sort --reverse --tiebreak=index --prompt='git log > ' \
+    fzf --ansi --no-sort --reverse --tiebreak=index --prompt='git log > ' \
         --bind "ctrl-s:toggle-preview" --bind "ctrl-j:preview-down" --bind "ctrl-k:preview-up" --preview-window=down:hidden \
         --preview " (grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | less -R') <<< {}"
 }
