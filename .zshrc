@@ -136,7 +136,7 @@ bindkey '^g^b' git_branch
 
 function git_add() {
     local files=$(git status --short | fzf-tmux --multi --ansi --prompt='git add > '\
-        --bind "ctrl-s:toggle-preview" --bind "ctrl-j:preview-down" --bind "ctrl-k:preview-up" \
+        --bind "enter:toggle-preview" --bind "ctrl-j:preview-down" --bind "ctrl-k:preview-up" --bind "ctrl-y:accept" \
         --preview " (awk '{print \$2}' | xargs -I % sh -c 'git diff --color=always % | less -R') <<< {}" | awk '{print $2}')
     if [ -n "$files" ]; then
         BUFFER="${BUFFER}$(echo $files | tr '\n' ' ')"
@@ -150,7 +150,8 @@ bindkey '^g^f' git_add
 function ggraph() {
     git log --graph --color=always --date-order --all -C -M --pretty=format:"%C(auto)[%h] %C(cyan)%ad%Creset %C(blue)%an%Creset %C(auto)%d %s" --date=short |
     fzf --ansi --no-sort --reverse --tiebreak=index --prompt='git log > ' \
-        --bind "ctrl-s:toggle-preview" --bind "ctrl-j:preview-down" --bind "ctrl-k:preview-up" --preview-window=down:hidden \
+        --bind "enter:toggle-preview" --bind "ctrl-j:preview-down" --bind "ctrl-k:preview-up" --bind "ctrl-y:accept" \
+        --preview-window=down:hidden \
         --preview " (grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | less -R') <<< {}"
 }
 
