@@ -135,7 +135,7 @@ zle -N git_branch
 bindkey '^g^b' git_branch
 
 function git_add() {
-    local files=$(git status --short | fzf-tmux --multi --ansi --prompt='git add > '\
+    local files=$(git status --short | fzf --multi --ansi --prompt='git add > '\
         --bind "enter:toggle-preview" --bind "ctrl-j:preview-down" --bind "ctrl-k:preview-up" --bind "ctrl-y:accept" \
         --preview " (awk '{print \$2}' | xargs -I % sh -c 'git diff --color=always % | less -R') <<< {}" | awk '{print $2}')
     if [ -n "$files" ]; then
