@@ -149,7 +149,6 @@ bindkey '^g^f' git_add
 
 function ggraph() {
     local out commit_hash query key
-    local selected=0
     while out=$(
         git log --graph --color=always --date-order --all -C -M --pretty=format:"%C(auto)[%h] %C(cyan)%ad%Creset %C(blue)%an%Creset %C(auto)%d %s" --date=short |
         fzf --ansi --no-sort --reverse --tiebreak=index --prompt='git log > ' \
@@ -162,23 +161,17 @@ function ggraph() {
         if [ "$key" = ctrl-d ]; then
             git show --color=always $commit_hash | emojify | less -R
         else
-            selected=1
+            if [ -n "$commit_hash" ]; then
+                BUFFER="${LBUFFER}${commit_hash}${RBUFFER}"
+                CURSOR=${#BUFFER}
+            fi
+            zle redisplay
             break
         fi
     done
-    [ $selected -gt 0 ] && echo $commit_hash
 }
-
-function zle_git_graph() {
-    local commit_hash=$(ggraph | grep -o '[a-f0-9]\{7\}')
-    if [ -n "$commit_hash" ]; then
-        BUFFER="${BUFFER}${commit_hash}"
-        CURSOR=${#BUFFER}
-    fi
-    zle redisplay
-}
-zle -N zle_git_graph
-bindkey '^g^g' zle_git_graph
+zle -N ggraph
+bindkey '^g^g' ggraph
 
 function fzf_tmux_session() {
   local session=$( tmux ls | awk -F':' '{print $1}' | fzf )
