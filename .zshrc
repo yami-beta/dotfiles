@@ -148,11 +148,25 @@ zle -N git_add
 bindkey '^g^f' git_add
 
 function ggraph() {
-    git log --graph --color=always --date-order --all -C -M --pretty=format:"%C(auto)[%h] %C(cyan)%ad%Creset %C(blue)%an%Creset %C(auto)%d %s" --date=short |
-    fzf --ansi --no-sort --reverse --tiebreak=index --prompt='git log > ' \
-        --bind "enter:toggle-preview" --bind "ctrl-n:preview-down" --bind "ctrl-p:preview-up" --bind "ctrl-y:accept" \
-        --preview-window=down:hidden \
-        --preview " (grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | emojify | less -R') <<< {}"
+    local out commit_hash query key
+    local selected=0
+    while out=$(
+        git log --graph --color=always --date-order --all -C -M --pretty=format:"%C(auto)[%h] %C(cyan)%ad%Creset %C(blue)%an%Creset %C(auto)%d %s" --date=short |
+        fzf --ansi --no-sort --reverse --tiebreak=index --prompt='git log > ' \
+            --query="$query" --print-query --expect=ctrl-d); do
+        query=$(head -1 <<< "$out")
+        key=$(head -2 <<< "$out" | tail -1)
+        commit_hash=$(grep -o '[a-f0-9]\{7\}' <<< "$out")
+
+        [ -z "$commit_hash" ] && continue
+        if [ "$key" = ctrl-d ]; then
+            git show --color=always $commit_hash | emojify | less -R
+        else
+            selected=1
+            break
+        fi
+    done
+    [ $selected -gt 0 ] && echo $commit_hash
 }
 
 function zle_git_graph() {
