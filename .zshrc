@@ -123,9 +123,10 @@ function repo() {
 }
 
 function git_branch() {
-    local branch=$(git branch | fzf-tmux | awk '{gsub(/^[ \t*]*/, "", $0); print $0}')
+    local branch=$(git branch --all -vv --color=always | grep -v HEAD | fzf-tmux --ansi | awk '{print $1;}')
+    branch=$(awk '{gsub(/^remotes\//, "", $0); print $0}' <<< "$branch")
     if [ -n "$branch" ]; then
-        BUFFER="$LBUFFER $branch"
+        BUFFER="$LBUFFER $branch $RBUFFER"
         CURSOR=${#BUFFER}
     fi
     zle redisplay
