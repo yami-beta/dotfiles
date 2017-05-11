@@ -138,6 +138,7 @@ bindkey '^g^b' git_branch
 function git_add() {
     local files=$(git status --short -u | fzf --multi --ansi --prompt='git add > '\
         --bind "enter:toggle-preview" --bind "ctrl-n:preview-down" --bind "ctrl-p:preview-up" --bind "ctrl-y:accept" \
+        --preview-window "down" \
         --preview " (awk '{print \$2}' | xargs -I % sh -c 'git diff --color=always % | less -R') <<< {}" | awk '{print $2}')
     if [ -n "$files" ]; then
         BUFFER="${BUFFER}$(echo $files | tr '\n' ' ')"
