@@ -161,7 +161,7 @@ function ggraph() {
 
         [ -z "$commit_hash" ] && continue
         if [ "$key" = ctrl-d ]; then
-            git show --color=always $commit_hash | emojify | less -R
+            git show --color=always $commit_hash | emojify | less -r
         else
             if [ -n "$commit_hash" ]; then
                 BUFFER="${LBUFFER}${commit_hash}${RBUFFER}"
