@@ -123,7 +123,8 @@ function repo() {
 }
 
 function git_branch() {
-    local branch=$(git branch --all -vv --color=always | grep -v -E "HEAD" | fzf-tmux --ansi | awk '{gsub(/^\*/, " ", $0); print $1;}')
+    local branch=$(git branch --all -vv --color=always | grep -v -E "HEAD" |
+                   fzf-tmux --ansi --no-sort | awk '{gsub(/^\*/, " ", $0); print $1;}')
     branch=$(awk '{gsub(/^remotes\//, "", $0); print $0}' <<< "$branch")
     if [ -n "$branch" ]; then
         BUFFER="$LBUFFER $branch $RBUFFER"
