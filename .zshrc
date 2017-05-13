@@ -112,9 +112,6 @@ if type brew >/dev/null 2>&1; then
   export PATH="$(brew --prefix)/bin:$PATH"
 fi
 
-# fzf
-export FZF_DEFAULT_OPTS='--reverse'
-
 function repo() {
     local repo_dir=$(ghq list | fzf-tmux)
     if [ -n "$repo_dir" ]; then

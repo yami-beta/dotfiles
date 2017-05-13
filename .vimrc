@@ -175,8 +175,6 @@ let g:ctrlp_open_func = {
 let g:ctrlp_switch_buffer = 'ET'
 let g:ctrlp_path_nolim = 1
 let g:ctrlp_open_new_file = 't'
-" 上から下へ候補を表示
-let g:ctrlp_match_window = 'order:ttb'
 " <F7>での削除を Ctrl + d に変更
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<c-t>', '<2-LeftMouse>'],
