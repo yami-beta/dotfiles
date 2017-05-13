@@ -200,14 +200,15 @@ function ggraph() {
         if [ "$key" = ctrl-d ]; then
             git show --color=always $commit_hash | emojify | less -r
         else
-            if [ -n "$commit_hash" ]; then
-                BUFFER="${LBUFFER}${commit_hash}${RBUFFER}"
-                CURSOR=${#BUFFER}
-            fi
-            zle redisplay
             break
         fi
     done
+
+    if [ -n "$commit_hash" ]; then
+        BUFFER="${LBUFFER}${commit_hash}${RBUFFER}"
+        CURSOR=${#BUFFER}
+    fi
+    zle redisplay
 }
 zle -N ggraph
 bindkey '^g^g' ggraph
