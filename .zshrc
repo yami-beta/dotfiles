@@ -172,11 +172,16 @@ function git_add()
                 fi
                 ;;
             tab)
-                i=1
+                i=0
                 for f in $target_files; do
-                    [[ "$selected_line" = "$f" ]] &&
-                        target_files[$i]=$(awk '{ gsub(/^  /, "> ", $0); print $0 }' <<< $selected_line)
                     i=$i+1
+                    [[ "$selected_line" != "$f" ]] && continue
+
+                    if [[ "$selected_line" =~ "^> " ]]; then
+                        target_files[$i]=$(awk '{ gsub(/^> /, "  ", $0); print $0 }' <<< $selected_line)
+                    else
+                        target_files[$i]=$(awk '{ gsub(/^  /, "> ", $0); print $0 }' <<< $selected_line)
+                    fi
                 done
                 ;;
             *)
