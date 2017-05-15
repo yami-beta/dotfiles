@@ -120,9 +120,20 @@ function repo() {
 }
 
 function git_branch() {
-    local branch=$(git branch --all -vv --color=always | grep -v -E "HEAD" |
-                   fzf-tmux --ansi --no-sort | awk '{gsub(/^\*/, " ", $0); print $1;}')
-    branch=$(awk '{gsub(/^remotes\//, "", $0); print $0}' <<< "$branch")
+    local output=$(git branch --all -vv --color=always | grep -v -E "HEAD" |
+                   fzf-tmux --ansi --no-sort --expect=ctrl-y | awk '{gsub(/^\*/, " ", $0); print $1;}')
+    local key=$(head -1 <<< "$output")
+    local branch=$(echo $output | head -2 | tail -1 | awk '{gsub(/^\*/, " ", $0); print $1;}')
+    case "$key" in
+        ctrl-y)
+            # "remotes/origin/"を消す
+            branch=$(awk '{gsub(/^remotes\/origin\//, "", $0); print $0}' <<< "$branch")
+            ;;
+        *)
+            # ローカルの場合: master
+            # リモートの場合: origin/master
+            branch=$(awk '{gsub(/^remotes\//, "", $0); print $0}' <<< "$branch")
+    esac
     if [ -n "$branch" ]; then
         BUFFER="$LBUFFER $branch $RBUFFER"
         CURSOR=${#BUFFER}
