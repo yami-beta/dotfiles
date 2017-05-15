@@ -169,19 +169,18 @@ function git_add()
                 done
                 ;;
             *)
+                local selected_files=()
+                for f in $target_files; do
+                    [[ "$f" =~ '^> ' ]] && selected_files+=$(awk '{ print $NF }' <<< $f)
+                done
+                if [ ${#selected_files[@]} -gt 0 ]; then
+                    BUFFER="${BUFFER}$(echo $selected_files | tr '\n' ' ')"
+                    CURSOR=${#BUFFER}
+                fi
+                zle redisplay
                 break
         esac
     done
-
-    local selected_files=()
-    for f in $target_files; do
-        [[ "$f" =~ '^> ' ]] && selected_files+=$(awk '{ print $NF }' <<< $f)
-    done
-    if [ ${#selected_files[@]} -gt 0 ]; then
-        BUFFER="${BUFFER}$(echo $selected_files | tr '\n' ' ')"
-        CURSOR=${#BUFFER}
-    fi
-    zle redisplay
 }
 zle -N git_add
 bindkey '^g^f' git_add
@@ -200,15 +199,14 @@ function ggraph() {
         if [ "$key" = ctrl-d ]; then
             git show --color=always $commit_hash | emojify | less -r
         else
+            if [ -n "$commit_hash" ]; then
+                BUFFER="${LBUFFER}${commit_hash}${RBUFFER}"
+                CURSOR=${#BUFFER}
+            fi
+            zle redisplay
             break
         fi
     done
-
-    if [ -n "$commit_hash" ]; then
-        BUFFER="${LBUFFER}${commit_hash}${RBUFFER}"
-        CURSOR=${#BUFFER}
-    fi
-    zle redisplay
 }
 zle -N ggraph
 bindkey '^g^g' ggraph
