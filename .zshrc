@@ -168,7 +168,7 @@ function git_add()
                         git diff --color=always HEAD $selected_file | less -R &&
                         git reset $selected_file > /dev/null 2>&1
                 else
-                    git diff --color=always $selected_file | less -R
+                    git diff --color=always -- $selected_file | less -R
                 fi
                 ;;
             tab)
