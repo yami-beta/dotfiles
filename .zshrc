@@ -147,7 +147,7 @@ bindkey '^g^b' git_branch
 function git_add()
 {
     local target_files=()
-    while read line; do
+    while IFS= read line; do
         target_files+="  $line"
     done <<< "$(git status --short -u)"
 
