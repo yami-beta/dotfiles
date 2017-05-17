@@ -144,88 +144,37 @@ function git_branch() {
 zle -N git_branch
 bindkey '^g^b' git_branch
 
-function git_add()
-{
-    local target_files=()
-    while IFS= read line; do
-        target_files+="  $line"
-    done <<< "$(git status --short -u | grep -E "^(\s\w|\?\?|\w\w)")"
-
-    local out query key
-    while out=$(
-        echo "$(IFS=$'\n'; echo "${target_files[*]}")" | fzf-tmux +m --ansi --no-sort --query="$query" --print-query --expect=ctrl-d,tab
-        ); do
-        query=$(head -1 <<< "$out")
-        key=$(head -2 <<< "$out" | tail -1)
-        selected_line=$(head -3 <<< "$out" | tail -1)
-
-        [ -z "$selected_line" ] && continue
-        selected_file=$(awk '{ print $NF }' <<< $selected_line)
-        case "${key}" in
-            ctrl-d)
-                if [[ $(awk '{ print $(NF-1) }' <<< $selected_line) = "??" ]]; then
-                    git add -N $selected_file &&
-                        git diff --color=always HEAD $selected_file | less -R &&
-                        git reset $selected_file > /dev/null 2>&1
-                else
-                    git diff --color=always -- $selected_file | less -R
-                fi
-                ;;
-            tab)
-                i=0
-                for f in $target_files; do
-                    i=$i+1
-                    [[ "$selected_line" != "$f" ]] && continue
-
-                    if [[ "$selected_line" =~ "^> " ]]; then
-                        target_files[$i]=$(awk '{ gsub(/^> /, "  ", $0); print $0 }' <<< $selected_line)
-                    else
-                        target_files[$i]=$(awk '{ gsub(/^  /, "> ", $0); print $0 }' <<< $selected_line)
-                    fi
-                done
-                ;;
-            *)
-                local selected_files=()
-                for f in $target_files; do
-                    [[ "$f" =~ '^> ' ]] && selected_files+=$(awk '{ print $NF }' <<< $f)
-                done
-                if [ ${#selected_files[@]} -gt 0 ]; then
-                    BUFFER="${BUFFER}$(echo $selected_files | tr '\n' ' ')"
-                    CURSOR=${#BUFFER}
-                fi
-                zle redisplay
-                break
-        esac
-    done
+function git_add() {
+    local files=$(git status --short -u | grep -E "^(\s\w|\?\?|\w\w)" | fzf --multi --ansi --prompt='git add > '\
+        --bind "enter:toggle-preview" --bind "ctrl-n:preview-down" --bind "ctrl-p:preview-up" --bind "ctrl-y:accept" \
+        --preview-window "down:wrap" \
+        --preview " (awk '{print \$2}' | xargs -I % sh -c 'git diff --color=always % | less -R') <<< {}" | awk '{print $2}')
+    if [ -n "$files" ]; then
+        BUFFER="${BUFFER}$(echo $files | tr '\n' ' ')"
+        CURSOR=${#BUFFER}
+    fi
+    zle redisplay
 }
 zle -N git_add
 bindkey '^g^f' git_add
 
 function ggraph() {
-    local out commit_hash query key
-    while out=$(
-        git log --graph --color=always --date-order --all -C -M --pretty=format:"%C(auto)[%h] %C(cyan)%ad%Creset %C(blue)%an%Creset %C(auto)%d %s" --date=short |
-        fzf --ansi --no-sort --reverse --tiebreak=index --prompt='git log > ' \
-            --query="$query" --print-query --expect=ctrl-d); do
-        query=$(head -1 <<< "$out")
-        key=$(head -2 <<< "$out" | tail -1)
-        commit_hash=$(grep -o '[a-f0-9]\{7\}' <<< "$out")
-
-        [ -z "$commit_hash" ] && continue
-        if [ "$key" = ctrl-d ]; then
-            git show --color=always $commit_hash | emojify | less -r
-        else
-            if [ -n "$commit_hash" ]; then
-                BUFFER="${LBUFFER}${commit_hash}${RBUFFER}"
-                CURSOR=${#BUFFER}
-            fi
-            zle redisplay
-            break
-        fi
-    done
+    git log --graph --color=always --date-order --all -C -M --pretty=format:"%C(auto)[%h] %C(cyan)%ad%Creset %C(blue)%an%Creset %C(auto)%d %s" --date=short |
+    fzf --ansi --no-sort --reverse --tiebreak=index --prompt='git log > ' \
+        --bind "enter:toggle-preview" --bind "ctrl-n:preview-down" --bind "ctrl-p:preview-up" --bind "ctrl-y:accept" \
+        --preview-window=down:hidden:wrap \
+        --preview " (grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | emojify | less -R') <<< {}"
 }
-zle -N ggraph
-bindkey '^g^g' ggraph
+function zle_git_graph() {
+    local commit_hash=$(ggraph | grep -o '[a-f0-9]\{7\}')
+    if [ -n "$commit_hash" ]; then
+        BUFFER="${BUFFER}${commit_hash}"
+        CURSOR=${#BUFFER}
+    fi
+    zle redisplay
+}
+zle -N zle_git_graph
+bindkey '^g^g' zle_git_graph
 
 function fzf_tmux_session() {
   local session=$( tmux ls | awk -F':' '{print $1}' | fzf )
