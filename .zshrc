@@ -148,7 +148,7 @@ function git_add() {
     local files=$(git status --short -u | grep -E "^(\s\w|\?\?|\w\w)" | fzf --multi --ansi --prompt='git add > '\
         --bind "enter:toggle-preview" --bind "ctrl-n:preview-down" --bind "ctrl-p:preview-up" --bind "ctrl-y:accept" \
         --preview-window "down:wrap" \
-        --preview " (awk '{print \$2}' | xargs -I % sh -c 'git diff --color=always % | less -R') <<< {}" | awk '{print $2}')
+        --preview " (awk '{print \$2}' | xargs -I % sh -c 'git add -N % && git diff --color=always % | less -R && git reset % > /dev/null 2>&1') <<< {}" | awk '{print $2}')
     if [ -n "$files" ]; then
         BUFFER="${BUFFER}$(echo $files | tr '\n' ' ')"
         CURSOR=${#BUFFER}
