@@ -149,7 +149,7 @@ function git_add()
     local target_files=()
     while IFS= read line; do
         target_files+="  $line"
-    done <<< "$(git status --short -u)"
+    done <<< "$(git status --short -u | grep -E "^(\s\w|\?\?|\w\w)")"
 
     local out query key
     while out=$(
