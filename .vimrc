@@ -563,6 +563,7 @@ augroup vimrc_filetype
   autocmd FileType html       setlocal tabstop=2 shiftwidth=2
   autocmd FileType css,scss   setlocal tabstop=2 shiftwidth=2
   autocmd FileType javascript setlocal tabstop=2 shiftwidth=2
+  autocmd FileType go         setlocal noexpandtab
 augroup END
 
 let g:vim_indent_cont = 0
