@@ -185,7 +185,7 @@ function fzf_tmux_session() {
 }
 
 # tmux
-alias ts='tmux new -s $(basename `pwd`)'
+alias ts='tmux new -s $(basename $(pwd) | awk "{ gsub(/\./, \"_\", \$0); print \$0 }")'
 alias ta='fzf_tmux_session'
 
 # history
