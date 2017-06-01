@@ -135,7 +135,7 @@ function git_branch() {
             branch=$(awk '{gsub(/^remotes\//, "", $0); print $0}' <<< "$branch")
     esac
     if [ -n "$branch" ]; then
-        BUFFER="$LBUFFER $branch $RBUFFER"
+        BUFFER="${LBUFFER}${branch}${RBUFFER}"
         CURSOR=${#BUFFER}
     fi
     zle redisplay
