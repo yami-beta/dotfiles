@@ -173,7 +173,7 @@ let g:ctrlp_open_func = {
 \ 'files': 'Ctrlp_open_handler',
 \ }
 let g:ctrlp_switch_buffer = 'ET'
-let g:ctrlp_path_nolim = 1
+let g:ctrlp_match_window = 'results:50'
 let g:ctrlp_open_new_file = 't'
 " <F7>での削除を Ctrl + d に変更
 let g:ctrlp_prompt_mappings = {
