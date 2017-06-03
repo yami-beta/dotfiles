@@ -197,9 +197,12 @@ autocmd vimrc CursorMoved ControlP let w:lightline = 0
 if executable('pt')
   let g:ctrlp_use_caching = 0
   let g:ctrlp_user_command = 'pt %s --nocolor --nogroup --follow --hidden -g .'
+elseif executable('rg')
+  let g:ctrlp_use_caching = 0
+  let g:ctrlp_user_command = 'rg %s --color never --no-heading --no-ignore-vcs --hidden --files'
 elseif executable('ag')
   let g:ctrlp_use_caching=0
-  let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
+  let g:ctrlp_user_command='ag %s -i --nocolor --nogroup --skip-vcs-ignores -g ""'
 endif
 
 Plug 'yami-beta/ctrlp-explorer'
