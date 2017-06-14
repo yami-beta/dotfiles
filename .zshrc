@@ -159,7 +159,7 @@ zle -N git_add
 bindkey '^g^f' git_add
 
 function ggraph() {
-    git log --graph --color=always --date-order --all -C -M --pretty=format:"%C(auto)[%h] %C(cyan)%ad%Creset %C(blue)%an%Creset %C(auto)%d %s" --date=short |
+    git log --graph --color=always --date-order --all -C -M --pretty=format:"%x09%C(auto)[%h] %C(cyan)%ad%Creset %C(blue)%an%Creset %C(auto)%d %s" --date=short |
     fzf --ansi --no-sort --reverse --tiebreak=index --prompt='git log > ' \
         --bind "enter:toggle-preview" --bind "ctrl-n:preview-down" --bind "ctrl-p:preview-up" --bind "ctrl-y:accept" \
         --preview-window=down:hidden:wrap \
