@@ -108,56 +108,28 @@ endif
 " --------------------------------
 call plug#begin('~/.vim/plug')
 
-Plug 'Shougo/neocomplete.vim'
-" Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'yami-beta/asyncomplete-omni.vim'
+function! s:asyncomplete_on_post_source() abort
+  call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+  \ 'name': 'buffer',
+  \ 'whitelist': ['*'],
+  \ 'blacklist': ['go'],
+  \ 'completor': function('asyncomplete#sources#buffer#completor'),
+  \ }))
+  call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
+  \ 'name': 'omni',
+  \ 'whitelist': ['*'],
+  \ 'blacklist': ['ruby', 'sql'],
+  \ 'completor': function('asyncomplete#sources#omni#completor')
+  \  }))
+endfunction
+autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
 
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-      \ 'default' : '',
-      \ 'vimshell' : $HOME.'/.vimshell_hist',
-      \ 'scheme' : $HOME.'/.gosh_completions'
-      \ }
-  
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-  let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h[[:alnum:]_:-]*'
-let g:neocomplete#keyword_patterns['javascript'] = '\h[[:alnum:]_:-]*'
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'rhysd/github-complete.vim'
-autocmd vimrc FileType gitcommit setl omnifunc=github_complete#complete
+" Plug 'rhysd/github-complete.vim'
+" autocmd vimrc FileType gitcommit setl omnifunc=github_complete#complete
 
 Plug 'ctrlpvim/ctrlp.vim'
 function! Ctrlp_open_handler(action, line)
@@ -342,11 +314,6 @@ Plug 'slim-template/vim-slim'
 
 Plug 'elzr/vim-json'
 " Plug 'lervag/vimtex'
-" if !exists('g:neocomplete#sources#omni#input_patterns')
-"   let g:neocomplete#sources#omni#input_patterns = {}
-" endif
-"
-" let g:neocomplete#sources#omni#input_patterns.tex = '\v\\\a*(ref|cite)\a*([^]]*\])?\{([^}]*,)*[^}]*'
 
 Plug 'evanmiller/nginx-vim-syntax'
 
@@ -361,6 +328,10 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'osyo-manga/vim-over'
 
 Plug 'cohama/lexima.vim'
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1] =~ '\s'
+endfunction
 " lexima.vimはInsertEnter時に初期化されるため注意が必要
 " 初期化処理はautoload/lexima.vimにあるため，lexima#add_ruleを呼んだ時点で初期化が行われる
 " <CR>等のmappingは初期化処理で上書きされる
@@ -368,17 +339,13 @@ function! s:lexima_on_post_source() abort
   call lexima#add_rule({'char': '<TAB>', 'at': '\%#[)}\]''"]', 'leave': 1})
   " for todo list (e.g. `- [ ] todo`)
   call lexima#add_rule({'char': '<Space>', 'at': '\[\%#]', 'input': '<Space>', 'filetype': 'markdown'})
-  call lexima#insmode#map_hook('before', '<CR>', "\<C-r>=neocomplete#close_popup()\<CR>")
-  call lexima#insmode#map_hook('before', '<BS>', "\<C-r>=neocomplete#smart_close_popup()\<CR>")
+  " call lexima#insmode#map_hook('after', '<BS>', "\<C-r>=asyncomplete#force_refresh()\<CR>")
   " <TAB>と<CR>のマッピングを元に戻す
-  imap <expr><TAB> pumvisible() ?
-        \ "\<C-n>"
-        \ : neosnippet#jumpable() ?
-        \ "\<Plug>(neosnippet_jump)"
-        \ : lexima#expand('<LT>TAB>', 'i')
-  imap <silent><expr> <CR> !pumvisible() ? lexima#expand('<LT>CR>', 'i') :
-        \ neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" :
-        \ neocomplete#close_popup()
+  imap <silent><expr><TAB> pumvisible() ? "\<C-n>"
+  \ : <SID>check_back_space() ? lexima#expand('<LT>TAB>', 'i')
+  \ : asyncomplete#force_refresh()
+  imap <silent><expr><CR> pumvisible() ? "\<C-y>"
+  \ : lexima#expand('<LT>CR>', 'i')
 endfunction
 autocmd vimrc User plug_on_load call s:lexima_on_post_source()
 
@@ -477,27 +444,10 @@ vmap <C-_> <Plug>(caw:hatpos:toggle)
 imap <expr><C-_> getline('.') =~# '\v^\s*$' ? "\<C-o><Plug>(caw:hatpos:comment)"
       \ : "\<C-o><Plug>(caw:hatpos:toggle)"
 
-inoremap <expr><C-g> neocomplete#undo_completion()
-" inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y> neocomplete#close_popup()
-" inoremap <expr><C-e> pumvisible() ? neocomplete#cancel_popup() : "\<End>"
-inoremap <expr><C-c> pumvisible() ? neocomplete#cancel_popup() : "\<C-c>"
-
-xmap <Tab>     <Plug>(neosnippet_expand_target)
-smap <expr><TAB> pumvisible() ?
-      \ "\<C-n>"
-      \ : neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \ : "\<TAB>"
+imap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-
-imap <expr><C-s> !pumvisible() ?
-      \ "\<C-s>"
-      \ : "\<Plug>(neosnippet_expand_or_jump)"
-smap <expr><C-s> !pumvisible() ?
-      \ "\<C-s>"
-      \ : "\<Plug>(neosnippet_expand_or_jump)"
-
+imap <silent><expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr><C-c> pumvisible() ? "\<C-e>" : "\<C-c>"
 vmap , <Plug>(EasyAlign)
 
 nmap <silent> <Leader>r <Plug>(operator-replace)
