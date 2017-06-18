@@ -113,9 +113,17 @@ if type brew >/dev/null 2>&1; then
 fi
 
 function repo() {
-    local repo_dir=$(ghq list | fzf-tmux)
+    local tmux_sessions=$( tmux ls | awk -F':' 'BEGIN{OFS="\t"} {print "[tmux]", $1}' )
+    local ghq_list=$(ghq list | awk 'BEGIN{OFS="\t"} {print "[ghq]", $0}')
+    local repo_dir=$(echo "${tmux_sessions}\n${ghq_list}"| fzf-tmux)
     if [ -n "$repo_dir" ]; then
-        cd ${GOPATH}/src/${repo_dir}
+        local select_value=$(echo $repo_dir | awk '{print $2}')
+        local select_type=$(echo $repo_dir | awk '{print $1}')
+        if [ "$select_type" = "[tmux]" ]; then
+            tmux attach -t $select_value;
+        else
+            cd ${GOPATH}/src/${select_value}
+        fi
     fi
 }
 
