@@ -523,6 +523,7 @@ let g:vim_indent_cont = 0
 " --------------------------------
 set number " 行番号を表示
 set cursorline
+set cursorcolumn
 set list
 setglobal listchars=tab:»\ ,space:･,eol:⏎
 setglobal showmatch " 括弧の対応をハイライト
