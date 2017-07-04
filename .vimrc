@@ -444,10 +444,9 @@ vmap <C-_> <Plug>(caw:hatpos:toggle)
 imap <expr><C-_> getline('.') =~# '\v^\s*$' ? "\<C-o><Plug>(caw:hatpos:comment)"
       \ : "\<C-o><Plug>(caw:hatpos:toggle)"
 
-imap <silent><expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-imap <silent><expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr><C-c> pumvisible() ? "\<C-e>" : "\<C-c>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
 vmap , <Plug>(EasyAlign)
 
 nmap <silent> <Leader>r <Plug>(operator-replace)
