@@ -116,7 +116,7 @@ function repo() {
     local ghq_list=$(ghq list | awk 'BEGIN{OFS="\t"} {print "[ghq]", $0}')
     local tmux_status=$(tmux ls 2>&1)
     local repo_dir
-    if [[ "$tmux_status" =~ '^no server running' ]]; then
+    if [[ "$tmux_status" =~ '^(no server running|error)' ]]; then
         repo_dir=$(echo "${ghq_list}"| fzf-tmux)
     else
         local tmux_sessions=$(echo $tmux_status | awk -F':' 'BEGIN{OFS="\t"} {print "[tmux]", $1}')
