@@ -496,8 +496,8 @@ setglobal autoindent      " オートインデント
 setglobal smartindent     " スマートインデント
 setglobal cindent         " C プログラムの自動インデント
 setglobal expandtab       " Tab文字を空白に展開
-setglobal tabstop=4       " タブ幅
-setglobal shiftwidth=4    " インデントの幅
+setglobal tabstop=2       " タブ幅
+setglobal shiftwidth=2    " インデントの幅
 setglobal softtabstop=-1  " Tab キー押下時に挿入される空白の量(マイナスでshiftwidthと同じ)
 
 " --------------------------------
@@ -505,15 +505,9 @@ setglobal softtabstop=-1  " Tab キー押下時に挿入される空白の量(�
 " --------------------------------
 augroup vimrc_filetype
   autocmd!
-  autocmd FileType ruby,eruby setlocal tabstop=2 shiftwidth=2
-  autocmd FileType vim        setlocal tabstop=2 shiftwidth=2
   autocmd FileType tex        setlocal formatexpr=""
   autocmd FileType tex        let &formatprg="pandoc --from=markdown --to=latex --top-level-division=chapter"
-  autocmd FileType tex        setlocal tabstop=2 shiftwidth=2
-  autocmd FileType html       setlocal tabstop=2 shiftwidth=2
-  autocmd FileType css,scss   setlocal tabstop=2 shiftwidth=2
-  autocmd FileType javascript setlocal tabstop=2 shiftwidth=2
-  autocmd FileType go         setlocal noexpandtab
+  autocmd FileType go         setlocal noexpandtab tabstop=4 shiftwidth=4
 augroup END
 
 let g:vim_indent_cont = 0
