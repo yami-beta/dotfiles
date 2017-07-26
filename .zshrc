@@ -56,7 +56,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # sshの補完候補
 zstyle ':completion:*' users off # ユーザの補完をオフ
-[ -r ~/.ssh/config ] && _ssh_config=($(cat ~/.ssh/config | sed -ne 's/Host[=\t ]//p')) || _ssh_config=()
+_ssh_config=($(egrep -i '^Host\s+.+' $HOME/.ssh/config $(find $HOME/.ssh/conf.d -type f 2>/dev/null) | awk '{print $2}'))
 [ -r /etc/hosts ] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
 hosts=(
   "$_ssh_config[@]"
