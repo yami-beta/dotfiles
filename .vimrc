@@ -114,6 +114,9 @@ call plug#begin('~/.vim/plug')
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'runoshun/tscompletejob'
+let g:tscompletejob_mappings_disable_default = 1
+Plug 'prabirshrestha/asyncomplete-tscompletejob.vim'
 Plug 'yami-beta/asyncomplete-omni.vim'
 function! s:asyncomplete_on_post_source() abort
   call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
@@ -121,6 +124,11 @@ function! s:asyncomplete_on_post_source() abort
   \ 'whitelist': ['*'],
   \ 'blacklist': ['go'],
   \ 'completor': function('asyncomplete#sources#buffer#completor'),
+  \ }))
+  call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+  \ 'name': 'tscompletejob',
+  \ 'whitelist': ['typescript'],
+  \ 'completor': function('asyncomplete#sources#tscompletejob#completor'),
   \ }))
   call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
   \ 'name': 'omni',
@@ -296,6 +304,9 @@ Plug 'kana/vim-textobj-indent'
 
 Plug 'pangloss/vim-javascript'
 Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'leafgarland/typescript-vim'
+Plug 'digitaltoad/vim-pug'
+Plug 'wavded/vim-stylus'
 Plug 'mattn/emmet-vim'
 let g:user_emmet_leader_key = '<C-g>'
 let g:user_emmet_settings = {
@@ -511,6 +522,7 @@ augroup vimrc_filetype
   autocmd FileType tex        setlocal formatexpr=""
   autocmd FileType tex        let &formatprg="pandoc --from=markdown --to=latex --top-level-division=chapter"
   autocmd FileType go         setlocal noexpandtab tabstop=4 shiftwidth=4
+  autocmd FileType stylus     setlocal omnifunc=csscomplete#CompleteCSS
 augroup END
 
 let g:vim_indent_cont = 0
