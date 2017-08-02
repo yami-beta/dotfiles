@@ -230,6 +230,7 @@ Plug 'cocopon/vaffle.vim'
 " 見た目
 Plug 'flazz/vim-colorschemes'
 Plug 'yami-beta/vim-colors-yuzu'
+Plug 'yami-beta/vim-colors-ruri'
 " Plug 'ap/vim-buftabline'
 Plug 'osyo-manga/vim-brightest'
 let g:brightest#highlight = { "group": "BrightestUnderline" }
