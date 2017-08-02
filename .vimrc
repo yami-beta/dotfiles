@@ -558,6 +558,8 @@ if &term =~# '^screen'
 endif
 setglobal background=dark
 colorscheme yuzu
+autocmd vimrc VimEnter,WinEnter,ColorScheme * hi! link WhiteSpaceEOL Todo
+autocmd vimrc VimEnter,WinEnter * match WhiteSpaceEOL /\S\+\zs\s\+\ze$/
 " ハイライト確認コマンド
 command! VimShowHlItem echo synIDattr(synID(line("."), col("."), 1), "name")
 " vim kaoriyaで、txtファイルが自動改行されてしまうバグ対応
