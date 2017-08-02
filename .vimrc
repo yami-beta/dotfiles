@@ -60,6 +60,9 @@ setglobal history=1000               " コマンド・検索パターンの履�
 setglobal wildmode=list:longest,full
 setglobal wildignorecase
 setglobal completeopt=menuone,noselect,noinsert
+if executable('rg')
+  set grepprg=rg\ -i\ --vimgrep
+endif
 
 " ウィンドウ移動時に変更チェック
 autocmd vimrc WinEnter * checktime
