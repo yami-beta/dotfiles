@@ -303,7 +303,8 @@ Plug 'kana/vim-textobj-user'
 Plug 'rhysd/vim-textobj-ruby'
 Plug 'kana/vim-textobj-indent'
 
-Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript' " indent用
+Plug 'othree/yajs.vim' " highlight用
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'digitaltoad/vim-pug'
@@ -368,7 +369,7 @@ Plug 'thinca/vim-quickrun'
 let g:quickrun_config = {
       \ "_": {
       \   "outputter/buffer/split" : ":botright",
-      \   "outputter/buffer/close_on_empty" : 1, 
+      \   "outputter/buffer/close_on_empty" : 1,
       \   "runner": "job",
       \ },
       \ }
