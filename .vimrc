@@ -65,7 +65,7 @@ if executable('rg')
 endif
 
 " ウィンドウ移動時に変更チェック
-autocmd vimrc WinEnter * checktime
+autocmd vimrc WinEnter,FocusGained * checktime
 
 " htmlタグ移動
 packadd matchit
