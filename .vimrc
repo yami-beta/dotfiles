@@ -312,6 +312,9 @@ Plug 'wavded/vim-stylus'
 Plug 'mattn/emmet-vim'
 let g:user_emmet_leader_key = '<C-g>'
 let g:user_emmet_settings = {
+      \   'javascript': {
+      \     'extends': 'jsx',
+      \   },
       \   'variables': {
       \     'lang': 'ja'
       \   }
