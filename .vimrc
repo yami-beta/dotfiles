@@ -114,6 +114,7 @@ call plug#begin('~/.vim/plug')
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
+Plug 'prabirshrestha/asyncomplete-gocode.vim'
 Plug 'runoshun/tscompletejob'
 let g:tscompletejob_mappings_disable_default = 1
 Plug 'prabirshrestha/asyncomplete-tscompletejob.vim'
@@ -132,10 +133,16 @@ function! s:asyncomplete_on_post_source() abort
   \ 'completor': function('asyncomplete#sources#tscompletejob#completor'),
   \ }))
 
+  call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
+  \ 'name': 'gocode',
+  \ 'whitelist': ['go'],
+  \ 'completor': function('asyncomplete#sources#gocode#completor'),
+  \ }))
+
   call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
   \ 'name': 'omni',
   \ 'whitelist': ['*'],
-  \ 'blacklist': ['ruby', 'sql'],
+  \ 'blacklist': ['sql', 'go'],
   \ 'completor': function('asyncomplete#sources#omni#completor')
   \  }))
 endfunction
@@ -305,6 +312,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'rhysd/vim-textobj-ruby'
 Plug 'kana/vim-textobj-indent'
 
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 Plug 'pangloss/vim-javascript' " indent用
 Plug 'othree/yajs.vim' " highlight用
 Plug 'MaxMEllon/vim-jsx-pretty'
