@@ -114,7 +114,6 @@ call plug#begin('~/.vim/plug')
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'prabirshrestha/asyncomplete-gocode.vim'
 Plug 'runoshun/tscompletejob'
 let g:tscompletejob_mappings_disable_default = 1
 Plug 'prabirshrestha/asyncomplete-tscompletejob.vim'
@@ -133,16 +132,10 @@ function! s:asyncomplete_on_post_source() abort
   \ 'completor': function('asyncomplete#sources#tscompletejob#completor'),
   \ }))
 
-  call asyncomplete#register_source(asyncomplete#sources#gocode#get_source_options({
-  \ 'name': 'gocode',
-  \ 'whitelist': ['go'],
-  \ 'completor': function('asyncomplete#sources#gocode#completor'),
-  \ }))
-
   call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
   \ 'name': 'omni',
   \ 'whitelist': ['*'],
-  \ 'blacklist': ['sql', 'go'],
+  \ 'blacklist': ['sql'],
   \ 'completor': function('asyncomplete#sources#omni#completor')
   \  }))
 endfunction
