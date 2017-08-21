@@ -135,9 +135,9 @@ function repo() {
 
 function git_branch() {
     local output=$(git branch --all -vv --color=always | grep -v -E "HEAD" |
-                   fzf-tmux --ansi --no-sort --expect=ctrl-y | awk '{gsub(/^\*/, " ", $0); print $1;}')
+                   fzf-tmux --multi --ansi --no-sort --expect=ctrl-y | awk '{gsub(/^\*/, " ", $0); print $1;}')
     local key=$(head -1 <<< "$output")
-    local branch=$(echo $output | head -2 | tail -1 | awk '{gsub(/^\*/, " ", $0); print $1;}')
+    local branch=$(echo $output | tail -n +2 | awk '{gsub(/^\*/, " ", $0); print $1;}')
     case "$key" in
         ctrl-y)
             # "remotes/origin/"を消す
@@ -149,7 +149,7 @@ function git_branch() {
             branch=$(awk '{gsub(/^remotes\//, "", $0); print $0}' <<< "$branch")
     esac
     if [ -n "$branch" ]; then
-        BUFFER="${LBUFFER}${branch}${RBUFFER}"
+        BUFFER="${LBUFFER}$(echo $branch | tr '\n' ' ')${RBUFFER}"
         CURSOR=${#BUFFER}
     fi
     zle redisplay
