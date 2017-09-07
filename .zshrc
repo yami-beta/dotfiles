@@ -113,24 +113,51 @@ if type brew >/dev/null 2>&1; then
 fi
 
 function repo() {
-  local ghq_list=$(ghq list | awk 'BEGIN{OFS="\t"} {print "[ghq]", $0}')
-  local tmux_status=$(tmux ls 2>&1)
-  local repo_dir
-  if [[ "$tmux_status" =~ '^(no server running|error)' ]]; then
-    repo_dir=$(echo "${ghq_list}"| fzf-tmux)
-  else
-    local tmux_sessions=$(echo $tmux_status | awk -F':' 'BEGIN{OFS="\t"} {print "[tmux]", $1}')
-    repo_dir=$(echo "${tmux_sessions}\n${ghq_list}"| fzf-tmux)
-  fi
-  if [[ -n "$repo_dir" ]]; then
-    local select_value=$(echo $repo_dir | awk '{print $2}')
-    local select_type=$(echo $repo_dir | awk '{print $1}')
-    if [[ "$select_type" = "[tmux]" ]]; then
-      tmux attach -t $select_value;
-    else
-      cd ${GOPATH}/src/${select_value}
+  local ghq_list tmux_status tmux_sessions repo_dir key query out filter_owner
+  filter_owner=1
+
+  function get_merged_list() {
+    filter_owner=$1
+    ghq_list=$(ghq list | awk 'BEGIN{OFS="\t"} {print "[ghq]", $0}')
+    if [[ $filter_owner -eq 1 ]]; then
+      ghq_list=$(grep -E "($FZF_REPO_FILTER)" <<< "$ghq_list")
     fi
-  fi
+
+    tmux_status=$(tmux ls 2>&1)
+    if [[ "$tmux_status" =~ '^(no server running|error)' ]]; then
+      # tmuxのsessionが存在しない場合はghq_listの先頭に改行を入れない
+      # 改行を入れると空文字の候補になってしまうため
+      tmux_sessions=""
+    else
+      # tmuxのsessionが存在する場合はghq_listの先頭に改行を入れて2つを結合できるようにする
+      tmux_sessions=$(echo $tmux_status | awk -F':' 'BEGIN{OFS="\t"} {print "[tmux]", $1}')
+      ghq_list="\n${ghq_list}"
+    fi
+
+    echo "${tmux_sessions}${ghq_list}"
+  }
+
+  while out=$(
+    get_merged_list $filter_owner | fzf-tmux --print-query --query="$query" --expect=ctrl-r
+    ); do
+    query=$(head -1 <<< "$out")
+    key=$(head -2 <<< "$out" | tail -1)
+    repo_dir=$(head -3 <<< "$out" | tail -1)
+    if [[ "$key" = ctrl-r ]]; then
+      filter_owner=$((filter_owner ? 0 : 1))
+    else
+      if [[ -n "$repo_dir" ]]; then
+        local select_value=$(echo $repo_dir | awk '{print $2}')
+        local select_type=$(echo $repo_dir | awk '{print $1}')
+        if [[ "$select_type" = "[tmux]" ]]; then
+          tmux attach -t $select_value
+        else
+          cd ${GOPATH}/src/${select_value}
+        fi
+      fi
+      break
+    fi
+  done
 }
 
 function git_branch() {
