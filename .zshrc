@@ -83,7 +83,7 @@ zstyle ':vcs_info:*' formats "%F{blue}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 function _update_vcs_info()
 {
-    vcs_info
+  vcs_info
 }
 add-zsh-hook precmd _update_vcs_info
 local prompt_username
@@ -113,79 +113,79 @@ if type brew >/dev/null 2>&1; then
 fi
 
 function repo() {
-    local ghq_list=$(ghq list | awk 'BEGIN{OFS="\t"} {print "[ghq]", $0}')
-    local tmux_status=$(tmux ls 2>&1)
-    local repo_dir
-    if [[ "$tmux_status" =~ '^(no server running|error)' ]]; then
-        repo_dir=$(echo "${ghq_list}"| fzf-tmux)
+  local ghq_list=$(ghq list | awk 'BEGIN{OFS="\t"} {print "[ghq]", $0}')
+  local tmux_status=$(tmux ls 2>&1)
+  local repo_dir
+  if [[ "$tmux_status" =~ '^(no server running|error)' ]]; then
+    repo_dir=$(echo "${ghq_list}"| fzf-tmux)
+  else
+    local tmux_sessions=$(echo $tmux_status | awk -F':' 'BEGIN{OFS="\t"} {print "[tmux]", $1}')
+    repo_dir=$(echo "${tmux_sessions}\n${ghq_list}"| fzf-tmux)
+  fi
+  if [[ -n "$repo_dir" ]]; then
+    local select_value=$(echo $repo_dir | awk '{print $2}')
+    local select_type=$(echo $repo_dir | awk '{print $1}')
+    if [[ "$select_type" = "[tmux]" ]]; then
+      tmux attach -t $select_value;
     else
-        local tmux_sessions=$(echo $tmux_status | awk -F':' 'BEGIN{OFS="\t"} {print "[tmux]", $1}')
-        repo_dir=$(echo "${tmux_sessions}\n${ghq_list}"| fzf-tmux)
+      cd ${GOPATH}/src/${select_value}
     fi
-    if [[ -n "$repo_dir" ]]; then
-        local select_value=$(echo $repo_dir | awk '{print $2}')
-        local select_type=$(echo $repo_dir | awk '{print $1}')
-        if [[ "$select_type" = "[tmux]" ]]; then
-            tmux attach -t $select_value;
-        else
-            cd ${GOPATH}/src/${select_value}
-        fi
-    fi
+  fi
 }
 
 function git_branch() {
-    local output=$(git branch --all -vv --color=always | grep -v -E "HEAD" |
-                   fzf-tmux --multi --ansi --no-sort --expect=ctrl-y | awk '{gsub(/^\*/, " ", $0); print $1;}')
-    local key=$(head -1 <<< "$output")
-    local branch=$(echo $output | tail -n +2 | awk '{gsub(/^\*/, " ", $0); print $1;}')
-    case "$key" in
-        ctrl-y)
-            # "remotes/origin/"を消す
-            branch=$(awk '{gsub(/^remotes\/origin\//, "", $0); print $0}' <<< "$branch")
-            ;;
-        *)
-            # ローカルの場合: master
-            # リモートの場合: origin/master
-            branch=$(awk '{gsub(/^remotes\//, "", $0); print $0}' <<< "$branch")
-    esac
-    if [ -n "$branch" ]; then
-        BUFFER="${LBUFFER}$(echo $branch | tr '\n' ' ')${RBUFFER}"
-        CURSOR=${#BUFFER}
-    fi
-    zle redisplay
+  local output=$(git branch --all -vv --color=always | grep -v -E "HEAD" |
+  fzf-tmux --multi --ansi --no-sort --expect=ctrl-y | awk '{gsub(/^\*/, " ", $0); print $1;}')
+  local key=$(head -1 <<< "$output")
+  local branch=$(echo $output | tail -n +2 | awk '{gsub(/^\*/, " ", $0); print $1;}')
+  case "$key" in
+    ctrl-y)
+      # "remotes/origin/"を消す
+      branch=$(awk '{gsub(/^remotes\/origin\//, "", $0); print $0}' <<< "$branch")
+      ;;
+    *)
+      # ローカルの場合: master
+      # リモートの場合: origin/master
+      branch=$(awk '{gsub(/^remotes\//, "", $0); print $0}' <<< "$branch")
+  esac
+  if [ -n "$branch" ]; then
+    BUFFER="${LBUFFER}$(echo $branch | tr '\n' ' ')${RBUFFER}"
+    CURSOR=${#BUFFER}
+  fi
+  zle redisplay
 }
 # 関数をウィジェットに登録
 zle -N git_branch
 bindkey '^g^b' git_branch
 
 function git_add() {
-    local files=$(git status --short -u | grep -E "^(\s\w|\?\?|\w\w)" | fzf --multi --ansi --prompt='git add > '\
-        --bind "enter:toggle-preview" --bind "ctrl-n:preview-down" --bind "ctrl-p:preview-up" --bind "ctrl-y:accept" \
-        --preview-window "down:wrap" \
-        --preview " (awk '{print \$2}' | xargs -I % sh -c 'git add -N % && git diff --color=always % | less -R && git reset % > /dev/null 2>&1') <<< {}" | awk '{print $2}')
-    if [ -n "$files" ]; then
-        BUFFER="${BUFFER}$(echo $files | tr '\n' ' ')"
-        CURSOR=${#BUFFER}
-    fi
-    zle redisplay
+  local files=$(git status --short -u | grep -E "^(\s\w|\?\?|\w\w)" | fzf --multi --ansi --prompt='git add > '\
+    --bind "enter:toggle-preview" --bind "ctrl-n:preview-down" --bind "ctrl-p:preview-up" --bind "ctrl-y:accept" \
+    --preview-window "down:wrap" \
+    --preview " (awk '{print \$2}' | xargs -I % sh -c 'git add -N % && git diff --color=always % | less -R && git reset % > /dev/null 2>&1') <<< {}" | awk '{print $2}')
+  if [ -n "$files" ]; then
+    BUFFER="${BUFFER}$(echo $files | tr '\n' ' ')"
+    CURSOR=${#BUFFER}
+  fi
+  zle redisplay
 }
 zle -N git_add
 bindkey '^g^f' git_add
 
 function ggraph() {
-    git log --graph --color=always --date-order --all -C -M --pretty=format:"%x09%C(auto)[%h] %C(cyan)%ad%Creset %C(blue)%an%Creset %C(auto)%d %s" --date=short |
-    fzf --ansi --no-sort --reverse --tiebreak=index --prompt='git log > ' \
-        --bind "enter:toggle-preview" --bind "ctrl-n:preview-down" --bind "ctrl-p:preview-up" --bind "ctrl-y:accept" \
-        --preview-window=down:hidden:wrap \
-        --preview " (grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | emojify | less -R') <<< {}"
+  git log --graph --color=always --date-order --all -C -M --pretty=format:"%x09%C(auto)[%h] %C(cyan)%ad%Creset %C(blue)%an%Creset %C(auto)%d %s" --date=short |
+  fzf --ansi --no-sort --reverse --tiebreak=index --prompt='git log > ' \
+    --bind "enter:toggle-preview" --bind "ctrl-n:preview-down" --bind "ctrl-p:preview-up" --bind "ctrl-y:accept" \
+    --preview-window=down:hidden:wrap \
+    --preview " (grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | emojify | less -R') <<< {}"
 }
 function zle_git_graph() {
-    local commit_hash=$(ggraph | grep -o '[a-f0-9]\{7\}')
-    if [ -n "$commit_hash" ]; then
-        BUFFER="${BUFFER}${commit_hash}"
-        CURSOR=${#BUFFER}
-    fi
-    zle redisplay
+  local commit_hash=$(ggraph | grep -o '[a-f0-9]\{7\}')
+  if [ -n "$commit_hash" ]; then
+    BUFFER="${BUFFER}${commit_hash}"
+    CURSOR=${#BUFFER}
+  fi
+  zle redisplay
 }
 zle -N zle_git_graph
 bindkey '^g^g' zle_git_graph
@@ -204,15 +204,15 @@ alias ta='fzf_tmux_session'
 
 # history
 function fzf_select_history() {
-    local tac
-    if which tac > /dev/null; then
-        tac="tac"
-    else
-        tac="tail -r"
-    fi
-    BUFFER=$(history -n 1 | eval $tac | fzf-tmux --query "$LBUFFER")
-    CURSOR=$#BUFFER
-    zle clear-screen
+  local tac
+  if which tac > /dev/null; then
+    tac="tac"
+  else
+    tac="tail -r"
+  fi
+  BUFFER=$(history -n 1 | eval $tac | fzf-tmux --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle clear-screen
 }
 zle -N fzf_select_history
 bindkey '^r' fzf_select_history
