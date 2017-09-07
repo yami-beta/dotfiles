@@ -525,6 +525,7 @@ setglobal softtabstop=-1  " Tab キー押下時に挿入される空白の量(�
 " --------------------------------
 augroup vimrc_filetype
   autocmd!
+  autocmd FileType markdown   setlocal tabstop=4 shiftwidth=4
   autocmd FileType tex        setlocal formatexpr=""
   autocmd FileType tex        let &formatprg="pandoc --from=markdown --to=latex --top-level-division=chapter"
   autocmd FileType go         setlocal noexpandtab tabstop=4 shiftwidth=4
