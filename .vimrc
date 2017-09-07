@@ -26,7 +26,6 @@ setglobal splitright
 setglobal splitbelow
 setglobal mouse=a                    " 全モードでマウスを有効化
 setglobal ttymouse=xterm2
-setglobal iskeyword+=-               " '-'を単語区切りに追加
 setglobal shellslash                 " パス区切りをスラッシュにする
 setglobal formatoptions+=mM          " 整形オプションにマルチバイト系を追加
 setglobal clipboard+=unnamed         " クリップボードと無名レジスタを共有
