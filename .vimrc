@@ -62,7 +62,7 @@ setglobal wildmode=list:longest,full
 setglobal wildignorecase
 setglobal completeopt=menuone,noselect,noinsert
 if executable('rg')
-  set grepprg=rg\ -i\ --vimgrep
+  set grepprg=rg\ --hidden\ -i\ --vimgrep
 endif
 
 " ウィンドウ移動時に変更チェック
@@ -480,11 +480,13 @@ nnoremap <silent> <Space>r :<C-u>CtrlPMRUFiles<CR>
 nnoremap <silent> <Space>s :<C-u>CtrlPSession<CR>
 nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> <Space>t :<C-u>CtrlPTabpage<CR>
+nnoremap  <Space>g :<C-u>grep! 
+nnoremap  <Space>G :<C-u>CtrlPQuickfix<CR>
+" :grep 時にCtrlPQuickfixを自動で開き移動する
+autocmd vimrc QuickFixCmdPost *grep* CtrlPQuickfix | wincmd w | wincmd w
+
 
 nnoremap <silent> <Space>o :<C-u>Unite outline -direction=botright -vertical -winwidth=40<CR>
-nnoremap <silent> <Space>g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-nnoremap <silent> <Space>gd :<C-u>Unite grep -buffer-name=search-buffer<CR>
-nnoremap <silent> <Space>gr :<C-u>UniteResume search-buffer<CR>
 
 nmap <C-k> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
 vmap <C-k> <Plug>(incsearch-nohl0)<Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
