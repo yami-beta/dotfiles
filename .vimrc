@@ -340,7 +340,6 @@ Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
 
 " 検索・置換を便利にする
 Plug 'haya14busa/incsearch.vim'
-let g:incsearch#auto_nohlsearch = 1
 let g:incsearch#magic = '\v'
 
 Plug 'haya14busa/incsearch-migemo.vim'
