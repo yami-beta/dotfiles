@@ -307,7 +307,8 @@ Plug 'rhysd/vim-textobj-ruby'
 Plug 'kana/vim-textobj-indent'
 
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
-Plug 'neoclide/vim-jsx-improve', { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'wavded/vim-stylus', { 'for': 'stylus' }
