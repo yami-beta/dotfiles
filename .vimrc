@@ -24,6 +24,8 @@ setglobal fileformats=unix,dos,mac   " 改行文字
 setglobal modeline
 setglobal splitright
 setglobal splitbelow
+setglobal lazyredraw                 " 高速化
+setglobal ttyfast                    " 高速化
 setglobal mouse=a                    " 全モードでマウスを有効化
 setglobal ttymouse=xterm2
 setglobal shellslash                 " パス区切りをスラッシュにする
@@ -304,11 +306,11 @@ Plug 'kana/vim-textobj-user'
 Plug 'rhysd/vim-textobj-ruby'
 Plug 'kana/vim-textobj-indent'
 
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
-Plug 'neoclide/vim-jsx-improve'
-Plug 'leafgarland/typescript-vim'
-Plug 'digitaltoad/vim-pug'
-Plug 'wavded/vim-stylus'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
+Plug 'neoclide/vim-jsx-improve', { 'for': 'javascript' }
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
+Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 Plug 'mattn/emmet-vim'
 let g:user_emmet_leader_key = '<C-g>'
 let g:user_emmet_settings = {
@@ -320,9 +322,9 @@ let g:user_emmet_settings = {
       \   }
       \ }
 
-Plug 'plasticboy/vim-markdown'
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 let g:vim_markdown_folding_disabled=1
-Plug 'slim-template/vim-slim'
+Plug 'slim-template/vim-slim', { 'for': 'slim' }
 
 " Plug 'kannokanno/previm'
 " if s:is_mac
@@ -331,10 +333,10 @@ Plug 'slim-template/vim-slim'
 "   let g:previm_open_cmd = 'C:/Program\ Files\ (x86)/Google/Chrome/Application/chrome.exe'
 " endif
 
-Plug 'elzr/vim-json'
+Plug 'elzr/vim-json', { 'for': 'json' }
 " Plug 'lervag/vimtex'
 
-Plug 'evanmiller/nginx-vim-syntax'
+Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
 
 " 検索・置換を便利にする
 Plug 'haya14busa/incsearch.vim'
