@@ -243,8 +243,6 @@ Plug 'flazz/vim-colorschemes'
 Plug 'yami-beta/vim-colors-yuzu'
 Plug 'yami-beta/vim-colors-ruri'
 " Plug 'ap/vim-buftabline'
-Plug 'osyo-manga/vim-brightest'
-let g:brightest#highlight = { "group": "BrightestUnderline" }
 
 Plug 'yami-beta/vim-responsive-tabline'
 Plug 'itchyny/lightline.vim'
