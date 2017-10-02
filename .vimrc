@@ -144,7 +144,7 @@ function! s:asyncomplete_on_post_source() abort
 
   call asyncomplete#register_source(asyncomplete#sources#emoji#get_source_options({
   \ 'name': 'emoji',
-  \ 'whitelist': ['*'],
+  \ 'whitelist': ['markdown', 'git'],
   \ 'completor': function('asyncomplete#sources#emoji#completor'),
   \ }))
 endfunction
