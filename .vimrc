@@ -150,6 +150,9 @@ function! s:asyncomplete_on_post_source() abort
 endfunction
 autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
 
+" 補完候補の括弧・クオートを補完する
+Plug 'Shougo/neopairs.vim'
+
 " Plug 'rhysd/github-complete.vim'
 " autocmd vimrc FileType gitcommit setl omnifunc=github_complete#complete
 
