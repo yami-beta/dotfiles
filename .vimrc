@@ -261,7 +261,9 @@ let g:lightline = {
       \   'fileencoding': 'LightLineFileencoding',
       \   'mode': 'LightLineMode'
       \ },
-      \ 'enable': { 'tabline': 0 }
+      \ 'enable': { 'tabline': 0 },
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
       \ }
 
 function! LightLineModified()
@@ -282,11 +284,11 @@ function! LightLineFilename()
 endfunction
 
 function! LightLineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
+  return winwidth(0) > 70 ? (&fileformat.' '.WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
 function! LightLineFiletype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype.' '.WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
 function! LightLineFileencoding()
@@ -398,6 +400,8 @@ let g:quickrun_config = {
       \ },
       \ }
 
+" 最後に読み込む必要あり
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 " trigger plug_on_load event to execute function after plugin is loaded
 " プラグイン読み込み後に実行する設定(on_post_source)
