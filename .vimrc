@@ -317,6 +317,10 @@ Plug 'kana/vim-textobj-indent'
 
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
