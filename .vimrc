@@ -62,8 +62,19 @@ setglobal wildmode=list:longest,full
 setglobal wildignorecase
 setglobal completeopt=menuone,noselect,noinsert
 if executable('rg')
-  set grepprg=rg\ --hidden\ -i\ --vimgrep
+  set grepprg=rg\ -i\ --vimgrep
 endif
+function! s:all_grep(...)
+  let orig_grepprg=&grepprg
+  set grepprg=rg\ --hidden\ -i\ --vimgrep
+
+  try
+    execute ":grep! ".a:1
+  finally
+    let &grepprg=orig_grepprg
+  endtry
+endfunction
+command! -nargs=? AllGrep call s:all_grep(<f-args>)
 
 " ウィンドウ移動時に変更チェック
 autocmd vimrc WinEnter,FocusGained * checktime
@@ -503,8 +514,9 @@ nnoremap <silent> <Space>r :<C-u>CtrlPMRUFiles<CR>
 nnoremap <silent> <Space>s :<C-u>CtrlPSession<CR>
 nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
 nnoremap <silent> <Space>t :<C-u>CtrlPTabpage<CR>
-nnoremap  <Space>g :<C-u>grep! 
-nnoremap  <Space>G :<C-u>CtrlPQuickfix<CR>
+nnoremap <Space>g :<C-u>grep! 
+nnoremap <Space>ag :<C-u>AllGrep 
+nnoremap <Space>G :<C-u>CtrlPQuickfix<CR>
 " :grep 時にCtrlPQuickfixを自動で開き移動する
 autocmd vimrc QuickFixCmdPost *grep* CtrlPQuickfix | wincmd w | wincmd w
 
