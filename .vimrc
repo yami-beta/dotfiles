@@ -88,6 +88,17 @@ if isdirectory(expand('$HOME/.vim/pack/plugins/opt/vimtex'))
 endif
 
 " 自動pasteモード
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
 function! WrapForTmux(s)
   if !exists('$TMUX')
     return a:s
@@ -98,17 +109,6 @@ function! WrapForTmux(s)
 
   return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
 endfunction
-
-let &t_SI .= WrapForTmux("\<Esc>[?2004h")
-let &t_EI .= WrapForTmux("\<Esc>[?2004l")
-
-function! XTermPasteBegin()
-  set pastetoggle=<Esc>[201~
-  set paste
-  return ""
-endfunction
-
-inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 if s:is_mac
   " ターミナルでカーソル形状変更
