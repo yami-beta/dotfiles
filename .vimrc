@@ -123,6 +123,7 @@ endif
 " --------------------------------
 call plug#begin('~/.vim/plug')
 
+Plug '~/dev/src/github.com/yami-beta/vim-blt'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
@@ -182,7 +183,7 @@ let g:ctrlp_open_func = {
 \ }
 let g:ctrlp_switch_buffer = 'ET'
 let g:ctrlp_match_window = 'results:50'
-let g:ctrlp_open_new_file = 't'
+let g:ctrlp_open_new_file = 'r'
 " <F7>での削除を Ctrl + d に変更
 let g:ctrlp_prompt_mappings = {
     \ 'PrtDeleteEnt()':       ['<c-d>', '<F7>'],
