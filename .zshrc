@@ -12,6 +12,9 @@ zplug "zplug/zplug"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
+zplug "mafredri/zsh-async"
+zplug "sindresorhus/pure", use:pure.zsh, as:theme
+PURE_GIT_UNTRACKED_DIRTY=0
 
 # Install packages that have not been installed yet
 if ! zplug check --verbose; then
@@ -71,31 +74,6 @@ zstyle ':completion:*:hosts' hosts $hosts # ホスト名の補完
 # pushdignoredups: 重複する履歴を記録しない
 DIRSTACKSIZE=5
 setopt auto_pushd pushdminus pushdignoredups
-
-# プロンプト
-autoload -Uz vcs_info
-autoload -Uz add-zsh-hook
-setopt prompt_subst # PROMPT変数内で変数参照する
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{blue}%c%u[%b]%f"
-zstyle ':vcs_info:*' actionformats '[%b|%a]'
-function _update_vcs_info()
-{
-  vcs_info
-}
-add-zsh-hook precmd _update_vcs_info
-local prompt_username
-# sshログイン時に ユーザ名@ホスト名 を表示
-[[ "$SSH_CONNECTION" != '' ]] && prompt_username="%F{green}%n@%m%f:"
-# root時に ユーザ名@ホスト名 を表示
-[[ $UID -eq 0 ]] && prompt_username="%F{green}%n@%m%f:"
-# prompt_subst は，シングルクォートで囲まれている場合のみ変数展開する
-# %(!.#.$) は，Conditional Substitution
-PROMPT="${prompt_username}%F{cyan}%~%f"' ${vcs_info_msg_0_}'"
-%(!.#.$) "
-
 
 # history search
 bindkey '^P' history-beginning-search-backward
