@@ -181,6 +181,8 @@ endfunction
 let g:ctrlp_open_func = {
 \ 'files': 'Ctrlp_open_handler',
 \ }
+let g:ctrlp_bufname_mod = ':~:.'
+let g:ctrlp_bufpath_mod = ''
 let g:ctrlp_switch_buffer = 'ET'
 let g:ctrlp_match_window = 'results:50'
 let g:ctrlp_open_new_file = 'r'
