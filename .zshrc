@@ -79,7 +79,7 @@ setopt prompt_subst # PROMPT変数内で変数参照する
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{blue}%c%u[%b]%f"
+zstyle ':vcs_info:*' formats "%F{cyan}%c%u%b%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 function _update_vcs_info()
 {
@@ -93,7 +93,7 @@ local prompt_username
 [[ $UID -eq 0 ]] && prompt_username="%F{green}%n@%m%f:"
 # prompt_subst は，シングルクォートで囲まれている場合のみ変数展開する
 # %(!.#.$) は，Conditional Substitution
-PROMPT="${prompt_username}%F{cyan}%~%f"' ${vcs_info_msg_0_}'"
+PROMPT="${prompt_username}%F{blue}%~%f"' ${vcs_info_msg_0_}'"
 %(!.#.$) "
 
 
