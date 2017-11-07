@@ -75,7 +75,8 @@ setopt auto_pushd pushdminus pushdignoredups
 # プロンプト
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
-setopt prompt_subst # PROMPT変数内で変数参照する
+# PROMPT変数内で変数参照する
+setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
 zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
