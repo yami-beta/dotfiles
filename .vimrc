@@ -511,7 +511,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
 vmap , <Plug>(EasyAlign)
 
-nmap <silent> <Leader>r <Plug>(operator-replace)
+nmap <silent> s <Plug>(operator-replace)
 
 nnoremap <silent> <Space>d :<C-u>Vaffle<CR>
 
