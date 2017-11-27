@@ -126,6 +126,7 @@ call plug#begin('~/.vim/plug')
 Plug '~/dev/src/github.com/yami-beta/vim-blt'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
+let g:asyncomplete_remove_duplicates = 1
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'runoshun/tscompletejob'
 let g:tscompletejob_mappings_disable_default = 1
@@ -134,13 +135,6 @@ Plug 'yami-beta/asyncomplete-omni.vim'
 Plug 'prabirshrestha/asyncomplete-emoji.vim'
 
 function! s:asyncomplete_on_post_source() abort
-  call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-  \ 'name': 'buffer',
-  \ 'whitelist': ['*'],
-  \ 'blacklist': ['go'],
-  \ 'completor': function('asyncomplete#sources#buffer#completor'),
-  \ }))
-
   call asyncomplete#register_source(asyncomplete#sources#tscompletejob#get_source_options({
   \ 'name': 'tscompletejob',
   \ 'whitelist': ['typescript'],
@@ -158,6 +152,13 @@ function! s:asyncomplete_on_post_source() abort
   \ 'name': 'emoji',
   \ 'whitelist': ['markdown', 'git'],
   \ 'completor': function('asyncomplete#sources#emoji#completor'),
+  \ }))
+
+  call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+  \ 'name': 'buffer',
+  \ 'whitelist': ['*'],
+  \ 'blacklist': ['go'],
+  \ 'completor': function('asyncomplete#sources#buffer#completor'),
   \ }))
 endfunction
 autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
