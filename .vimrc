@@ -333,11 +333,15 @@ Plug 'rhysd/vim-textobj-ruby'
 Plug 'kana/vim-textobj-indent'
 
 Plug 'w0rp/ale'
-let g:ale_fixers = {
-  \ 'javascript': ['prettier']
-  \ }
-let g:ale_fix_on_save = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
 let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\ 'javascript': ['prettier'],
+\ 'scss': ['prettier'],
+\ }
 
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
