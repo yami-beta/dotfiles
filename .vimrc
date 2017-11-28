@@ -383,7 +383,6 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
 
 " 検索・置換を便利にする
-Plug 'haya14busa/is.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'osyo-manga/vim-anzu'
 Plug 'osyo-manga/vim-over'
@@ -531,15 +530,15 @@ autocmd vimrc QuickFixCmdPost *grep* CtrlPQuickfix | wincmd w | wincmd w
 
 nnoremap <silent> <Space>o :<C-u>Unite outline -direction=botright -vertical -winwidth=40<CR>
 
-nmap <C-k> <Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)<Plug>(is-nohl-1)
-vmap <C-k> <Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)<Plug>(is-nohl-1)
+nmap <C-k> <Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
+vmap <C-k> <Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
 
-nmap n <Plug>(is-nohl)<Plug>(anzu-n-with-echo)
-nmap N <Plug>(is-nohl)<Plug>(anzu-N-with-echo)
-map *  <Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)<Plug>(is-nohl-1)
-map g* <Plug>(asterisk-gz*)<Plug>(anzu-update-search-status-with-echo)<Plug>(is-nohl-1)
-map #  <Plug>(asterisk-z#)<Plug>(is-nohl-1)
-map g# <Plug>(asterisk-gz#)<Plug>(is-nohl-1)
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+map *  <Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
+map g* <Plug>(asterisk-gz*)<Plug>(anzu-update-search-status-with-echo)
+map #  <Plug>(asterisk-z#)
+map g# <Plug>(asterisk-gz#)
 
 nnoremap <silent> <Space>m :OverCommandLine %s/\v<CR>
 vnoremap <silent> <Space>m :OverCommandLine s/\v<CR>
