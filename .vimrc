@@ -384,7 +384,7 @@ Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 " Plug 'lervag/vimtex'
 
-Plug 'evanmiller/nginx-vim-syntax', { 'for': 'nginx' }
+Plug 'lambdalisue/gina.vim'
 
 " 検索・置換を便利にする
 Plug 'haya14busa/vim-asterisk'
