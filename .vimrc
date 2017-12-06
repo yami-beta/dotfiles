@@ -374,6 +374,7 @@ let g:user_emmet_settings = {
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 let g:vim_markdown_folding_disabled=1
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'chr4/nginx.vim', { 'for': 'nginx' }
 
 " Plug 'kannokanno/previm'
 " if s:is_mac
