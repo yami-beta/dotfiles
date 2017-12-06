@@ -349,6 +349,7 @@ let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
+let g:go_fmt_command = "goimports"
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 " Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
