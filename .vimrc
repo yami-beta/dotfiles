@@ -619,7 +619,7 @@ autocmd vimrc FileType text setlocal textwidth=0
 " 折り畳み
 " --------------------------------
 setglobal nofoldenable
-setglobal foldmethod=indent
+setglobal foldmethod=manual
 
 set foldtext=MyFoldText()
 function! MyFoldText()
