@@ -264,23 +264,41 @@ Plug 'yami-beta/vim-colors-ruri'
 " Plug 'ap/vim-buftabline'
 
 Plug 'yami-beta/vim-responsive-tabline'
+function! s:map_bufnr_to_filename(_, bufnr)
+  let buffername = expand(bufname(a:bufnr))
+  if buffername ==# ''
+    let filename = '[No Name]'
+  else
+    let filename = fnamemodify(buffername, ":~:t")
+  endif
+  return { 'bufnr': a:bufnr, 'name': a:bufnr.' '.filename }
+endfunction
+
+function! s:show_buffers_to_tabline()
+  let blt_tabs = get(g:, 'blt_tabs', [])
+  let filenames = map(copy(blt_tabs), function('s:map_bufnr_to_filename'))
+  return map(copy(filenames), '{ "active": v:val.bufnr == bufnr("%"), "name": v:val.name }')
+endfunction
+
+" let g:Responsive_tabline_custom_label_func = function('s:show_buffers_to_tabline')
+
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
-      \ 'colorscheme': 'yuzu',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ]
-      \ },
-      \ 'component_function': {
-      \   'filename': 'LightLineFilename',
-      \   'fileformat': 'LightLineFileformat',
-      \   'filetype': 'LightLineFiletype',
-      \   'fileencoding': 'LightLineFileencoding',
-      \   'mode': 'LightLineMode'
-      \ },
-      \ 'enable': { 'tabline': 0 },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
-      \ }
+\ 'colorscheme': 'yuzu',
+\ 'active': {
+\   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ]
+\ },
+\ 'component_function': {
+\   'filename': 'LightLineFilename',
+\   'fileformat': 'LightLineFileformat',
+\   'filetype': 'LightLineFiletype',
+\   'fileencoding': 'LightLineFileencoding',
+\   'mode': 'LightLineMode'
+\ },
+\ 'enable': { 'tabline': 0 },
+\ 'separator': { 'left': '', 'right': '' },
+\ 'subseparator': { 'left': '', 'right': '' }
+\ }
 
 function! LightLineModified()
   return &ft =~ 'help\|vimfiler' ? '' : &modified ? '+' : &modifiable ? '' : '-'
