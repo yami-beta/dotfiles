@@ -150,7 +150,7 @@ function! s:asyncomplete_on_post_source() abort
 
   call asyncomplete#register_source(asyncomplete#sources#emoji#get_source_options({
   \ 'name': 'emoji',
-  \ 'whitelist': ['markdown', 'git'],
+  \ 'whitelist': ['markdown', 'gitcommit'],
   \ 'completor': function('asyncomplete#sources#emoji#completor'),
   \ }))
 
@@ -352,7 +352,6 @@ Plug 'rhysd/vim-textobj-ruby'
 Plug 'kana/vim-textobj-indent'
 
 Plug 'w0rp/ale'
-let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_javascript_prettier_use_local_config = 1
@@ -370,13 +369,17 @@ let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_fmt_command = "goimports"
+
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-" Plug 'MaxMEllon/vim-jsx-pretty', { 'for': 'javascript' }
-Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx', { 'for': ['javascript', 'typescript'] }
 let g:jsx_ext_required = 0
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'peitalin/vim-jsx-typescript', { 'for': 'typescript' }
+
+Plug 'hail2u/vim-css3-syntax'
+" Plug 'styled-components/vim-styled-components'
+
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
-Plug 'wavded/vim-stylus', { 'for': 'stylus' }
 Plug 'mattn/emmet-vim'
 let g:user_emmet_leader_key = '<C-g>'
 let g:user_emmet_settings = {
@@ -387,6 +390,9 @@ let g:user_emmet_settings = {
       \     'extends': 'jsx',
       \   },
       \   'typescript': {
+      \     'extends': 'jsx',
+      \   },
+      \   'typescript.jsx': {
       \     'extends': 'jsx',
       \   },
       \   'variables': {
@@ -593,7 +599,6 @@ augroup vimrc_filetype
   autocmd FileType tex        setlocal formatexpr=""
   autocmd FileType tex        let &formatprg="pandoc --from=markdown --to=latex --top-level-division=chapter"
   autocmd FileType go         setlocal noexpandtab tabstop=4 shiftwidth=4
-  autocmd FileType stylus     setlocal omnifunc=csscomplete#CompleteCSS
 augroup END
 
 let g:vim_indent_cont = 0
