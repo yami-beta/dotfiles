@@ -127,24 +127,27 @@ Plug '~/dev/src/github.com/yami-beta/vim-blt'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 let g:asyncomplete_remove_duplicates = 1
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+if executable('javascript-typescript-stdio')
+  autocmd vimrc User lsp_setup call lsp#register_server({
+  \ 'name': 'javascript-typescript-langserver',
+  \ 'cmd': { server_info->[&shell, &shellcmdflag, 'javascript-typescript-stdio'] },
+  \ 'whitelist': ['typescript', 'typescript.jsx', 'javascript', 'javascript.jsx']
+  \ })
+endif
+Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'runoshun/tscompletejob'
 let g:tscompletejob_mappings_disable_default = 1
-Plug 'prabirshrestha/asyncomplete-tscompletejob.vim'
 Plug 'yami-beta/asyncomplete-omni.vim'
 Plug 'prabirshrestha/asyncomplete-emoji.vim'
 
 function! s:asyncomplete_on_post_source() abort
-  call asyncomplete#register_source(asyncomplete#sources#tscompletejob#get_source_options({
-  \ 'name': 'tscompletejob',
-  \ 'whitelist': ['typescript'],
-  \ 'completor': function('asyncomplete#sources#tscompletejob#completor'),
-  \ }))
-
   call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
   \ 'name': 'omni',
   \ 'whitelist': ['*'],
-  \ 'blacklist': ['sql'],
+  \ 'blacklist': ['sql', 'ruby'],
   \ 'completor': function('asyncomplete#sources#omni#completor')
   \  }))
 
@@ -152,6 +155,12 @@ function! s:asyncomplete_on_post_source() abort
   \ 'name': 'emoji',
   \ 'whitelist': ['markdown', 'gitcommit'],
   \ 'completor': function('asyncomplete#sources#emoji#completor'),
+  \ }))
+
+  call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+  \ 'name': 'file',
+  \ 'whitelist': ['*'],
+  \ 'completor': function('asyncomplete#sources#file#completor')
   \ }))
 
   call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
@@ -362,7 +371,6 @@ let g:ale_fixers = {
 \ 'scss': ['prettier'],
 \ }
 
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install', 'for': 'javascript' }
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
