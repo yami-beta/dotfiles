@@ -182,9 +182,9 @@ Plug 'Shougo/neopairs.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 function! Ctrlp_open_handler(action, line)
   let action = a:action
-  let alternate_bufnr = winbufnr(winnr('#'))
-  let altername_bufname = getbufinfo(alternate_bufnr)[0].name
-  if altername_bufname ==# '' && action == 't'
+  let alt_bufnr = winbufnr(winnr('#'))
+  let alt_bufname = getbufinfo(alt_bufnr)[0].name
+  if alt_bufname ==# '' && action == 't'
     let action = 'e'
   endif
   call ctrlp#acceptfile(action, a:line)
