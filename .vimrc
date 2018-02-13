@@ -180,6 +180,7 @@ Plug 'Shougo/neopairs.vim'
 " autocmd vimrc FileType gitcommit setl omnifunc=github_complete#complete
 
 Plug 'ctrlpvim/ctrlp.vim'
+" Open in current window if current window has no file
 function! Ctrlp_open_handler(action, line)
   let action = a:action
   let alt_bufnr = winbufnr(winnr('#'))
@@ -192,27 +193,14 @@ endfunction
 let g:ctrlp_open_func = {
 \ 'files': 'Ctrlp_open_handler',
 \ }
-let g:ctrlp_bufname_mod = ':~:.'
-let g:ctrlp_bufpath_mod = ''
 let g:ctrlp_switch_buffer = 'ET'
-let g:ctrlp_match_window = 'results:50'
+let g:ctrlp_match_window = 'order:ttb,results:50'
 let g:ctrlp_open_new_file = 'r'
 " <F7>での削除を Ctrl + d に変更
 let g:ctrlp_prompt_mappings = {
-    \ 'PrtDeleteEnt()':       ['<c-d>', '<F7>'],
-    \ 'ToggleByFname()':      ['<c-s>'],
-    \ }
-" 詳細: https://github.com/ctrlpvim/ctrlp.vim/issues/196
-let g:ctrlp_abbrev = {
-      \   'gmode': 'i',
-      \   'abbrevs': [
-      \     {
-      \       'pattern': '\(^@.\+\|\\\@<!:.\+\)\@<! ',
-      \       'expanded': '',
-      \       'mode': 'pfrz',
-      \     },
-      \   ]
-      \ }
+\ 'PrtDeleteEnt()':       ['<c-d>', '<F7>'],
+\ 'ToggleByFname()':      ['<c-s>'],
+\ }
 " 詳細: http://leafcage.hateblo.jp/entry/2013/09/26/234707
 autocmd vimrc CursorMoved ControlP let w:lightline = 0
 
@@ -451,15 +439,6 @@ function! s:lexima_on_post_source() abort
   \ : lexima#expand('<LT>CR>', 'i')
 endfunction
 autocmd vimrc User plug_on_load call s:lexima_on_post_source()
-
-Plug 'thinca/vim-quickrun'
-let g:quickrun_config = {
-      \ "_": {
-      \   "outputter/buffer/split" : ":botright",
-      \   "outputter/buffer/close_on_empty" : 1,
-      \   "runner": "job",
-      \ },
-      \ }
 
 " 最後に読み込む必要あり
 Plug 'ryanoasis/vim-devicons'
