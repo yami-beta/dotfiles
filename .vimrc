@@ -367,7 +367,7 @@ let g:go_highlight_methods = 1
 let g:go_fmt_command = "goimports"
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'typescript'] }
+Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
 let g:jsx_ext_required = 0
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'peitalin/vim-jsx-typescript', { 'for': 'typescript' }
