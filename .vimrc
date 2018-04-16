@@ -293,8 +293,6 @@ let g:lightline = {
 \   'mode': 'LightLineMode'
 \ },
 \ 'enable': { 'tabline': 0 },
-\ 'separator': { 'left': '', 'right': '' },
-\ 'subseparator': { 'left': '', 'right': '' }
 \ }
 
 function! LightLineModified()
