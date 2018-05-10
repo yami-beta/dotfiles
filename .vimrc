@@ -174,7 +174,27 @@ endfunction
 autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
 
 " 補完候補の括弧・クオートを補完する
-Plug 'Shougo/neopairs.vim'
+" Plug 'Shougo/neopairs.vim'
+
+function! s:complete_done_hendler(item) abort
+  if !exists('a:item') || empty(a:item)
+    return
+  endif
+
+  let word = a:item.word
+  let pos = getpos('.')
+  let cursor_pos = pos[2] - 1
+  let complete_start_pos = cursor_pos - len(word)
+
+  let lastchar = word[len(word)-1]
+  if lastchar ==# '('
+    let line = getline('.')
+    let pre_text = line[0:complete_start_pos - 1]
+    let suf_text = line[cursor_pos:]
+    call setline('.', pre_text.word.')'.suf_text)
+  endif
+endfunction
+autocmd vimrc CompleteDone * call s:complete_done_hendler(v:completed_item)
 
 " Plug 'rhysd/github-complete.vim'
 " autocmd vimrc FileType gitcommit setl omnifunc=github_complete#complete
