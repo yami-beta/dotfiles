@@ -390,28 +390,41 @@ Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'typescript'] }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
 Plug 'hail2u/vim-css3-syntax'
-" Plug 'styled-components/vim-styled-components'
+Plug 'styled-components/vim-styled-components'
 
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'mattn/emmet-vim'
 let g:user_emmet_leader_key = '<C-g>'
 let g:user_emmet_settings = {
-      \   'javascript': {
-      \     'extends': 'jsx',
-      \   },
-      \   'javascript.jsx': {
-      \     'extends': 'jsx',
-      \   },
-      \   'typescript': {
-      \     'extends': 'jsx',
-      \   },
-      \   'typescript.jsx': {
-      \     'extends': 'jsx',
-      \   },
-      \   'variables': {
-      \     'lang': 'ja'
-      \   }
-      \ }
+\   'html': {
+\     'snippets': {
+\       'html:5': "<!DOCTYPE html>\n"
+\                ."<html lang=\"${lang}\">\n"
+\                ."<head>\n"
+\                ."\t<meta charset=\"${charset}\">\n"
+\                ."\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n"
+\                ."\t<title></title>\n"
+\                ."</head>\n"
+\                ."<body>\n\t${child}|\n</body>\n"
+\                ."</html>",
+\     },
+\   },
+\   'javascript': {
+\     'extends': 'jsx',
+\   },
+\   'javascript.jsx': {
+\     'extends': 'jsx',
+\   },
+\   'typescript': {
+\     'extends': 'jsx',
+\   },
+\   'typescript.jsx': {
+\     'extends': 'jsx',
+\   },
+\   'variables': {
+\     'lang': 'ja',
+\   }
+\ }
 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 let g:vim_markdown_folding_disabled=1
