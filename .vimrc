@@ -352,7 +352,7 @@ Plug 'w0rp/ale'
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
-let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_markdown_prettier_use_global = 1
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \ 'javascript': ['eslint'],
@@ -482,8 +482,8 @@ noremap <Up>   gk
 noremap <C-a> ^
 noremap <C-e> $
 
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
+" inoremap <C-j> <Down>
+" inoremap <C-k> <Up>
 inoremap <C-b> <C-g>U<Left>
 " inoremap <C-l> <C-g>U<Right>
 " lexima.vimによって自動入力された括弧・引用符内にいる場合は，lexima.vimのleaveで右移動
@@ -594,10 +594,10 @@ setglobal softtabstop=-1  " Tab キー押下時に挿入される空白の量(�
 " --------------------------------
 augroup vimrc_filetype
   autocmd!
-  autocmd FileType markdown   setlocal tabstop=4 shiftwidth=4
-  autocmd FileType tex        setlocal formatexpr=""
-  autocmd FileType tex        let &formatprg="pandoc --from=markdown --to=latex --top-level-division=chapter"
-  autocmd FileType go         setlocal noexpandtab tabstop=4 shiftwidth=4
+  autocmd FileType markdown,gitcommit setlocal tabstop=4 shiftwidth=4
+  autocmd FileType tex setlocal formatexpr=""
+  autocmd FileType tex let &formatprg="pandoc --from=markdown --to=latex --top-level-division=chapter"
+  autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
 augroup END
 
 let g:vim_indent_cont = 0
