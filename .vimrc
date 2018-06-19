@@ -198,6 +198,8 @@ autocmd vimrc CompleteDone * call s:complete_done_hendler(v:completed_item)
 " Plug 'rhysd/github-complete.vim'
 " autocmd vimrc FileType gitcommit setl omnifunc=github_complete#complete
 
+Plug '~/.fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 " Open in current window if current window has no file
 function! Ctrlp_open_handler(action, line)
