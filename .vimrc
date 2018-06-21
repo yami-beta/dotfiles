@@ -123,7 +123,6 @@ endif
 " --------------------------------
 call plug#begin('~/.vim/plug')
 
-Plug '~/dev/src/github.com/yami-beta/vim-blt'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 let g:asyncomplete_remove_duplicates = 1
@@ -199,6 +198,8 @@ autocmd vimrc CompleteDone * call s:complete_done_hendler(v:completed_item)
 " Plug 'rhysd/github-complete.vim'
 " autocmd vimrc FileType gitcommit setl omnifunc=github_complete#complete
 
+Plug '~/.fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 " Open in current window if current window has no file
 function! Ctrlp_open_handler(action, line)
@@ -281,23 +282,6 @@ Plug 'yami-beta/vim-colors-ruri'
 " Plug 'ap/vim-buftabline'
 
 Plug 'yami-beta/vim-responsive-tabline'
-function! s:map_bufnr_to_filename(_, bufnr)
-  let buffername = expand(bufname(a:bufnr))
-  if buffername ==# ''
-    let filename = '[No Name]'
-  else
-    let filename = fnamemodify(buffername, ":~:t")
-  endif
-  return { 'bufnr': a:bufnr, 'name': a:bufnr.' '.filename }
-endfunction
-
-function! s:show_buffers_to_tabline()
-  let blt_tabs = get(g:, 'blt_tabs', [])
-  let filenames = map(copy(blt_tabs), function('s:map_bufnr_to_filename'))
-  return map(copy(filenames), '{ "active": v:val.bufnr == bufnr("%"), "name": v:val.name }')
-endfunction
-
-" let g:Responsive_tabline_custom_label_func = function('s:show_buffers_to_tabline')
 
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
@@ -370,7 +354,7 @@ Plug 'w0rp/ale'
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
-let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_markdown_prettier_use_global = 1
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \ 'javascript': ['eslint'],
@@ -500,8 +484,8 @@ noremap <Up>   gk
 noremap <C-a> ^
 noremap <C-e> $
 
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
+" inoremap <C-j> <Down>
+" inoremap <C-k> <Up>
 inoremap <C-b> <C-g>U<Left>
 " inoremap <C-l> <C-g>U<Right>
 " lexima.vimによって自動入力された括弧・引用符内にいる場合は，lexima.vimのleaveで右移動
@@ -612,10 +596,10 @@ setglobal softtabstop=-1  " Tab キー押下時に挿入される空白の量(�
 " --------------------------------
 augroup vimrc_filetype
   autocmd!
-  autocmd FileType markdown   setlocal tabstop=4 shiftwidth=4
-  autocmd FileType tex        setlocal formatexpr=""
-  autocmd FileType tex        let &formatprg="pandoc --from=markdown --to=latex --top-level-division=chapter"
-  autocmd FileType go         setlocal noexpandtab tabstop=4 shiftwidth=4
+  autocmd FileType markdown,gitcommit setlocal tabstop=4 shiftwidth=4
+  autocmd FileType tex setlocal formatexpr=""
+  autocmd FileType tex let &formatprg="pandoc --from=markdown --to=latex --top-level-division=chapter"
+  autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
 augroup END
 
 let g:vim_indent_cont = 0
