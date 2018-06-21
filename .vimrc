@@ -591,6 +591,15 @@ setglobal tabstop=2       " タブ幅
 setglobal shiftwidth=2    " インデントの幅
 setglobal softtabstop=-1  " Tab キー押下時に挿入される空白の量(マイナスでshiftwidthと同じ)
 
+" システムvimrcでインデント設定が`set`で行われている場合があるため
+" Vim起動時のみグローバル値に設定し直し
+if has("vim_starting")
+  set expandtab<
+  set tabstop<
+  set shiftwidth<
+  set softtabstop<
+endif
+
 " --------------------------------
 " ファイル別設定
 " --------------------------------
