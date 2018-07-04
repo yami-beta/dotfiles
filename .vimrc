@@ -361,6 +361,7 @@ let g:ale_fixers = {
 \ 'javascript': ['eslint'],
 \ 'typescript': ['eslint'],
 \ 'scss': ['prettier'],
+\ 'ruby': ['rubocop']
 \ }
 
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
