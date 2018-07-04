@@ -376,7 +376,7 @@ Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'typescript'] }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
 Plug 'hail2u/vim-css3-syntax'
-Plug 'styled-components/vim-styled-components'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'mattn/emmet-vim'
