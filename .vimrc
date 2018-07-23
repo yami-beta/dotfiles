@@ -172,7 +172,7 @@ function! s:asyncomplete_on_post_source() abort
 endfunction
 autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
 
-" 補完候補の括弧・クオートを補完する
+" 補完候補の括弧、クオートを補完する
 " Plug 'Shougo/neopairs.vim'
 
 function! s:complete_done_hendler(item) abort
@@ -200,6 +200,14 @@ autocmd vimrc CompleteDone * call s:complete_done_hendler(v:completed_item)
 
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+Plug 'yami-beta/fzf-session.vim'
+
 Plug 'ctrlpvim/ctrlp.vim'
 " Open in current window if current window has no file
 function! Ctrlp_open_handler(action, line)
@@ -237,9 +245,6 @@ elseif executable('ag')
 endif
 
 Plug 'yami-beta/ctrlp-explorer'
-Plug 'yami-beta/ctrlp-session'
-Plug 'yami-beta/ctrlp-tabpage'
-" Plug 'tacahiroy/ctrlp-funky'
 
 Plug 'Shougo/unite.vim'
 let g:unite_force_overwrite_statusline = 0
@@ -554,12 +559,13 @@ nmap <silent> s <Plug>(operator-replace)
 
 nnoremap <silent> <Space>d :<C-u>Vaffle<CR>
 
+nnoremap <silent> <Space>b :<C-u>Buffers<CR>
+nnoremap <silent> <Space>w :<C-u>Windows<CR>
+nnoremap <silent> <Space>s :<C-u>FZFSession<CR>
+
 nnoremap <silent> <Space>e :<C-u>CtrlPExplorer<CR>
 nnoremap <silent> <Space>f :<C-u>CtrlPExplorerWithBufDir<CR>
 nnoremap <silent> <Space>r :<C-u>CtrlPMRUFiles<CR>
-nnoremap <silent> <Space>s :<C-u>CtrlPSession<CR>
-nnoremap <silent> <Space>b :<C-u>CtrlPBuffer<CR>
-nnoremap <silent> <Space>t :<C-u>CtrlPTabpage<CR>
 nnoremap <Space>g :<C-u>grep! 
 nnoremap <Space>ag :<C-u>AllGrep 
 nnoremap <Space>G :<C-u>CtrlPQuickfix<CR>
