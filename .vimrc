@@ -278,7 +278,7 @@ autocmd vimrc User plug_on_load call s:unite_on_source()
 
 Plug 'Shougo/unite-outline'
 
-Plug 'cocopon/vaffle.vim'
+Plug 'scrooloose/nerdtree'
 
 " 見た目
 Plug 'flazz/vim-colorschemes'
@@ -557,7 +557,7 @@ vmap , <Plug>(EasyAlign)
 
 nmap <silent> s <Plug>(operator-replace)
 
-nnoremap <silent> <Space>d :<C-u>Vaffle<CR>
+nnoremap <silent> <Space>d :<C-u>NERDTreeFocus<CR>
 
 nnoremap <silent> <Space>b :<C-u>Buffers<CR>
 nnoremap <silent> <Space>w :<C-u>Windows<CR>
