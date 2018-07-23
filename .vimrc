@@ -279,13 +279,14 @@ Plug 'cocopon/vaffle.vim'
 Plug 'flazz/vim-colorschemes'
 Plug 'yami-beta/vim-colors-yuzu'
 Plug 'yami-beta/vim-colors-ruri'
+Plug 'yami-beta/vim-colors-million'
 " Plug 'ap/vim-buftabline'
 
 Plug 'yami-beta/vim-responsive-tabline'
 
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
-\ 'colorscheme': 'yuzu',
+\ 'colorscheme': 'million',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ]
 \ },
