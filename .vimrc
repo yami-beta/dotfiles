@@ -206,6 +206,7 @@ command! -bang -nargs=* Rg
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+command! -bang FZFRelative call fzf#vim#files(expand('%:p:h'), <bang>0)
 Plug 'yami-beta/fzf-session.vim'
 
 Plug 'ctrlpvim/ctrlp.vim'
@@ -423,13 +424,6 @@ let g:vim_markdown_folding_disabled=1
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'chr4/nginx.vim', { 'for': 'nginx' }
 
-" Plug 'kannokanno/previm'
-" if s:is_mac
-"   let g:previm_open_cmd = 'open -a Google\ Chrome'
-" elseif s:is_windows
-"   let g:previm_open_cmd = 'C:/Program\ Files\ (x86)/Google/Chrome/Application/chrome.exe'
-" endif
-
 Plug 'elzr/vim-json', { 'for': 'json' }
 " Plug 'lervag/vimtex'
 
@@ -559,19 +553,11 @@ nmap <silent> s <Plug>(operator-replace)
 
 nnoremap <silent> <Space>d :<C-u>NERDTreeFocus<CR>
 
+nnoremap <silent> <Space>f :<C-u>Files<CR>
+nnoremap <silent> <Space>r :<C-u>FZFRelative<CR>
 nnoremap <silent> <Space>b :<C-u>Buffers<CR>
 nnoremap <silent> <Space>w :<C-u>Windows<CR>
 nnoremap <silent> <Space>s :<C-u>FZFSession<CR>
-
-nnoremap <silent> <Space>e :<C-u>CtrlPExplorer<CR>
-nnoremap <silent> <Space>f :<C-u>CtrlPExplorerWithBufDir<CR>
-nnoremap <silent> <Space>r :<C-u>CtrlPMRUFiles<CR>
-nnoremap <Space>g :<C-u>grep! 
-nnoremap <Space>ag :<C-u>AllGrep 
-nnoremap <Space>G :<C-u>CtrlPQuickfix<CR>
-" :grep 時にCtrlPQuickfixを自動で開き移動する
-autocmd vimrc QuickFixCmdPost *grep* CtrlPQuickfix | wincmd w | wincmd w
-
 
 nnoremap <silent> <Space>o :<C-u>Unite outline -direction=botright -vertical -winwidth=40<CR>
 
