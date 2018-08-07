@@ -365,8 +365,8 @@ let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_markdown_prettier_use_global = 1
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
-\ 'javascript': ['eslint'],
-\ 'typescript': ['eslint'],
+\ 'javascript': ['eslint', 'prettier'],
+\ 'typescript': ['eslint', 'prettier'],
 \ 'scss': ['prettier'],
 \ 'ruby': ['rubocop']
 \ }
