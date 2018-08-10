@@ -551,7 +551,8 @@ vmap , <Plug>(EasyAlign)
 
 nmap <silent> s <Plug>(operator-replace)
 
-nnoremap <silent> <Space>d :<C-u>NERDTreeFocus<CR>
+nnoremap <silent> <Space>e :<C-u>NERDTreeFocus<CR>
+nnoremap <silent> <Space>d :<C-u>NERDTreeFind<CR>
 
 nnoremap <silent> <Space>f :<C-u>Files<CR>
 nnoremap <silent> <Space>r :<C-u>FZFRelative<CR>
