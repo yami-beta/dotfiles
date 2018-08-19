@@ -227,6 +227,7 @@ function fzf_tmux_session() {
 }
 
 # tmux
+alias tmux='tmux -u'
 alias tn='tmux new -s $(basename $(pwd) | awk "{ gsub(/\./, \"_\", \$0); print \$0 }")'
 alias ta='fzf_tmux_session'
 
