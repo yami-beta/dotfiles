@@ -126,6 +126,7 @@ call plug#begin('~/.vim/plug')
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 let g:asyncomplete_remove_duplicates = 1
+let g:asyncomplete_smart_completion = 0
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 if executable('javascript-typescript-stdio')
