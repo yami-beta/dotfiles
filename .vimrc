@@ -372,7 +372,7 @@ let g:ale_fixers = {
 \ 'ruby': ['rubocop']
 \ }
 
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
