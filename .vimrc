@@ -496,7 +496,7 @@ inoremap <C-b> <C-g>U<Left>
 " 以下のような，閉じ括弧を入力した際に括弧を抜ける挙動を<C-l>で実現する
 "   before      input        after
 "    (|)          )           ()|
-inoremap <C-f> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
+inoremap <silent><C-f> <C-r>=lexima#insmode#leave(1, '<LT>C-G>U<LT>RIGHT>')<CR>
 inoremap <Left>  <C-G>U<Left>
 inoremap <Right> <C-G>U<Right>
 
