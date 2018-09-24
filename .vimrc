@@ -126,6 +126,7 @@ call plug#begin('~/.vim/plug')
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 let g:asyncomplete_remove_duplicates = 1
+let g:asyncomplete_smart_completion = 0
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 if executable('javascript-typescript-stdio')
@@ -371,7 +372,7 @@ let g:ale_fixers = {
 \ 'ruby': ['rubocop']
 \ }
 
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
