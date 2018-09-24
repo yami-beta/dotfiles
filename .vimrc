@@ -286,14 +286,14 @@ Plug 'scrooloose/nerdtree'
 Plug 'flazz/vim-colorschemes'
 Plug 'yami-beta/vim-colors-yuzu'
 Plug 'yami-beta/vim-colors-ruri'
-Plug 'yami-beta/vim-colors-million'
+Plug 'yami-beta/vim-colors-nouvelle-tricolor'
 " Plug 'ap/vim-buftabline'
 
 Plug 'yami-beta/vim-responsive-tabline'
 
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
-\ 'colorscheme': 'million',
+\ 'colorscheme': 'nouvelle_tricolor',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ]
 \ },
@@ -641,7 +641,7 @@ if &term =~# '^screen'
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 setglobal background=dark
-colorscheme yuzu
+colorscheme nouvelle-tricolor
 autocmd vimrc VimEnter,WinEnter,ColorScheme * hi! link WhiteSpaceEOL Todo
 autocmd vimrc VimEnter,WinEnter * match WhiteSpaceEOL /\S*\zs\s\+\ze$/
 " ハイライト確認コマンド
