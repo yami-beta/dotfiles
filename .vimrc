@@ -136,6 +136,14 @@ if executable('javascript-typescript-stdio')
   \ 'whitelist': ['typescript', 'typescript.jsx', 'javascript', 'javascript.jsx']
   \ })
 endif
+if executable('solargraph')
+  autocmd vimrc User lsp_setup call lsp#register_server({
+  \ 'name': 'solargraph',
+  \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+  \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Gemfile'))},
+  \ 'whitelist': ['ruby', 'eruby'],
+  \ })
+endif
 Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'runoshun/tscompletejob'
