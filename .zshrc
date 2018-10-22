@@ -106,7 +106,6 @@ alias ll='ls -lha'
 alias la='ls -a'
 alias rm='rm -i'
 alias sshlocal='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
-alias tsukuba='tsukuba.sh'
 
 export PATH=~/bin:$PATH
 if type brew >/dev/null 2>&1; then
@@ -225,6 +224,9 @@ function fzf_tmux_session() {
     tmux attach -t $session;
   fi
 }
+
+# docker
+alias dc='docker-compose'
 
 # tmux
 alias tmux='tmux -u'
