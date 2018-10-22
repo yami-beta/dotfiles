@@ -146,10 +146,8 @@ if executable('solargraph')
 endif
 Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'runoshun/tscompletejob'
-let g:tscompletejob_mappings_disable_default = 1
-Plug 'yami-beta/asyncomplete-omni.vim'
 Plug 'prabirshrestha/asyncomplete-emoji.vim'
+Plug 'yami-beta/asyncomplete-omni.vim'
 
 function! s:asyncomplete_on_post_source() abort
   call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
