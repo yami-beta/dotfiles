@@ -207,12 +207,6 @@ autocmd vimrc CompleteDone * call s:complete_done_hendler(v:completed_item)
 
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
 command! -bang FZFRelative call fzf#vim#files(expand('%:p:h'), <bang>0)
 Plug 'yami-beta/fzf-session.vim'
 
