@@ -27,7 +27,7 @@ setglobal splitbelow
 setglobal lazyredraw                 " 高速化
 setglobal ttyfast                    " 高速化
 setglobal mouse=a                    " 全モードでマウスを有効化
-setglobal ttymouse=xterm2
+setglobal ttymouse=sgr               " マウスコードの設定
 setglobal shellslash                 " パス区切りをスラッシュにする
 setglobal formatoptions+=mM          " 整形オプションにマルチバイト系を追加
 setglobal clipboard+=unnamed         " クリップボードと無名レジスタを共有
