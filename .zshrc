@@ -254,6 +254,9 @@ export PATH="/usr/local/sbin:$PATH"
 
 alias be="bundle exec"
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
 # npm completion
 eval "$(npm completion 2>/dev/null)"
 
