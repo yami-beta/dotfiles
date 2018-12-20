@@ -123,6 +123,7 @@ endif
 " --------------------------------
 call plug#begin('~/.vim/plug')
 
+Plug 'vim-jp/vimdoc-ja'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 let g:asyncomplete_remove_duplicates = 1
