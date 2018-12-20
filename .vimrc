@@ -130,10 +130,11 @@ let g:asyncomplete_remove_duplicates = 1
 let g:asyncomplete_smart_completion = 0
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-if executable('javascript-typescript-stdio')
+if executable('typescript-language-server')
   autocmd vimrc User lsp_setup call lsp#register_server({
-  \ 'name': 'javascript-typescript-langserver',
-  \ 'cmd': { server_info->[&shell, &shellcmdflag, 'javascript-typescript-stdio'] },
+  \ 'name': 'typescript-language-server',
+  \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+  \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
   \ 'whitelist': ['typescript', 'typescript.jsx', 'javascript', 'javascript.jsx']
   \ })
 endif
