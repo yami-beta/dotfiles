@@ -123,14 +123,14 @@ function repo() {
       ghq_list=$(grep -E "($FZF_REPO_FILTER)" <<< "$ghq_list")
     fi
 
-    tmux_status=$(tmux ls 2>&1)
+    tmux_status=$(tmux ls -F '#{session_name}' 2>&1)
     if [[ "$tmux_status" =~ '^(no server running|error)' ]]; then
       # tmuxのsessionが存在しない場合はghq_listの先頭に改行を入れない
       # 改行を入れると空文字の候補になってしまうため
       tmux_sessions=""
     else
       # tmuxのsessionが存在する場合はghq_listの先頭に改行を入れて2つを結合できるようにする
-      tmux_sessions=$(echo $tmux_status | awk -F':' 'BEGIN{OFS="\t"} {print "[tmux]", $1}')
+      tmux_sessions=$(echo $tmux_status | awk 'BEGIN{OFS="\t"} {print "[tmux]", $0}')
       ghq_list="\n${ghq_list}"
     fi
 
@@ -152,7 +152,7 @@ function repo() {
         if [[ "$select_type" = "[tmux]" ]]; then
           tmux attach -t $select_value
         else
-          cd ${GOPATH}/src/${select_value}
+          cd $(ghq root)/${select_value}
         fi
       fi
       break
