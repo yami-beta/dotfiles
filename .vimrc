@@ -129,6 +129,7 @@ Plug 'prabirshrestha/asyncomplete.vim'
 let g:asyncomplete_remove_duplicates = 1
 let g:asyncomplete_smart_completion = 0
 Plug 'prabirshrestha/vim-lsp'
+let g:lsp_insert_text_enabled = 0
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 if executable('typescript-language-server')
   autocmd vimrc User lsp_setup call lsp#register_server({
