@@ -79,9 +79,6 @@ command! -nargs=? AllGrep call s:all_grep(<f-args>)
 " ウィンドウ移動時に変更チェック
 autocmd vimrc WinEnter,FocusGained * checktime
 
-" htmlタグ移動
-packadd matchit
-
 " https://github.com/Shougo/dein.vim/issues/107
 if isdirectory(expand('$HOME/.vim/pack/plugins/opt/vimtex'))
   packadd vimtex
@@ -352,6 +349,7 @@ endfunction
 Plug 'kana/vim-submode'
 Plug 'junegunn/vim-easy-align'
 Plug 'tyru/caw.vim'
+Plug 'andymass/vim-matchup' " matchit.vim の改善版
 
 Plug 'kana/vim-operator-user'
 Plug 'machakann/vim-sandwich'
