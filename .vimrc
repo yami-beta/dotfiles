@@ -79,11 +79,6 @@ command! -nargs=? AllGrep call s:all_grep(<f-args>)
 " ウィンドウ移動時に変更チェック
 autocmd vimrc WinEnter,FocusGained * checktime
 
-" https://github.com/Shougo/dein.vim/issues/107
-if isdirectory(expand('$HOME/.vim/pack/plugins/opt/vimtex'))
-  packadd vimtex
-endif
-
 " 自動pasteモード
 let &t_SI .= "\<Esc>[?2004h"
 let &t_EI .= "\<Esc>[?2004l"
@@ -209,76 +204,6 @@ Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 command! -bang FZFRelative call fzf#vim#files(expand('%:p:h'), <bang>0)
 Plug 'yami-beta/fzf-session.vim'
-
-Plug 'ctrlpvim/ctrlp.vim'
-" Open in current window if current window has no file
-function! Ctrlp_open_handler(action, line)
-  let action = a:action
-  let alt_bufnr = winbufnr(winnr('#'))
-  let alt_bufname = getbufinfo(alt_bufnr)[0].name
-  if alt_bufname ==# '' && action == 't'
-    let action = 'e'
-  endif
-  call ctrlp#acceptfile(action, a:line)
-endfunction
-let g:ctrlp_open_func = {
-\ 'files': 'Ctrlp_open_handler',
-\ }
-let g:ctrlp_switch_buffer = 'ET'
-let g:ctrlp_match_window = 'order:ttb,results:50'
-let g:ctrlp_open_new_file = 'r'
-" <F7>での削除を Ctrl + d に変更
-let g:ctrlp_prompt_mappings = {
-\ 'PrtDeleteEnt()':       ['<c-d>', '<F7>'],
-\ 'ToggleByFname()':      ['<c-s>'],
-\ }
-" 詳細: http://leafcage.hateblo.jp/entry/2013/09/26/234707
-autocmd vimrc CursorMoved ControlP let w:lightline = 0
-
-if executable('pt')
-  let g:ctrlp_use_caching = 0
-  let g:ctrlp_user_command = 'pt %s --nocolor --nogroup --follow --hidden -g .'
-elseif executable('rg')
-  let g:ctrlp_use_caching = 0
-  let g:ctrlp_user_command = 'rg %s --color never --no-heading --hidden --iglob "!.git/" --files'
-elseif executable('ag')
-  let g:ctrlp_use_caching=0
-  let g:ctrlp_user_command='ag %s -i --nocolor --nogroup -g ""'
-endif
-
-Plug 'yami-beta/ctrlp-explorer'
-
-Plug 'Shougo/unite.vim'
-let g:unite_force_overwrite_statusline = 0
-
-if executable('ag')
-  " Use ag (the silver searcher)
-  " https://github.com/ggreer/the_silver_searcher
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts =
-        \ '-i --vimgrep --hidden --ignore ' .
-        \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-  let g:unite_source_grep_recursive_opt = ''
-  let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
-endif
-
-function! s:unite_on_source() abort
-  autocmd vimrc FileType unite imap <buffer> <C-c> <Plug>(unite_insert_leave)<Plug>(unite_all_exit)
-  autocmd vimrc FileType unite nmap <buffer> <C-c> <Plug>(unite_all_exit)
-  autocmd vimrc FileType unite inoremap <buffer><expr><silent> <C-t> unite#do_action('tabswitch')
-  autocmd vimrc FileType unite nnoremap <buffer><expr><silent> t unite#do_action('tabswitch')
-
-  call unite#custom#profile('default', 'context', {
-        \   'start_insert': 1,
-        \   'winheight': 10,
-        \   'prompt': '» ',
-        \   'direction': 'botright',
-        \   'prompt_direction': 'top',
-        \ })
-endfunction
-autocmd vimrc User plug_on_load call s:unite_on_source()
-
-Plug 'Shougo/unite-outline'
 
 Plug 'scrooloose/nerdtree'
 
@@ -427,7 +352,6 @@ Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'chr4/nginx.vim', { 'for': 'nginx' }
 
 Plug 'elzr/vim-json', { 'for': 'json' }
-" Plug 'lervag/vimtex'
 
 Plug 'lambdalisue/gina.vim'
 
@@ -561,8 +485,6 @@ nnoremap <silent> <Space>r :<C-u>FZFRelative<CR>
 nnoremap <silent> <Space>b :<C-u>Buffers<CR>
 nnoremap <silent> <Space>w :<C-u>Windows<CR>
 nnoremap <silent> <Space>s :<C-u>FZFSession<CR>
-
-nnoremap <silent> <Space>o :<C-u>Unite outline -direction=botright -vertical -winwidth=40<CR>
 
 nmap <C-k> <Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
 vmap <C-k> <Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
