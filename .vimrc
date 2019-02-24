@@ -358,7 +358,7 @@ Plug 'lambdalisue/gina.vim'
 " 検索・置換を便利にする
 Plug 'haya14busa/vim-asterisk'
 Plug 'osyo-manga/vim-anzu'
-Plug 'osyo-manga/vim-over'
+Plug 'markonm/traces.vim'
 
 Plug 'cohama/lexima.vim'
 function! s:check_back_space() abort
