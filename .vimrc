@@ -139,7 +139,6 @@ if executable('solargraph')
   \ 'whitelist': ['ruby', 'eruby'],
   \ })
 endif
-Plug 'prabirshrestha/asyncomplete-file.vim'
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'prabirshrestha/asyncomplete-emoji.vim'
 Plug 'yami-beta/asyncomplete-omni.vim'
@@ -156,12 +155,6 @@ function! s:asyncomplete_on_post_source() abort
   \ 'name': 'emoji',
   \ 'whitelist': ['markdown', 'gitcommit'],
   \ 'completor': function('asyncomplete#sources#emoji#completor'),
-  \ }))
-
-  call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-  \ 'name': 'file',
-  \ 'whitelist': ['*'],
-  \ 'completor': function('asyncomplete#sources#file#completor')
   \ }))
 
   call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
