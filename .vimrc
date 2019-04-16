@@ -213,7 +213,8 @@ Plug 'itchyny/lightline.vim'
 let g:lightline = {
 \ 'colorscheme': 'nouvelle_tricolor',
 \ 'active': {
-\   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ]
+\   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ],
+\   'right': [ [ 'lineinfo' ], [ 'linter_warnings', 'linter_errors', 'linter_ok' ], [ 'fileformat', 'fileencoding', 'filetype' ] ]
 \ },
 \ 'component_function': {
 \   'filename': 'LightLineFilename',
@@ -221,6 +222,11 @@ let g:lightline = {
 \   'filetype': 'LightLineFiletype',
 \   'fileencoding': 'LightLineFileencoding',
 \   'mode': 'LightLineMode'
+\ },
+\ 'component_expand': {
+\   'linter_warnings': 'LightlineLinterWarnings',
+\   'linter_errors': 'LightlineLinterErrors',
+\   'linter_ok': 'LightlineLinterOK'
 \ },
 \ 'enable': { 'tabline': 0 },
 \ }
@@ -252,6 +258,27 @@ endfunction
 
 function! LightLineFileencoding()
   return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+endfunction
+
+function! LightlineLinterWarnings()
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
+endfunction
+
+function! LightlineLinterErrors()
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
+endfunction
+
+function! LightlineLinterOK()
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '✓ ' : ''
 endfunction
 
 function! LightLineMode()
