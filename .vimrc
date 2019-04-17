@@ -260,25 +260,55 @@ function! LightLineFileencoding()
   return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
 endfunction
 
+let s:ale_linting = 0
+function! s:update_ale_linting(val) abort
+  let s:ale_linting = a:val
+  call lightline#update()
+endfunction
+augroup LightLineOnALE
+  autocmd!
+  autocmd User ALEFixPre  call s:update_ale_linting(1)
+  autocmd User ALEFixPost call s:update_ale_linting(0)
+  autocmd User ALELintPre  call s:update_ale_linting(1)
+  autocmd User ALELintPost call s:update_ale_linting(0)
+augroup end
+
 function! LightlineLinterWarnings()
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
+  return s:lightline_ale_string('warn')
 endfunction
 
 function! LightlineLinterErrors()
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
+  return s:lightline_ale_string('error')
 endfunction
 
 function! LightlineLinterOK()
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '✓ ' : ''
+  return s:lightline_ale_string('ok')
+endfunction
+
+function! s:lightline_ale_string(mode)
+  if s:ale_linting
+    " ok のフィールドでのみ実行中アイコンを返す
+    return a:mode == 'ok' ? nr2char(0xf46a) : ''
+  endif
+
+  if a:mode == 'ok'
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? nr2char(0xf4a1) : ''
+  elseif a:mode == 'warn'
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? '' : all_non_errors . ' ' . nr2char(0xf420)
+  elseif a:mode == 'error'
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? '' : all_errors . ' ' . nr2char(0xf421)
+  else
+    return ''
+  endif
 endfunction
 
 function! LightLineMode()
@@ -307,7 +337,6 @@ Plug 'kana/vim-textobj-indent'
 Plug 'w0rp/ale'
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
 let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_markdown_prettier_use_global = 1
 let g:ale_fix_on_save = 1
