@@ -109,6 +109,12 @@ if s:is_mac
   let &t_EI .= WrapForTmux("\<Esc>]50;CursorShape=0\x7")
 endif
 
+" :terminal を現在のバッファのパスで開く
+function s:start_termianl_bufpath() abort
+  let l:cwd = expand('%:p:h')
+  call term_start(&shell, { 'cwd': l:cwd, 'term_finish': 'close' })
+endfunction
+command! TermCurBufPath call s:start_termianl_bufpath()
 
 " --------------------------------
 " プラグイン
@@ -482,6 +488,10 @@ inoremap <expr> <C-a> col('.') == match(getline('.'), '\S') + 1 ?
       \     repeat('<C-G>U<Right>', match(getline('.'), '\S') + 0) :
       \     repeat('<C-G>U<Left>', col('.') - 1 - match(getline('.'), '\S')))
 inoremap <expr> <C-e> repeat('<C-G>U<Right>', col('$') - col('.'))
+
+" :terminal
+nnoremap <Space>t :<C-u>TermCurBufPath<CR>
+nnoremap <Space><S-t> :<C-u>:terminal<CR>
 
 " タブ移動
 nnoremap <S-h> gT
