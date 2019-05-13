@@ -363,6 +363,7 @@ let g:go_fmt_command = "goimports"
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'typescript'] }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript'] }
 
 Plug 'hail2u/vim-css3-syntax'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
@@ -588,6 +589,7 @@ augroup vimrc_filetype
   autocmd FileType tex setlocal formatexpr=""
   autocmd FileType tex let &formatprg="pandoc --from=markdown --to=latex --top-level-division=chapter"
   autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
+  autocmd FileType typescript,javascript setlocal iskeyword+=@-@
 augroup END
 
 let g:vim_indent_cont = 0
