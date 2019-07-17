@@ -345,6 +345,8 @@ Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript'] }
 Plug 'hail2u/vim-css3-syntax'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
+Plug 'delphinus/vim-firestore'
+
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'mattn/emmet-vim'
 let g:user_emmet_leader_key = '<C-g>'
