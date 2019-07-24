@@ -470,8 +470,8 @@ inoremap <expr> <C-a> col('.') == match(getline('.'), '\S') + 1 ?
 inoremap <expr> <C-e> repeat('<C-G>U<Right>', col('$') - col('.'))
 
 " :terminal
-nnoremap <Space>t :<C-u>TermCurBufPath<CR>
-nnoremap <Space><S-t> :<C-u>:terminal<CR>
+nnoremap <Space><S-t> :<C-u>TermCurBufPath<CR>
+nnoremap <Space>t :<C-u>:terminal<CR>
 
 " タブ移動
 nnoremap <S-h> gT
