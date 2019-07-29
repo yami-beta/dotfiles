@@ -128,7 +128,7 @@ let g:asyncomplete_remove_duplicates = 1
 let g:asyncomplete_smart_completion = 0
 Plug 'prabirshrestha/vim-lsp'
 let g:lsp_diagnostics_enabled = 0
-function! s:setup_lsp abort
+function! s:setup_lsp() abort
   nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
   nnoremap <buffer> gd :<C-u>LspDefinition<CR>
   nnoremap <buffer> gD :<C-u>LspReferences<CR>
@@ -148,6 +148,15 @@ if executable('typescript-language-server')
   \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
   \ 'whitelist': ['typescript', 'typescript.jsx', 'javascript', 'javascript.jsx']
   \ })
+  autocmd vimrc FileType typescript,typescript.jsx call s:setup_lsp()
+endif
+if executable('gopls')
+  autocmd vimrc User lsp_setup call lsp#register_server({
+  \ 'name': 'gopls',
+  \ 'cmd': { server_info->[&shell, &shellcmdflag, 'gopls'] },
+  \ 'whitelist': ['go']
+  \ })
+  autocmd vimrc FileType go call s:setup_lsp()
 endif
 if executable('solargraph')
   autocmd vimrc User lsp_setup call lsp#register_server({
@@ -156,7 +165,9 @@ if executable('solargraph')
   \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Gemfile'))},
   \ 'whitelist': ['ruby', 'eruby'],
   \ })
+  autocmd vimrc FileType ruby call s:setup_lsp()
 endif
+
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'prabirshrestha/asyncomplete-emoji.vim'
 Plug 'yami-beta/asyncomplete-omni.vim'
@@ -165,7 +176,7 @@ function! s:asyncomplete_on_post_source() abort
   call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
   \ 'name': 'omni',
   \ 'whitelist': ['*'],
-  \ 'blacklist': ['sql', 'ruby'],
+  \ 'blacklist': ['sql', 'ruby', 'go'],
   \ 'completor': function('asyncomplete#sources#omni#completor')
   \  }))
 
