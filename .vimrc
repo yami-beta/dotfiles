@@ -127,7 +127,19 @@ Plug 'prabirshrestha/asyncomplete.vim'
 let g:asyncomplete_remove_duplicates = 1
 let g:asyncomplete_smart_completion = 0
 Plug 'prabirshrestha/vim-lsp'
-let g:lsp_insert_text_enabled = 0
+let g:lsp_diagnostics_enabled = 0
+function! s:setup_lsp abort
+  nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
+  nnoremap <buffer> gd :<C-u>LspDefinition<CR>
+  nnoremap <buffer> gD :<C-u>LspReferences<CR>
+  nnoremap <buffer> gs :<C-u>LspDocumentSymbol<CR>
+  nnoremap <buffer> gS :<C-u>LspWorkspaceSymbol<CR>
+  nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
+  vnoremap <buffer> gQ :LspDocumentRangeFormat<CR>
+  nnoremap <buffer> K :<C-u>LspHover<CR>
+  nnoremap <buffer> <F1> :<C-u>LspImplementation<CR>
+  nnoremap <buffer> <F2> :<C-u>LspRename<CR>
+endfunction
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 if executable('typescript-language-server')
   autocmd vimrc User lsp_setup call lsp#register_server({
@@ -534,10 +546,6 @@ map *  <Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
 map g* <Plug>(asterisk-gz*)<Plug>(anzu-update-search-status-with-echo)
 map #  <Plug>(asterisk-z#)
 map g# <Plug>(asterisk-gz#)
-
-nnoremap <silent> <Space>m :OverCommandLine %s/\v<CR>
-vnoremap <silent> <Space>m :OverCommandLine s/\v<CR>
-
 
 " --------------------------------
 " インデント
