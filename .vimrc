@@ -112,7 +112,8 @@ endif
 " :terminal を現在のバッファのパスで開く
 function s:start_termianl_bufpath() abort
   let l:cwd = expand('%:p:h')
-  call term_start(&shell, { 'cwd': l:cwd, 'term_finish': 'close' })
+  botright new
+  call term_start(&shell, { 'cwd': l:cwd, 'term_finish': 'close', 'curwin': 1 })
 endfunction
 command! TermCurBufPath call s:start_termianl_bufpath()
 
@@ -494,7 +495,7 @@ inoremap <expr> <C-e> repeat('<C-G>U<Right>', col('$') - col('.'))
 
 " :terminal
 nnoremap <Space><S-t> :<C-u>TermCurBufPath<CR>
-nnoremap <Space>t :<C-u>:terminal<CR>
+nnoremap <Space>t :<C-u>:botright terminal<CR>
 
 " タブ移動
 nnoremap <S-h> gT
