@@ -420,24 +420,21 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'markonm/traces.vim'
 
 Plug 'cohama/lexima.vim'
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1] =~ '\s'
-endfunction
-" lexima.vimはInsertEnter時に初期化されるため注意が必要
-" 初期化処理はautoload/lexima.vimにあるため，lexima#add_ruleを呼んだ時点で初期化が行われる
-" <CR>等のmappingは初期化処理で上書きされる
+" lexima.vimは初回のInsertEnter時に初期処理が実行されるため注意が必要
+" 1. InsertEnterで lexima#init() が呼ばれる
+" 2. lexima#init() の中身は空だが autoload/lexima.vim の lexima#set_default_rules() が呼ばれる
+" 3. 各種 mapping が設定されるので、これ以前の mapping は上書きされる
+"     - <CR> 等は g:lexima#newline_rules で mapping がされる
+"
+" InsertEnterが呼ばれる前に lexima#add_rule() を呼び出すと autoload/lexima.vim が実行され
+" 各種 mapping が設定されるので、この後 map して上書きを回避している
 function! s:lexima_on_post_source() abort
   call lexima#add_rule({'char': '<TAB>', 'at': '\%#[)}\]''"]', 'leave': 1})
   " for todo list (e.g. `- [ ] todo`)
   call lexima#add_rule({'char': '<Space>', 'at': '\[\%#]', 'input': '<Space>', 'filetype': 'markdown'})
-  " call lexima#insmode#map_hook('after', '<BS>', "\<C-r>=asyncomplete#force_refresh()\<CR>")
   " <TAB>と<CR>のマッピングを元に戻す
-  imap <silent><expr><TAB> pumvisible() ? "\<C-n>"
-  \ : <SID>check_back_space() ? lexima#expand('<LT>TAB>', 'i')
-  \ : asyncomplete#force_refresh()
-  imap <silent><expr><CR> pumvisible() ? "\<C-y>"
-  \ : lexima#expand('<LT>CR>', 'i')
+  imap <silent><expr><TAB> pumvisible() ? "\<C-n>" : lexima#expand('<LT>TAB>', 'i')
+  imap <silent><expr><CR> pumvisible() ? asyncomplete#close_popup() : lexima#expand('<LT>CR>', 'i')
 endfunction
 autocmd vimrc User plug_on_load call s:lexima_on_post_source()
 
