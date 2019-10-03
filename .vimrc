@@ -364,6 +364,16 @@ let g:go_fmt_command = "goimports"
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'typescript'] }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+augroup react_filetype
+  autocmd!
+  " https://github.com/vim/vim/issues/4830 に書くプラグインが対応するまで
+  " JavaScript with React
+  autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript
+  " TypeScript with React
+  autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript
+augroup END
+
+
 Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript'] }
 
 Plug 'hail2u/vim-css3-syntax'
