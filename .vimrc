@@ -203,6 +203,18 @@ autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 command! -bang FZFRelative call fzf#vim#files(expand('%:p:h'), <bang>0)
+function! s:fzf_repo() abort
+  function! s:repo_cb(line) abort
+    let l:basepath = trim(system('ghq root'))
+    let l:path = fnamemodify(l:basepath.'/'.a:line, ':p')
+    call execute('cd '.l:path)
+  endfunction
+  call fzf#run({
+  \ 'source': systemlist('ghq list'),
+  \ 'sink': function('s:repo_cb')
+  \ })
+endfunction
+command! Repo call s:fzf_repo()
 Plug 'yami-beta/fzf-session.vim'
 
 Plug 'scrooloose/nerdtree'
@@ -456,7 +468,6 @@ call plug#end()
 " 例：lexima.vim が設定するマッピングを上書きしたいため
 " https://github.com/junegunn/vim-plug/issues/432
 doautocmd User plug_on_load
-
 
 " --------------------------------
 " キーマッピング
