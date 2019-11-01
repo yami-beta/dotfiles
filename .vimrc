@@ -559,7 +559,15 @@ vmap , <Plug>(EasyAlign)
 nmap <silent> s <Plug>(operator-replace)
 
 nnoremap <silent> <Space>e :<C-u>NERDTreeFocus<CR>
-nnoremap <silent> <Space>d :<C-u>NERDTreeFind<CR>
+function s:open_nerdtree() abort
+  if expand('%') ==# ''
+    execute "NERDTree"
+  else
+    execute "NERDTreeFind"
+  endif
+endfunction
+command! OpenNerdTree call s:open_nerdtree()
+nnoremap <silent> <Space>d :<C-u>OpenNerdTree<CR>
 
 nnoremap <silent> <Space>f :<C-u>Files<CR>
 nnoremap <silent> <Space>r :<C-u>FZFRelative<CR>
