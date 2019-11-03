@@ -64,32 +64,9 @@ setglobal completeopt=menuone,popup,noselect,noinsert
 if executable('rg')
   set grepprg=rg\ -i\ --vimgrep
 endif
-function! s:all_grep(...)
-  let orig_grepprg=&grepprg
-  set grepprg=rg\ --hidden\ -i\ --vimgrep
-
-  try
-    execute ":grep! ".a:1
-  finally
-    let &grepprg=orig_grepprg
-  endtry
-endfunction
-command! -nargs=? AllGrep call s:all_grep(<f-args>)
 
 " ウィンドウ移動時に変更チェック
 autocmd vimrc WinEnter,FocusGained * checktime
-
-" 自動pasteモード
-let &t_SI .= "\<Esc>[?2004h"
-let &t_EI .= "\<Esc>[?2004l"
-
-function! XTermPasteBegin()
-  set pastetoggle=<Esc>[201~
-  set paste
-  return ""
-endfunction
-
-inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 function! WrapForTmux(s)
   if !exists('$TMUX')
@@ -125,8 +102,6 @@ call plug#begin('~/.vim/plug')
 Plug 'vim-jp/vimdoc-ja'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
-let g:asyncomplete_remove_duplicates = 1
-let g:asyncomplete_smart_completion = 0
 Plug 'prabirshrestha/vim-lsp'
 let g:lsp_diagnostics_enabled = 0
 function! s:setup_lsp() abort
