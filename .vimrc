@@ -60,7 +60,7 @@ setglobal wildchar=<tab>             " コマンド補完を開始するキー
 setglobal history=1000               " コマンド・検索パターンの履歴数
 setglobal wildmode=list:longest,full
 setglobal wildignorecase
-setglobal completeopt=menuone,noselect,noinsert
+setglobal completeopt=menuone,popup,noselect,noinsert
 if executable('rg')
   set grepprg=rg\ -i\ --vimgrep
 endif
