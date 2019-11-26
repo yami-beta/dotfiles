@@ -192,6 +192,8 @@ endfunction
 command! Repo call s:fzf_repo()
 Plug 'yami-beta/fzf-session.vim'
 
+Plug 'mattn/sonictemplate-vim'
+
 Plug 'scrooloose/nerdtree'
 
 " 見た目
