@@ -31,7 +31,7 @@ setglobal ttymouse=sgr               " マウスコードの設定
 setglobal shellslash                 " パス区切りをスラッシュにする
 setglobal formatoptions+=mM          " 整形オプションにマルチバイト系を追加
 setglobal clipboard+=unnamed         " クリップボードと無名レジスタを共有
-setglobal ambiwidth=double           " □とか○等の文字でカーソル位置がずれないようにする
+" setglobal ambiwidth=double           " □とか○等の文字でカーソル位置がずれないようにする
 " setglobal ambiwidth=single           " powerline patched font を使用するため
 setglobal backspace=indent,eol,start " BSで，インデント・改行の削除，挿入モード開始位置での削除を有効
 setglobal whichwrap+=h,l,<,>         " カーソルを行頭、行末で止まらないようにする
@@ -284,24 +284,24 @@ endfunction
 function! s:lightline_ale_string(mode)
   if s:ale_linting
     " ok のフィールドでのみ実行中アイコンを返す
-    return a:mode == 'ok' ? nr2char(0xf46a) : ''
+    return a:mode == 'ok' ? nr2char(0xf46a).' ' : ''
   endif
 
   if a:mode == 'ok'
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? nr2char(0xf4a1) : ''
+    return l:counts.total == 0 ? nr2char(0xf4a1).' ' : ''
   elseif a:mode == 'warn'
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? '' : all_non_errors . ' ' . nr2char(0xf420)
+    return l:counts.total == 0 ? '' : all_non_errors . ' ' . nr2char(0xf420).' '
   elseif a:mode == 'error'
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? '' : all_errors . ' ' . nr2char(0xf421)
+    return l:counts.total == 0 ? '' : all_errors . ' ' . nr2char(0xf421).' '
   else
     return ''
   endif
