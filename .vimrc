@@ -104,8 +104,9 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
 let g:lsp_diagnostics_enabled = 0
-function! s:setup_lsp() abort
-  nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
+let g:lsp_fold_enabled=0
+function! s:on_lsp_buffer_enabled() abort
+  nnoremap <buffer> <C-]> :<C-u>vsp<CR>:LspDefinition<CR>
   nnoremap <buffer> gd :<C-u>LspDefinition<CR>
   nnoremap <buffer> gD :<C-u>LspReferences<CR>
   nnoremap <buffer> gs :<C-u>LspDocumentSymbol<CR>
@@ -115,7 +116,13 @@ function! s:setup_lsp() abort
   nnoremap <buffer> K :<C-u>LspHover<CR>
   nnoremap <buffer> <F1> :<C-u>LspImplementation<CR>
   nnoremap <buffer> <F2> :<C-u>LspRename<CR>
+
+  setlocal omnifunc=lsp#complete
 endfunction
+augroup lsp_install
+  autocmd!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 if executable('typescript-language-server')
   autocmd vimrc User lsp_setup call lsp#register_server({
@@ -124,7 +131,6 @@ if executable('typescript-language-server')
   \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
   \ 'whitelist': ['typescript', 'typescript.jsx', 'javascript', 'javascript.jsx']
   \ })
-  autocmd vimrc FileType typescript,typescript.jsx call s:setup_lsp()
 endif
 if executable('gopls')
   autocmd vimrc User lsp_setup call lsp#register_server({
@@ -132,7 +138,6 @@ if executable('gopls')
   \ 'cmd': { server_info->[&shell, &shellcmdflag, 'gopls'] },
   \ 'whitelist': ['go']
   \ })
-  autocmd vimrc FileType go call s:setup_lsp()
 endif
 if executable('solargraph')
   autocmd vimrc User lsp_setup call lsp#register_server({
@@ -141,7 +146,6 @@ if executable('solargraph')
   \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Gemfile'))},
   \ 'whitelist': ['ruby', 'eruby'],
   \ })
-  autocmd vimrc FileType ruby call s:setup_lsp()
 endif
 
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
@@ -165,15 +169,12 @@ function! s:asyncomplete_on_post_source() abort
   call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
   \ 'name': 'buffer',
   \ 'whitelist': ['*'],
-  \ 'blacklist': ['go'],
+  \ 'blacklist': ['go', 'typescript', 'javascript'],
   \ 'priority': -1,
   \ 'completor': function('asyncomplete#sources#buffer#completor'),
   \ }))
 endfunction
 autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
-
-" Plug 'rhysd/github-complete.vim'
-" autocmd vimrc FileType gitcommit setl omnifunc=github_complete#complete
 
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
