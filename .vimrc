@@ -106,7 +106,7 @@ Plug 'prabirshrestha/vim-lsp'
 let g:lsp_diagnostics_enabled = 0
 let g:lsp_fold_enabled=0
 function! s:on_lsp_buffer_enabled() abort
-  nnoremap <buffer> <C-]> :<C-u>vsp<CR>:LspDefinition<CR>
+  nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
   nnoremap <buffer> gd :<C-u>LspDefinition<CR>
   nnoremap <buffer> gD :<C-u>LspReferences<CR>
   nnoremap <buffer> gs :<C-u>LspDocumentSymbol<CR>
