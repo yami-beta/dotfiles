@@ -331,7 +331,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'rhysd/vim-textobj-ruby'
 Plug 'kana/vim-textobj-indent'
 
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_ruby_rubocop_executable = 'bundle'
