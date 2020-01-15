@@ -414,6 +414,8 @@ Plug 'elzr/vim-json', { 'for': 'json' }
 
 Plug 'lambdalisue/gina.vim'
 
+Plug 'lilydjwg/colorizer'
+
 " 検索・置換を便利にする
 Plug 'haya14busa/vim-asterisk'
 Plug 'osyo-manga/vim-anzu'
