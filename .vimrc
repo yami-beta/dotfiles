@@ -61,6 +61,7 @@ setglobal history=1000               " コマンド・検索パターンの履�
 setglobal wildmode=list:longest,full
 setglobal wildignorecase
 setglobal completeopt=menuone,popup,noselect,noinsert
+setglobal termwinkey=<C-g>
 if executable('rg')
   set grepprg=rg\ -i\ --vimgrep
 endif
@@ -367,13 +368,13 @@ augroup END
 Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript'] }
 
 Plug 'hail2u/vim-css3-syntax'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+" Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 Plug 'delphinus/vim-firestore'
 
 Plug 'digitaltoad/vim-pug', { 'for': 'pug' }
 Plug 'mattn/emmet-vim'
-let g:user_emmet_leader_key = '<C-g>'
+let g:user_emmet_leader_key = '<C-z>'
 let g:user_emmet_settings = {
 \   'html': {
 \     'snippets': {
