@@ -183,7 +183,7 @@ function git_branch() {
 }
 # 関数をウィジェットに登録
 zle -N git_branch
-bindkey '^g^b' git_branch
+bindkey '^y^b' git_branch
 
 function git_add() {
   local files=$(git status --short -u | grep -E "^(\s\w|\?\?|\w\w)" | fzf --multi --ansi --prompt='git add > '\
@@ -197,7 +197,7 @@ function git_add() {
   zle redisplay
 }
 zle -N git_add
-bindkey '^g^f' git_add
+bindkey '^y^f' git_add
 
 function ggraph() {
   git log --graph --color=always --date-order --all -C -M --pretty=format:"%x09%C(auto)[%h] %C(cyan)%ad%Creset %C(blue)%an%Creset %C(auto)%d %s" --date=short |
@@ -215,8 +215,7 @@ function zle_git_graph() {
   zle redisplay
 }
 zle -N zle_git_graph
-bindkey '^g^g' zle_git_graph
-
+bindkey '^y^l' zle_git_graph
 
 # docker
 alias dc='docker-compose'
