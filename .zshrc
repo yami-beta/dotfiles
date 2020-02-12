@@ -217,13 +217,6 @@ function zle_git_graph() {
 zle -N zle_git_graph
 bindkey '^g^g' zle_git_graph
 
-function fzf_tmux_session() {
-  local session=$( tmux ls | awk -F':' '{print $1}' | fzf )
-  echo $session
-  if [ -n "$session" ]; then
-    tmux attach -t $session;
-  fi
-}
 
 # docker
 alias dc='docker-compose'
@@ -232,7 +225,6 @@ alias dc='docker-compose'
 alias tmux='tmux -u'
 # -A で session が存在する場合は attach になる
 alias tn='tmux new -A -s $(basename $(pwd) | awk "{ gsub(/\./, \"_\", \$0); print \$0 }")'
-alias ta='fzf_tmux_session'
 
 # history
 function fzf_select_history() {
