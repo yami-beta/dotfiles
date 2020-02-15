@@ -104,19 +104,21 @@ Plug 'vim-jp/vimdoc-ja'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 let g:lsp_diagnostics_enabled = 0
 let g:lsp_fold_enabled=0
 function! s:on_lsp_buffer_enabled() abort
-  nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
-  nnoremap <buffer> gd :<C-u>LspDefinition<CR>
-  nnoremap <buffer> gD :<C-u>LspReferences<CR>
-  nnoremap <buffer> gs :<C-u>LspDocumentSymbol<CR>
-  nnoremap <buffer> gS :<C-u>LspWorkspaceSymbol<CR>
-  nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
-  vnoremap <buffer> gQ :LspDocumentRangeFormat<CR>
-  nnoremap <buffer> K :<C-u>LspHover<CR>
-  nnoremap <buffer> <F1> :<C-u>LspImplementation<CR>
-  nnoremap <buffer> <F2> :<C-u>LspRename<CR>
+  nmap <buffer> <C-]> <plug>(lsp-peek-definition)
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gD <plug>(lsp-declaration)
+  nmap <buffer> gf <plug>(lsp-preview-focus)
+  nmap <buffer> gs <plug>(lsp-document-symbol)
+  nmap <buffer> gS <plug>(lsp-workspace-symbol)
+  nmap <buffer> gQ <plug>(lsp-document-format)
+  xmap <buffer> gQ <plug>(lsp-document-range-format)
+  nmap <buffer> K <plug>(lsp-hover)
+  nmap <buffer> <F1> <plug>(lsp-implementation)
+  nmap <buffer> <F2> <plug>(lsp-rename)
 
   setlocal omnifunc=lsp#complete
 endfunction
@@ -125,30 +127,6 @@ augroup lsp_install
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-if executable('typescript-language-server')
-  autocmd vimrc User lsp_setup call lsp#register_server({
-  \ 'name': 'typescript-language-server',
-  \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-  \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-  \ 'whitelist': ['typescript', 'typescript.jsx', 'javascript', 'javascript.jsx']
-  \ })
-endif
-if executable('gopls')
-  autocmd vimrc User lsp_setup call lsp#register_server({
-  \ 'name': 'gopls',
-  \ 'cmd': { server_info->[&shell, &shellcmdflag, 'gopls'] },
-  \ 'whitelist': ['go']
-  \ })
-endif
-if executable('solargraph')
-  autocmd vimrc User lsp_setup call lsp#register_server({
-  \ 'name': 'solargraph',
-  \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-  \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Gemfile'))},
-  \ 'whitelist': ['ruby', 'eruby'],
-  \ })
-endif
-
 Plug 'prabirshrestha/asyncomplete-buffer.vim'
 Plug 'prabirshrestha/asyncomplete-emoji.vim'
 Plug 'yami-beta/asyncomplete-omni.vim'
