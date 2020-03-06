@@ -417,8 +417,8 @@ function! s:lexima_on_post_source() abort
   " for todo list (e.g. `- [ ] todo`)
   call lexima#add_rule({'char': '<Space>', 'at': '\[\%#]', 'input': '<Space>', 'filetype': 'markdown'})
   " <TAB>と<CR>のマッピングを元に戻す
-  imap <silent><expr><TAB> pumvisible() ? "\<C-n>" : lexima#expand('<LT>TAB>', 'i')
-  imap <silent><expr><CR> pumvisible() ? asyncomplete#close_popup() : lexima#expand('<LT>CR>', 'i')
+  inoremap <silent><expr><TAB> pumvisible() ? "\<C-n>" : lexima#expand('<LT>TAB>', 'i')
+  inoremap <silent><expr><CR> pumvisible() ? asyncomplete#close_popup() : lexima#expand('<LT>CR>', 'i')
 endfunction
 autocmd vimrc User plug_on_load call s:lexima_on_post_source()
 
