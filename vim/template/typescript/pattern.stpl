@@ -1,0 +1,12 @@
+\(\S\+\)\.const$
+	const {{$1}} = {{_cursor_}};
+\(\S\+\)\.import$
+	import {{_cursor_}} from "{{$1}}";
+import$
+	import {} from "{{_cursor_}}";
+useEffect$
+	useEffect(() => {{{_cursor_}}}, []);
+\(\S\+\)\.useCallback$
+	const {{$1}} = useCallback(() => {{{_cursor_}}}, []);
+\(\S\+\)\.useMemo$
+	const {{$1}} = useMemo(() => {{{_cursor_}}}, []);

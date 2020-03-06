@@ -172,7 +172,10 @@ endfunction
 command! Repo call s:fzf_repo()
 Plug 'yami-beta/fzf-session.vim'
 
-Plug 'mattn/sonictemplate-vim'
+Plug 'mattn/vim-sonictemplate'
+let g:sonictemplate_vim_template_dir = [
+\ '$HOME/dev/src/github.com/yami-beta/dotfiles/vim/template'
+\ ]
 
 Plug 'scrooloose/nerdtree'
 
