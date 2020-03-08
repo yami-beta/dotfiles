@@ -111,7 +111,7 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> <C-]> <plug>(lsp-peek-definition)
   nmap <buffer> gd <plug>(lsp-definition)
   nmap <buffer> gD <plug>(lsp-declaration)
-  nmap <buffer> gf <plug>(lsp-preview-focus)
+  nmap <buffer> gr <plug>(lsp-references)
   nmap <buffer> gs <plug>(lsp-document-symbol)
   nmap <buffer> gS <plug>(lsp-workspace-symbol)
   nmap <buffer> gQ <plug>(lsp-document-format)
