@@ -135,7 +135,7 @@ function! s:asyncomplete_on_post_source() abort
   call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
   \ 'name': 'omni',
   \ 'whitelist': ['*'],
-  \ 'blacklist': ['sql', 'ruby', 'go'],
+  \ 'blacklist': ['sql', 'ruby', 'go', 'typescript', 'typescriptreact', 'javascript', 'javascriptreact'],
   \ 'completor': function('asyncomplete#sources#omni#completor')
   \  }))
 
@@ -148,7 +148,7 @@ function! s:asyncomplete_on_post_source() abort
   call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
   \ 'name': 'buffer',
   \ 'whitelist': ['*'],
-  \ 'blacklist': ['go', 'typescript', 'javascript'],
+  \ 'blacklist': ['go', 'typescript', 'typescriptreact', 'javascript', 'javascriptreact'],
   \ 'priority': -1,
   \ 'completor': function('asyncomplete#sources#buffer#completor'),
   \ }))
@@ -322,6 +322,7 @@ let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \ 'javascript': ['eslint', 'prettier'],
 \ 'typescript': ['eslint', 'prettier'],
+\ 'typescriptreact': ['eslint', 'prettier'],
 \ 'scss': ['prettier'],
 \ 'ruby': ['rubocop']
 \ }
@@ -333,18 +334,9 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_fmt_command = "goimports"
 
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'typescript'] }
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-augroup react_filetype
-  autocmd!
-  " https://github.com/vim/vim/issues/4830 に書くプラグインが対応するまで
-  " JavaScript with React
-  autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript
-  " TypeScript with React
-  autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript
-augroup END
-
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascriptreact'] }
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescriptreact'] }
+Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'] }
 
 Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript'] }
 
