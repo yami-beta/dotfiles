@@ -45,6 +45,7 @@ setglobal ignorecase                 " 大文字小文字を無視する
 setglobal smartcase                  " 検索文字列に大文字が含まれている場合は区別して検索する
 setglobal hlsearch                   " 検索語を強調表示
 setglobal incsearch                  " インクリメンタルサーチを有効化
+setglobal shortmess-=S               " 検索合致数を表示
 setglobal wrap
 set breakindent                      " 折り返しにインデントを反映する
 setglobal directory=~/.vim/tmp       " swpファイルの作成先
@@ -392,7 +393,6 @@ Plug 'lilydjwg/colorizer'
 
 " 検索・置換を便利にする
 Plug 'haya14busa/vim-asterisk'
-Plug 'osyo-manga/vim-anzu'
 Plug 'markonm/traces.vim'
 
 Plug 'cohama/lexima.vim'
@@ -529,13 +529,11 @@ nnoremap <silent> <Space>b :<C-u>Buffers<CR>
 nnoremap <silent> <Space>w :<C-u>Windows<CR>
 nnoremap <silent> <Space>s :<C-u>FZFSession<CR>
 
-nmap <C-k> <Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
-vmap <C-k> <Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
+nmap <C-k> <Plug>(asterisk-z*)
+vmap <C-k> <Plug>(asterisk-z*)
 
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
-map *  <Plug>(asterisk-z*)<Plug>(anzu-update-search-status-with-echo)
-map g* <Plug>(asterisk-gz*)<Plug>(anzu-update-search-status-with-echo)
+map *  <Plug>(asterisk-z*)
+map g* <Plug>(asterisk-gz*)
 map #  <Plug>(asterisk-z#)
 map g# <Plug>(asterisk-gz#)
 
