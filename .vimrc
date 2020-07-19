@@ -157,6 +157,7 @@ autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
 
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 command! -bang FZFRelative call fzf#vim#files(expand('%:p:h'), <bang>0)
 function! s:fzf_repo() abort
   function! s:repo_cb(line) abort
