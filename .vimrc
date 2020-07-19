@@ -102,7 +102,6 @@ command! TermCurBufPath call s:start_termianl_bufpath()
 call plug#begin('~/.vim/plug')
 
 Plug 'vim-jp/vimdoc-ja'
-Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
