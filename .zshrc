@@ -138,7 +138,7 @@ function repo() {
   }
 
   while out=$(
-    get_merged_list $filter_owner | fzf-tmux --print-query --query="$query" --expect=ctrl-r
+    get_merged_list $filter_owner | fzf --print-query --query="$query" --expect=ctrl-r
     ); do
     query=$(head -1 <<< "$out")
     key=$(head -2 <<< "$out" | tail -1)
@@ -162,7 +162,7 @@ function repo() {
 
 function git_branch() {
   local output=$(git branch --all -vv --color=always | grep -v -E "HEAD" |
-  fzf-tmux --multi --ansi --no-sort --expect=ctrl-y | awk '{gsub(/^\*/, " ", $0); print $1;}')
+  fzf --multi --ansi --no-sort --expect=ctrl-y | awk '{gsub(/^\*/, " ", $0); print $1;}')
   local key=$(head -1 <<< "$output")
   local branch=$(echo $output | tail -n +2 | awk '{gsub(/^\*/, " ", $0); print $1;}')
   case "$key" in
@@ -233,7 +233,7 @@ function fzf_select_history() {
   else
     tac="tail -r"
   fi
-  BUFFER=$(history -n 1 | eval $tac | fzf-tmux --query "$LBUFFER")
+  BUFFER=$(history -n 1 | eval $tac | fzf --query "$LBUFFER")
   CURSOR=$#BUFFER
   zle clear-screen
 }
