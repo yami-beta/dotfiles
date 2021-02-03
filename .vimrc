@@ -165,10 +165,10 @@ function! s:fzf_repo() abort
     let l:path = fnamemodify(l:basepath.'/'.a:line, ':p')
     call execute('cd '.l:path)
   endfunction
-  call fzf#run({
+  call fzf#run(fzf#wrap({
   \ 'source': systemlist('ghq list'),
   \ 'sink': function('s:repo_cb')
-  \ })
+  \ }))
 endfunction
 command! Repo call s:fzf_repo()
 Plug 'yami-beta/fzf-session.vim'
