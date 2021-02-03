@@ -566,7 +566,8 @@ augroup vimrc_filetype
   autocmd FileType tex setlocal formatexpr=""
   autocmd FileType tex let &formatprg="pandoc --from=markdown --to=latex --top-level-division=chapter"
   autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
-  autocmd FileType typescript,javascript setlocal iskeyword+=@-@
+  autocmd FileType typescript,typescriptreact,javascript,javascriptreact setlocal iskeyword+=@-@
+  autocmd FileType typescript,typescriptreact,javascript,javascriptreact setlocal iskeyword+=-
 augroup END
 
 let g:vim_indent_cont = 0
