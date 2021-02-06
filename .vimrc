@@ -324,6 +324,7 @@ let g:ale_fixers = {
 \ 'javascript': ['eslint', 'prettier'],
 \ 'typescript': ['eslint', 'prettier'],
 \ 'typescriptreact': ['eslint', 'prettier'],
+\ 'css': ['prettier'],
 \ 'scss': ['prettier'],
 \ 'ruby': ['rubocop']
 \ }
@@ -336,8 +337,8 @@ let g:go_highlight_methods = 1
 let g:go_fmt_command = "goimports"
 
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascriptreact'] }
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescriptreact'] }
-Plug 'MaxMEllon/vim-jsx-pretty', { 'for': ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'] }
+" backtick `` で jsx のハイライトが崩れるので commit を固定
+Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescriptreact'], 'commit': 'a488d15' }
 
 Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript'] }
 

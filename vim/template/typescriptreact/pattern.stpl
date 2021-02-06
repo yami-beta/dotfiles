@@ -12,3 +12,9 @@ useCallback\.\(\S\+\)$
 	const {{$1}} = useCallback(() => {{{_cursor_}}}, []);
 useMemo\.\(\S\+\)$
 	const {{$1}} = useMemo(() => {{{_cursor_}}}, []);
+\(\S\+\)\.FC$
+	import { FC } from "react";
+	
+	type {{$1}}Props = {};
+	
+	export const {{$1}}: FC<{{$1}}Props> = () => {{{_cursor_}}};
