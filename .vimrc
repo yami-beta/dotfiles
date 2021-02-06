@@ -329,13 +329,6 @@ let g:ale_fixers = {
 \ 'ruby': ['rubocop']
 \ }
 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_fmt_command = "goimports"
-
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascriptreact'] }
 " backtick `` で jsx のハイライトが崩れるので commit を固定
 Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescriptreact'], 'commit': 'a488d15' }
