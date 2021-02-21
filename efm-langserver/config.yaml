@@ -1,0 +1,32 @@
+version: 2
+# log-file: /tmp/efm-langserver.log
+# log-level: 1
+root-markers:
+  - .git/
+tools:
+  prettier: &prettier
+    format-command: 'npx --no-install prettier --stdin-filepath ${INPUT}'
+    format-stdin: true
+    root-markers:
+      - .prettierrc.js
+      - .prettierrc.json
+      - .prettierrc.yaml
+  stylelint: &stylelint
+    lint-command: 'npx --no-install stylelint --formatter unix --stdin --stdin-filename ${INPUT}'
+    lint-ignore-exit-code: false
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l:%c: %m [%t%*[a-z]]'
+    format-command: 'npx --no-install stylelint --stdin --stdin-filename ${INPUT} --fix'
+    format-stdin: true
+    root-markers:
+      - .stylelintrc.js
+      - .stylelintrc.json
+      - .stylelintrc.yaml
+languages:
+  typescript:
+    - <<: *prettier
+    - <<: *stylelint
+  typescriptreact:
+    - <<: *prettier
+    - <<: *stylelint
