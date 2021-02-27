@@ -229,11 +229,11 @@ function! LightLineFilename()
 endfunction
 
 function! LightLineFileformat()
-  return winwidth(0) > 70 ? (&fileformat.' '.WebDevIconsGetFileFormatSymbol()) : ''
+  return winwidth(0) > 70 ? (&fileformat) : ''
 endfunction
 
 function! LightLineFiletype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype.' '.WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
 
 function! LightLineFileencoding()
@@ -408,8 +408,6 @@ function! s:lexima_on_post_source() abort
 endfunction
 autocmd vimrc User plug_on_load call s:lexima_on_post_source()
 
-" 最後に読み込む必要あり
-Plug 'ryanoasis/vim-devicons'
 call plug#end()
 " trigger plug_on_load event to execute function after plugin is loaded
 " プラグイン読み込み後に実行する設定(on_post_source)
