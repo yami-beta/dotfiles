@@ -105,59 +105,59 @@ Plug 'vim-jp/vimdoc-ja'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-let g:lsp_diagnostics_enabled = 0
-let g:lsp_fold_enabled=0
+" let g:lsp_log_file = expand('~/vim-lsp.log')
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_fold_enabled = 0
+let g:lsp_document_code_action_signs_enabled = 0
+let g:lsp_settings = {
+\ 'efm-langserver': {
+\   'disabled': v:false,
+\ },
+\ }
+let g:lsp_settings_filetype_typescript = ['eslint-language-server', 'typescript-language-server']
+let g:lsp_settings_filetype_typescriptreact = ['eslint-language-server', 'typescript-language-server']
 function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> <C-]> <plug>(lsp-peek-definition)
   nmap <buffer> gd <plug>(lsp-definition)
   nmap <buffer> gD <plug>(lsp-declaration)
+  nmap <buffer> gt <plug>(lsp-type-definition)
   nmap <buffer> gr <plug>(lsp-references)
-  nmap <buffer> gs <plug>(lsp-document-symbol)
-  nmap <buffer> gS <plug>(lsp-workspace-symbol)
   nmap <buffer> gQ <plug>(lsp-document-format)
   xmap <buffer> gQ <plug>(lsp-document-range-format)
   nmap <buffer> K <plug>(lsp-hover)
+  nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+  nmap <buffer> ga <plug>(lsp-code-action)
   nmap <buffer> <F1> <plug>(lsp-implementation)
   nmap <buffer> <F2> <plug>(lsp-rename)
 
   setlocal omnifunc=lsp#complete
+
+  augroup lsp_format
+    autocmd!
+    autocmd BufWritePre *.ts,*.tsx call execute('LspDocumentFormatSync --server=efm-langserver')
+  augroup END
 endfunction
 augroup lsp_install
   autocmd!
   autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/asyncomplete-buffer.vim'
-Plug 'prabirshrestha/asyncomplete-emoji.vim'
 Plug 'yami-beta/asyncomplete-omni.vim'
 
 function! s:asyncomplete_on_post_source() abort
   call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
   \ 'name': 'omni',
-  \ 'whitelist': ['*'],
-  \ 'blacklist': ['sql', 'ruby', 'go', 'typescript', 'typescriptreact', 'javascript', 'javascriptreact'],
+  \ 'allowlist': ['*'],
+  \ 'blocklist': ['sql', 'ruby', 'go', 'typescript', 'typescriptreact', 'javascript', 'javascriptreact'],
   \ 'completor': function('asyncomplete#sources#omni#completor')
   \  }))
-
-  call asyncomplete#register_source(asyncomplete#sources#emoji#get_source_options({
-  \ 'name': 'emoji',
-  \ 'whitelist': ['markdown', 'gitcommit'],
-  \ 'completor': function('asyncomplete#sources#emoji#completor'),
-  \ }))
-
-  call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-  \ 'name': 'buffer',
-  \ 'whitelist': ['*'],
-  \ 'blacklist': ['go', 'typescript', 'typescriptreact', 'javascript', 'javascriptreact'],
-  \ 'priority': -1,
-  \ 'completor': function('asyncomplete#sources#buffer#completor'),
-  \ }))
 endfunction
 autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
 
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+let g:fzf_layout = { 'down': '40%' }
 command! -bang FZFRelative call fzf#vim#files(expand('%:p:h'), <bang>0)
 function! s:fzf_repo() abort
   function! s:repo_cb(line) abort
@@ -187,14 +187,13 @@ Plug 'yami-beta/vim-colors-ruri'
 Plug 'yami-beta/vim-colors-nouvelle-tricolor'
 " Plug 'ap/vim-buftabline'
 
-Plug 'yami-beta/vim-responsive-tabline'
+" Plug 'yami-beta/vim-responsive-tabline'
 
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
 \ 'colorscheme': 'nouvelle_tricolor',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ],
-\   'right': [ [ 'lineinfo' ], [ 'linter_warnings', 'linter_errors', 'linter_ok' ], [ 'fileformat', 'fileencoding', 'filetype' ] ]
 \ },
 \ 'component_function': {
 \   'filename': 'LightLineFilename',
@@ -203,12 +202,6 @@ let g:lightline = {
 \   'fileencoding': 'LightLineFileencoding',
 \   'mode': 'LightLineMode'
 \ },
-\ 'component_expand': {
-\   'linter_warnings': 'LightlineLinterWarnings',
-\   'linter_errors': 'LightlineLinterErrors',
-\   'linter_ok': 'LightlineLinterOK'
-\ },
-\ 'enable': { 'tabline': 0 },
 \ }
 
 function! LightLineModified()
@@ -240,57 +233,6 @@ function! LightLineFileencoding()
   return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
 endfunction
 
-let s:ale_linting = 0
-function! s:update_ale_linting(val) abort
-  let s:ale_linting = a:val
-  call lightline#update()
-endfunction
-augroup LightLineOnALE
-  autocmd!
-  autocmd User ALEFixPre  call s:update_ale_linting(1)
-  autocmd User ALEFixPost call s:update_ale_linting(0)
-  autocmd User ALELintPre  call s:update_ale_linting(1)
-  autocmd User ALELintPost call s:update_ale_linting(0)
-augroup end
-
-function! LightlineLinterWarnings()
-  return s:lightline_ale_string('warn')
-endfunction
-
-function! LightlineLinterErrors()
-  return s:lightline_ale_string('error')
-endfunction
-
-function! LightlineLinterOK()
-  return s:lightline_ale_string('ok')
-endfunction
-
-function! s:lightline_ale_string(mode)
-  if s:ale_linting
-    " ok のフィールドでのみ実行中アイコンを返す
-    return a:mode == 'ok' ? nr2char(0xf46a).' ' : ''
-  endif
-
-  if a:mode == 'ok'
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? nr2char(0xf4a1).' ' : ''
-  elseif a:mode == 'warn'
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? '' : all_non_errors . ' ' . nr2char(0xf420).' '
-  elseif a:mode == 'error'
-    let l:counts = ale#statusline#Count(bufnr(''))
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? '' : all_errors . ' ' . nr2char(0xf421).' '
-  else
-    return ''
-  endif
-endfunction
-
 function! LightLineMode()
   let fname = expand('%:t')
   return fname == '__Tagbar__' ? 'Tagbar' :
@@ -313,21 +255,6 @@ Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-textobj-user'
 Plug 'rhysd/vim-textobj-ruby'
 Plug 'kana/vim-textobj-indent'
-
-Plug 'dense-analysis/ale'
-let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_ruby_rubocop_executable = 'bundle'
-let g:ale_markdown_prettier_use_global = 1
-let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-\ 'javascript': ['eslint', 'prettier'],
-\ 'typescript': ['eslint', 'prettier'],
-\ 'typescriptreact': ['eslint', 'prettier'],
-\ 'css': ['prettier'],
-\ 'scss': ['prettier'],
-\ 'ruby': ['rubocop']
-\ }
 
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascriptreact'] }
 " backtick `` で jsx のハイライトが崩れるので commit を固定
@@ -569,7 +496,7 @@ let g:vim_indent_cont = 0
 " --------------------------------
 set number " 行番号を表示
 set cursorline
-set cursorcolumn
+" set cursorcolumn
 set list
 setglobal listchars=tab:»\ ,space:･,eol:⏎
 setglobal showmatch " 括弧の対応をハイライト
@@ -586,7 +513,6 @@ let &t_te .= "\e[23;0t"
 " カラー設定
 syntax on " シンタックスハイライト
 setglobal synmaxcol=1024
-set t_Co=256 " 256色ターミナルでVimを使用する
 " tmux上でvimを起動した際に余白部分の背景色が描画されないため
 set t_ut=
 setglobal termguicolors " ターミナルでtrue colorを使用する
@@ -600,8 +526,6 @@ autocmd vimrc VimEnter,WinEnter,ColorScheme * hi! link WhiteSpaceEOL Todo
 autocmd vimrc VimEnter,WinEnter * match WhiteSpaceEOL /\S*\zs\s\+\ze$/
 " ハイライト確認コマンド
 command! VimShowHlItem echo synIDattr(synID(line("."), col("."), 1), "name")
-" vim kaoriyaで、txtファイルが自動改行されてしまうバグ対応
-autocmd vimrc FileType text setlocal textwidth=0
 
 
 " --------------------------------
