@@ -182,6 +182,9 @@ Plug 'scrooloose/nerdtree'
 
 " 見た目
 Plug 'flazz/vim-colorschemes'
+Plug 'ghifarit53/tokyonight-vim'
+let g:tokyonight_style = 'night'
+let g:tokyonight_disable_italic_comment = 1
 Plug 'yami-beta/vim-colors-yuzu'
 Plug 'yami-beta/vim-colors-ruri'
 Plug 'yami-beta/vim-colors-nouvelle-tricolor'
@@ -191,7 +194,7 @@ Plug 'yami-beta/vim-colors-nouvelle-tricolor'
 
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
-\ 'colorscheme': 'nouvelle_tricolor',
+\ 'colorscheme': 'tokyonight',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ],
 \ },
@@ -521,7 +524,7 @@ if &term =~# '^screen'
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 setglobal background=dark
-colorscheme nouvelle-tricolor
+colorscheme tokyonight
 autocmd vimrc VimEnter,WinEnter,ColorScheme * hi! link WhiteSpaceEOL Todo
 autocmd vimrc VimEnter,WinEnter * match WhiteSpaceEOL /\S*\zs\s\+\ze$/
 " ハイライト確認コマンド
