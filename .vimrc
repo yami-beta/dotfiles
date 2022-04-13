@@ -135,7 +135,9 @@ function! s:on_lsp_buffer_enabled() abort
 
   augroup lsp_format
     autocmd!
-    autocmd BufWritePre *.ts,*.tsx call execute('LspDocumentFormatSync --server=efm-langserver')
+    autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx call execute('LspDocumentFormatSync --server=efm-langserver')
+    autocmd BufWritePre *.graphql call execute('LspDocumentFormatSync --server=efm-langserver')
+    autocmd BufWritePre *.dart call execute('LspDocumentFormatSync')
   augroup END
 endfunction
 augroup lsp_install

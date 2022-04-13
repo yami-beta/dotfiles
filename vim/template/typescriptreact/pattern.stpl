@@ -13,8 +13,35 @@ useCallback\.\(\S\+\)$
 useMemo\.\(\S\+\)$
 	const {{$1}} = useMemo(() => {{{_cursor_}}}, []);
 \(\S\+\)\.FC$
-	import { FC } from "react";
+	import { PropsWithChildren, VFC } from "react";
+	
+	type {{$1}}Props = PropsWithChildren<{}>;
+	
+	export const {{$1}}: VFC<{{$1}}Props> = ({ children }) => {{{_cursor_}}};
+\(\S\+\)\.VFC$
+	import { VFC } from "react";
 	
 	type {{$1}}Props = {};
 	
-	export const {{$1}}: FC<{{$1}}Props> = () => {{{_cursor_}}};
+	export const {{$1}}: VFC<{{$1}}Props> = () => {{{_cursor_}}};
+\(\S\+\)\.CSF$
+	import { ComponentMeta, ComponentStoryObj } from "@storybook/react";
+	import { {{$1}} } from "./{{$1}}";
+	
+	const meta: ComponentMeta<typeof {{$1}}> = {
+	  component: {{$1}},
+	};
+	
+	export default meta;
+	
+	export const Base: ComponentStoryObj<typeof {{$1}}> = {};
+\(\S\+\)\.NextPage$
+	import { NextPage } from "next";
+	
+	type {{$1}}Props = {};
+	
+	const {{$1}}: NextPage<{{$1}}Props> = () => {
+	  {{_cursor_}}
+	};
+	
+	export default {{$1}};
