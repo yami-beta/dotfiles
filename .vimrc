@@ -180,6 +180,12 @@ let g:sonictemplate_vim_template_dir = [
 \ '$HOME/dev/src/github.com/yami-beta/dotfiles/vim/template'
 \ ]
 
+Plug 'yssl/QFEnter'
+let g:qfenter_keymap = {}
+let g:qfenter_keymap.vopen = ['<C-v>']
+let g:qfenter_keymap.hopen = ['<C-CR>', '<C-x>']
+let g:qfenter_keymap.topen = ['<C-t>']
+
 Plug 'scrooloose/nerdtree'
 
 " 見た目
