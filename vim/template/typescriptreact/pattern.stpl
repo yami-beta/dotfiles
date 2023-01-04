@@ -13,11 +13,17 @@ useCallback\.\(\S\+\)$
 useMemo\.\(\S\+\)$
 	const {{$1}} = useMemo(() => {{{_cursor_}}}, []);
 \(\S\+\)\.FC$
-	import { PropsWithChildren, VFC } from "react";
+	import { FC } from "react";
+	
+	type {{$1}}Props = {};
+	
+	export const {{$1}}: FC<{{$1}}Props> = () => {{{_cursor_}}};
+\(\S\+\)\.FCC$
+	import { FC } from "react";
 	
 	type {{$1}}Props = PropsWithChildren<{}>;
 	
-	export const {{$1}}: VFC<{{$1}}Props> = ({ children }) => {{{_cursor_}}};
+	export const {{$1}}: FC<{{$1}}Props> = () => {{{_cursor_}}};
 \(\S\+\)\.VFC$
 	import { VFC } from "react";
 	
