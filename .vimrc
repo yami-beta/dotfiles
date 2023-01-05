@@ -157,9 +157,12 @@ function! s:asyncomplete_on_post_source() abort
 endfunction
 autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
 
+" set ambiwidth=single " でも特定の文字を全角幅で扱うように設定してくれるプラグイン
+" https://github.com/vim/vim/commit/08aac3c6192f0103cb87e280270a32b50e653be1
+Plug 'rbtnn/vim-ambiwidth'
+
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
-let g:fzf_layout = { 'down': '40%' }
 command! -bang FZFRelative call fzf#vim#files(expand('%:p:h'), <bang>0)
 function! s:fzf_repo() abort
   function! s:repo_cb(line) abort
@@ -191,8 +194,8 @@ Plug 'scrooloose/nerdtree'
 " 見た目
 Plug 'flazz/vim-colorschemes'
 Plug 'ghifarit53/tokyonight-vim'
-let g:tokyonight_style = 'night'
 let g:tokyonight_disable_italic_comment = 1
+let g:tokyonight_transparent_background = 1
 Plug 'yami-beta/vim-colors-yuzu'
 Plug 'yami-beta/vim-colors-ruri'
 Plug 'yami-beta/vim-colors-nouvelle-tricolor'
@@ -269,9 +272,10 @@ Plug 'kana/vim-textobj-indent'
 
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascriptreact'] }
 " backtick `` で jsx のハイライトが崩れるので commit を固定
-Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescriptreact'], 'commit': 'a488d15' }
+" Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescriptreact'], 'commit': 'a488d15' }
 
 Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript'] }
+Plug 'jjo/vim-cue', { 'for': ['cue'] }
 
 Plug 'hail2u/vim-css3-syntax'
 " Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
