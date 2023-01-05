@@ -368,6 +368,9 @@ inoremap <C-^> <C-r>"
 " 整形
 nnoremap <Leader>f gg=<S-g><C-o><C-o>zz
 
+" ファイル名から拡張子を取って挿入
+inoremap <C-y>f <C-R>=expand("%:t:r")<CR>
+
 " カーソルを表示行で移動する。物理行移動は<C-n>,<C-p>
 noremap j gj
 noremap k gk
