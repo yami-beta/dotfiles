@@ -67,6 +67,8 @@ if executable('rg')
   set grepprg=rg\ -i\ --vimgrep
 endif
 
+let g:mapleader = "\<Space>"
+
 " ウィンドウ移動時に変更チェック
 autocmd vimrc WinEnter,FocusGained * checktime
 
@@ -365,8 +367,6 @@ noremap : ;
 
 " 無名レジスタをペースト
 inoremap <C-^> <C-r>"
-" 整形
-nnoremap <Leader>f gg=<S-g><C-o><C-o>zz
 
 " ファイル名から拡張子を取って挿入
 inoremap <C-y>f <C-R>=expand("%:t:r")<CR>
@@ -403,8 +403,8 @@ inoremap <expr> <C-a> col('.') == match(getline('.'), '\S') + 1 ?
 inoremap <expr> <C-e> repeat('<C-G>U<Right>', col('$') - col('.'))
 
 " :terminal
-nnoremap <Space><S-t> :<C-u>TermCurBufPath<CR>
-nnoremap <Space>t :<C-u>:botright terminal<CR>
+nnoremap <silent><Leader>T :<C-u>TermCurBufPath<CR>
+nnoremap <silent><Leader>t :<C-u>:botright terminal<CR>
 
 " タブ移動
 nnoremap <S-h> gT
@@ -449,7 +449,7 @@ vmap , <Plug>(EasyAlign)
 
 nmap <silent> s <Plug>(operator-replace)
 
-nnoremap <silent> <Space>e :<C-u>NERDTreeFocus<CR>
+nnoremap <silent> <Leader>e :<C-u>NERDTreeFocus<CR>
 function s:open_nerdtree() abort
   if expand('%') ==# ''
     execute "NERDTree"
@@ -458,13 +458,13 @@ function s:open_nerdtree() abort
   endif
 endfunction
 command! OpenNerdTree call s:open_nerdtree()
-nnoremap <silent> <Space>d :<C-u>OpenNerdTree<CR>
+nnoremap <silent> <Leader>d :<C-u>OpenNerdTree<CR>
 
-nnoremap <silent> <Space>f :<C-u>Files<CR>
-nnoremap <silent> <Space>r :<C-u>FZFRelative<CR>
-nnoremap <silent> <Space>b :<C-u>Buffers<CR>
-nnoremap <silent> <Space>w :<C-u>Windows<CR>
-nnoremap <silent> <Space>s :<C-u>FZFSession<CR>
+nnoremap <silent> <Leader>f :<C-u>Files<CR>
+nnoremap <silent> <Leader>r :<C-u>FZFRelative<CR>
+nnoremap <silent> <Leader>b :<C-u>Buffers<CR>
+nnoremap <silent> <Leader>w :<C-u>Windows<CR>
+nnoremap <silent> <Leader>s :<C-u>FZFSession<CR>
 
 nmap <C-k> <Plug>(asterisk-z*)
 vmap <C-k> <Plug>(asterisk-z*)
