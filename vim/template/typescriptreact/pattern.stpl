@@ -31,16 +31,18 @@ useMemo\.\(\S\+\)$
 	
 	export const {{$1}}: VFC<{{$1}}Props> = () => {{{_cursor_}}};
 \(\S\+\)\.CSF$
-	import { ComponentMeta, ComponentStoryObj } from "@storybook/react";
+	import { Meta, StoryObj } from "@storybook/react";
 	import { {{$1}} } from "./{{$1}}";
 	
-	const meta: ComponentMeta<typeof {{$1}}> = {
+	const meta: Meta<typeof {{$1}}> = {
 	  component: {{$1}},
 	};
 	
 	export default meta;
 	
-	export const Base: ComponentStoryObj<typeof {{$1}}> = {};
+	type Story = StoryObj<typeof {{$1}}>;
+	
+	export const Base: Story = {};
 \(\S\+\)\.NextPage$
 	import { NextPage } from "next";
 	
