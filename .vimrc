@@ -114,6 +114,10 @@ let g:lsp_document_code_action_signs_enabled = 0
 let g:lsp_settings = {
 \ 'efm-langserver': {
 \   'disabled': v:false,
+\   'blocklist': ['', 'help'],
+\ },
+\ 'vim-language-server': {
+\   'blocklist': ['help'],
 \ },
 \ }
 let g:lsp_settings_filetype_typescript = ['eslint-language-server', 'typescript-language-server']
