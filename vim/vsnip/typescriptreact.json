@@ -1,0 +1,22 @@
+{
+  "React Component": {
+    "prefix": ["component"],
+    "body": [
+      "export function ${1:$TM_FILENAME_BASE}() {",
+      "\t$0",
+      "}"
+    ]
+  },
+  "NextPage": {
+    "prefix": ["nextpage"],
+    "body": [
+      "type PageProps = {};",
+      "",
+      "function Page({}: PageProps) {",
+      "\t$0",
+      "}",
+      "",
+      "export default Page;"
+    ]
+  }
+}
