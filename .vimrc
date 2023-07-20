@@ -72,24 +72,6 @@ let g:mapleader = "\<Space>"
 " ウィンドウ移動時に変更チェック
 autocmd vimrc WinEnter,FocusGained * checktime
 
-function! WrapForTmux(s)
-  if !exists('$TMUX')
-    return a:s
-  endif
-
-  let tmux_start = "\<Esc>Ptmux;"
-  let tmux_end = "\<Esc>\\"
-
-  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
-endfunction
-
-if s:is_mac
-  " ターミナルでカーソル形状変更
-  let &t_SI .= WrapForTmux("\<Esc>]50;CursorShape=1\x7")
-  let &t_SR .= WrapForTmux("\<Esc>]50;CursorShape=2\x7")
-  let &t_EI .= WrapForTmux("\<Esc>]50;CursorShape=0\x7")
-endif
-
 " :terminal を現在のバッファのパスで開く
 function s:start_termianl_bufpath() abort
   let l:cwd = expand('%:p:h')
