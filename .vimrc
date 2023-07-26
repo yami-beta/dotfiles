@@ -194,20 +194,26 @@ let g:qfenter_keymap.topen = ['<C-t>']
 Plug 'scrooloose/nerdtree'
 
 " 見た目
-Plug 'flazz/vim-colorschemes'
 Plug 'ghifarit53/tokyonight-vim'
 let g:tokyonight_disable_italic_comment = 1
 let g:tokyonight_transparent_background = 1
 Plug 'yami-beta/vim-colors-yuzu'
 Plug 'yami-beta/vim-colors-ruri'
 Plug 'yami-beta/vim-colors-nouvelle-tricolor'
+Plug 'joshdick/onedark.vim'
+augroup vimrc_colorscheme
+  autocmd!
+  " ターミナルの背景透過を使うため背景色設定をクリア
+  autocmd ColorScheme * call onedark#extend_highlight("Normal", { "bg": { "cterm": "NONE", "gui": "NONE" } })
+  autocmd ColorScheme * call onedark#extend_highlight("QuickFixLine", { "fg": { "cterm": "NONE", "gui": "NONE" }, "bg": {"cterm": "NONE",  "gui": "NONE" }, "cterm": "bold", "gui": "bold" })
+augroup END
 " Plug 'ap/vim-buftabline'
 
 " Plug 'yami-beta/vim-responsive-tabline'
 
 Plug 'itchyny/lightline.vim'
 let g:lightline = {
-\ 'colorscheme': 'tokyonight',
+\ 'colorscheme': 'onedark',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ],
 \ },
@@ -539,7 +545,7 @@ if &term =~# '^screen'
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 setglobal background=dark
-colorscheme tokyonight
+colorscheme onedark
 autocmd vimrc VimEnter,WinEnter,ColorScheme * hi! link WhiteSpaceEOL Todo
 autocmd vimrc VimEnter,WinEnter * match WhiteSpaceEOL /\S*\zs\s\+\ze$/
 " ハイライト確認コマンド
