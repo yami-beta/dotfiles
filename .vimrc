@@ -88,7 +88,8 @@ call plug#begin('~/.vim/plug')
 Plug 'vim-jp/vimdoc-ja'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+" Plug 'mattn/vim-lsp-settings'
+Plug 'yami-beta/vim-lsp-settings', { 'branch': 'feat/vscode-eslint' }
 " let g:lsp_log_file = expand('~/vim-lsp.log')
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_fold_enabled = 0
@@ -102,8 +103,8 @@ let g:lsp_settings = {
 \   'blocklist': ['help'],
 \ },
 \ }
-let g:lsp_settings_filetype_typescript = ['eslint-language-server', 'typescript-language-server']
-let g:lsp_settings_filetype_typescriptreact = ['eslint-language-server', 'typescript-language-server']
+let g:lsp_settings_filetype_typescript = ['vscode-eslint-language-server', 'typescript-language-server']
+let g:lsp_settings_filetype_typescriptreact = ['vscode-eslint-language-server', 'typescript-language-server']
 function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> <C-]> <plug>(lsp-peek-definition)
   nmap <buffer> gd <plug>(lsp-definition)
