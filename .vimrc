@@ -332,8 +332,6 @@ Plug 'chr4/nginx.vim', { 'for': 'nginx' }
 
 Plug 'elzr/vim-json', { 'for': 'json' }
 
-Plug 'lambdalisue/gina.vim'
-
 Plug 'lilydjwg/colorizer'
 
 " 検索・置換を便利にする
