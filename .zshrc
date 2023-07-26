@@ -247,6 +247,11 @@ if type brew &>/dev/null; then
   compinit
 fi
 
+# https://github.com/Schniz/fnm#zsh
+if type fnm &>/dev/null; then
+  eval "$(fnm env --use-on-cd)"
+fi
+
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --iglob "!.git"'
