@@ -30,5 +30,7 @@ languages:
   typescriptreact:
     - <<: *prettier
     - <<: *stylelint
+  javascript:
+    - <<: *prettier
   graphql:
     - <<: *prettier
