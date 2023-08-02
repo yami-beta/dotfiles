@@ -199,7 +199,7 @@ function ggraph() {
   fzf --ansi --no-sort --reverse --tiebreak=index --prompt='git log > ' \
     --bind "enter:toggle-preview" --bind "ctrl-n:preview-down" --bind "ctrl-p:preview-up" --bind "ctrl-y:accept" \
     --preview-window=down:hidden:wrap \
-    --preview " (grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | emojify | less -R') <<< {}"
+    --preview " (grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git show --color=always % | less -R') <<< {}"
 }
 function zle_git_graph() {
   local commit_hash=$(ggraph | grep -o '[a-f0-9]\{7\}')
