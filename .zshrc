@@ -105,7 +105,6 @@ bindkey '^N' history-beginning-search-forward
 alias ll='ls -lha'
 alias la='ls -a'
 alias rm='rm -i'
-alias sshlocal='ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
 
 function repo() {
   local ghq_list tmux_status tmux_sessions repo_dir key query out filter_owner
@@ -212,9 +211,6 @@ function zle_git_graph() {
 zle -N zle_git_graph
 bindkey '^y^l' zle_git_graph
 
-# docker
-alias dc='docker-compose'
-
 # tmux
 alias tmux='tmux -u'
 # -A で session が存在する場合は attach になる
@@ -236,8 +232,6 @@ zle -N fzf_select_history
 bindkey '^r' fzf_select_history
 
 export EDITOR="vim"
-
-alias be="bundle exec"
 
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 if type brew &>/dev/null; then
