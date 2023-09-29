@@ -103,7 +103,7 @@ let g:lsp_settings = {
 \   'blocklist': ['help'],
 \ },
 \ }
-let g:lsp_settings_filetype_typescript = ['vscode-eslint-language-server', 'typescript-language-server']
+let g:lsp_settings_filetype_typescript = ['vscode-eslint-language-server', 'typescript-language-server', 'deno']
 let g:lsp_settings_filetype_typescriptreact = ['vscode-eslint-language-server', 'typescript-language-server']
 function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> <C-]> <plug>(lsp-peek-definition)
@@ -122,9 +122,16 @@ function! s:on_lsp_buffer_enabled() abort
 
   setlocal omnifunc=lsp#complete
 
+  " https://github.com/prabirshrestha/vim-lsp/blob/7233bb2ec07506b6a6e57dfe4541f1c4e5647fd2/autoload/lsp.vim#L135-L146
+  let l:deno_enabled = lsp#is_server_running("deno")
+
   augroup lsp_format
     autocmd!
-    autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx call execute('LspDocumentFormatSync --server=efm-langserver')
+    if l:deno_enabled
+      autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.cjs call execute(['LspDocumentFormatSync'])
+    else
+      autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.cjs call execute(['LspDocumentFormatSync --server=efm-langserver'])
+    endif
     autocmd BufWritePre *.graphql call execute('LspDocumentFormatSync --server=efm-langserver')
     autocmd BufWritePre *.go call execute('LspDocumentFormatSync')
     autocmd BufWritePre *.dart call execute('LspDocumentFormatSync')
