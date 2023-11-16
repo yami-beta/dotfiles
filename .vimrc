@@ -385,8 +385,8 @@ inoremap <C-^> <C-r>"
 inoremap <C-y>f <C-R>=expand("%:t:r")<CR>
 
 " カーソルを表示行で移動する。物理行移動は<C-n>,<C-p>
-noremap j gj
-noremap k gk
+" noremap j gj
+" noremap k gk
 noremap <Down> gj
 noremap <Up>   gk
 " 行頭・行末移動
@@ -445,14 +445,14 @@ noremap - <C-x>
 vnoremap < <gv
 vnoremap > >gv
 
-" Esc の 2 回押しでハイライトを消去
-nnoremap <Esc><Esc> :<C-u>nohlsearch<CR><ESC>
+" Esc の 2 回押しでハイライトを消去, quickfixウィンドウを閉じる
+nnoremap <silent><Esc><Esc> :<C-u>nohlsearch<CR>:<C-u>cclose<CR><ESC>
 
 " コメントアウト
-nmap <C-_> <Plug>(caw:hatpos:toggle)
-vmap <C-_> <Plug>(caw:hatpos:toggle)
+nmap <C-/> <Plug>(caw:hatpos:toggle)
+vmap <C-/> <Plug>(caw:hatpos:toggle)
 " 現在行がインデントのみの場合は，<Plug>(caw:hatpos:comment)を実行
-imap <expr><C-_> getline('.') =~# '\v^\s*$' ? "\<C-o><Plug>(caw:hatpos:comment)"
+imap <expr><C-/> getline('.') =~# '\v^\s*$' ? "\<C-o><Plug>(caw:hatpos:comment)"
       \ : "\<C-o><Plug>(caw:hatpos:toggle)"
 
 inoremap <expr><C-c> pumvisible() ? "\<C-e>" : "\<C-c>"
