@@ -20,6 +20,7 @@ setglobal confirm
 setglobal cmdheight=2                " 画面下部のコマンドラインの高さ
 setglobal showcmd
 setglobal scrolloff=5
+setglobal ttimeoutlen=1
 setglobal fileformats=unix,dos,mac   " 改行文字
 setglobal modeline
 setglobal splitright
