@@ -417,8 +417,11 @@ inoremap <expr> <C-a> col('.') == match(getline('.'), '\S') + 1 ?
 inoremap <expr> <C-e> repeat('<C-G>U<Right>', col('$') - col('.'))
 
 " :terminal
-nnoremap <silent><Leader>T :<C-u>TermCurBufPath<CR>
-nnoremap <silent><Leader>t :<C-u>:botright terminal<CR>
+nnoremap <silent><nowait><Leader>T :<C-u>TermCurBufPath<CR>
+nnoremap <silent><nowait><Leader>t :<C-u>botright terminal<CR>
+
+" quickfix
+nnoremap <silent><Leader>c :<C-u>cclose<CR>
 
 " タブ移動
 nnoremap <S-h> gT
@@ -447,7 +450,8 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Esc の 2 回押しでハイライトを消去, quickfixウィンドウを閉じる
-nnoremap <silent><Esc><Esc> :<C-u>nohlsearch<CR>:<C-u>cclose<CR><ESC>
+" nnoremap <silent><Esc><Esc> :<C-u>nohlsearch<CR>:<C-u>cclose<CR><ESC>
+nnoremap <silent><C-l> :<C-u>nohlsearch<CR><C-l>
 
 " コメントアウト
 nmap <C-/> <Plug>(caw:hatpos:toggle)
