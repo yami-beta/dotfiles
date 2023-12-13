@@ -342,6 +342,7 @@ Plug 'chr4/nginx.vim', { 'for': 'nginx' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 
 Plug 'lilydjwg/colorizer'
+let g:colorizer_nomap = 1
 
 " 検索・置換を便利にする
 Plug 'haya14busa/vim-asterisk'
