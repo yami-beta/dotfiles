@@ -30,7 +30,7 @@ useMemo\.\(\S\+\)$
 	type {{$1}}Props = {};
 	
 	export const {{$1}}: VFC<{{$1}}Props> = () => {{{_cursor_}}};
-\(\S\+\)\.CSF$
+\(\S\+\)\.stories$
 	import { Meta, StoryObj } from "@storybook/react";
 	import { {{$1}} } from "./{{$1}}";
 	
