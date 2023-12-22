@@ -26,10 +26,8 @@ tools:
 languages:
   typescript:
     - <<: *prettier
-    - <<: *stylelint
   typescriptreact:
     - <<: *prettier
-    - <<: *stylelint
   javascript:
     - <<: *prettier
   graphql:
