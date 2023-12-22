@@ -387,10 +387,10 @@ inoremap <C-^> <C-r>"
 inoremap <C-y>f <C-R>=expand("%:t:r")<CR>
 
 " カーソルを表示行で移動する。物理行移動は<C-n>,<C-p>
-" noremap j gj
-" noremap k gk
-noremap <Down> gj
-noremap <Up>   gk
+noremap j gj
+noremap k gk
+" noremap <Down> gj
+" noremap <Up>   gk
 " 行頭・行末移動
 noremap <C-a> ^
 noremap <C-e> $
