@@ -422,6 +422,25 @@ inoremap <expr> <C-e> repeat('<C-G>U<Right>', col('$') - col('.'))
 nnoremap <silent><nowait><Leader>T :<C-u>TermCurBufPath<CR>
 nnoremap <silent><nowait><Leader>t :<C-u>botright terminal<CR>
 
+function! ToggleTerminal() abort
+  let l:terms = term_list()
+  if empty(l:terms)
+    botright terminal ++rows=20
+    return
+  endif
+
+  let l:wins = win_findbuf(l:terms[0])
+  if empty(l:wins)
+    botright 20split
+    execute 'buffer' l:terms[0]
+  else
+    call win_execute(l:wins[0], 'hide')
+  endif
+endfunction
+inoremap <c-@> <cmd>:call ToggleTerminal()<cr>
+nnoremap <c-@> <cmd>:call ToggleTerminal()<cr>
+tnoremap <c-@> <cmd>:call ToggleTerminal()<cr>
+
 " quickfix
 nnoremap <silent><Leader>c :<C-u>cclose<CR>
 
