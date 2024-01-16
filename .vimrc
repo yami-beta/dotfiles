@@ -201,7 +201,8 @@ let g:qfenter_keymap.vopen = ['<C-v>']
 let g:qfenter_keymap.hopen = ['<C-CR>', '<C-x>']
 let g:qfenter_keymap.topen = ['<C-t>']
 
-Plug 'scrooloose/nerdtree'
+" ファイラ
+Plug 'lambdalisue/fern.vim'
 
 " 見た目
 Plug 'ghifarit53/tokyonight-vim'
@@ -468,16 +469,7 @@ vmap , <Plug>(EasyAlign)
 
 nmap <silent> s <Plug>(operator-replace)
 
-nnoremap <silent> <Leader>e :<C-u>NERDTreeFocus<CR>
-function s:open_nerdtree() abort
-  if expand('%') ==# ''
-    execute "NERDTree"
-  else
-    execute "NERDTreeFind"
-  endif
-endfunction
-command! OpenNerdTree call s:open_nerdtree()
-nnoremap <silent> <Leader>d :<C-u>OpenNerdTree<CR>
+nnoremap <silent> <Leader>d <Cmd>Fern . -drawer -right -reveal=%<CR>
 
 nnoremap <silent> <Leader>f :<C-u>Files<CR>
 nnoremap <silent> <Leader>r :<C-u>FZFRelative<CR>
