@@ -47,6 +47,16 @@ config.keys = {
       end),
     },
   },
+  {
+    key = '\\',
+    mods = 'ALT',
+    action = wezterm.action.SplitHorizontal { domain = 'CurrentPaneDomain' },
+  },
+  {
+    key = '-',
+    mods = 'ALT',
+    action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
+  },
 }
 
 -- config.color_scheme = 'One Dark (Gogh)'
