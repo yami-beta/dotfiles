@@ -1,0 +1,9 @@
+# rg のデフォルト設定ファイル
+# RIPGREP_CONFIG_PATH で設定ファイルへのパスを指定
+
+# Search hidden files / directories (e.g. dotfiles) by default
+--hidden
+
+# Using glob patterns to include/exclude files or folders
+# --hidden だけだと .git/ 以下も検索対象になってしまうので除外
+--glob=!.git/*
