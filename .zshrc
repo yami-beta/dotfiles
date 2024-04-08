@@ -107,51 +107,15 @@ alias la='ls -a'
 alias rm='rm -i'
 
 function repo() {
-  local ghq_list tmux_status tmux_sessions repo_dir key query out filter_owner
-  filter_owner=1
+  select_repo=$(ghq list | fzf)
+  if [[ $select_repo = "" ]]; then
+    return
+  fi
 
-  function get_merged_list() {
-    filter_owner=$1
-    ghq_list=$(ghq list | awk 'BEGIN{OFS="\t"} {print "[ghq]", $0}')
-    if [[ $filter_owner -eq 1 ]]; then
-      ghq_list=$(grep -E "($FZF_REPO_FILTER)" <<< "$ghq_list")
-    fi
-
-    tmux_status=$(tmux ls -F '#{session_name}' 2>&1)
-    if [[ "$tmux_status" =~ '^(no server running|error)' ]]; then
-      # tmuxのsessionが存在しない場合はghq_listの先頭に改行を入れない
-      # 改行を入れると空文字の候補になってしまうため
-      tmux_sessions=""
-    else
-      # tmuxのsessionが存在する場合はghq_listの先頭に改行を入れて2つを結合できるようにする
-      tmux_sessions=$(echo $tmux_status | awk 'BEGIN{OFS="\t"} {print "[tmux]", $0}')
-      ghq_list="\n${ghq_list}"
-    fi
-
-    echo "${tmux_sessions}${ghq_list}"
-  }
-
-  while out=$(
-    get_merged_list $filter_owner | fzf --print-query --query="$query" --expect=ctrl-r
-    ); do
-    query=$(head -1 <<< "$out")
-    key=$(head -2 <<< "$out" | tail -1)
-    repo_dir=$(head -3 <<< "$out" | tail -1)
-    if [[ "$key" = ctrl-r ]]; then
-      filter_owner=$((filter_owner ? 0 : 1))
-    else
-      if [[ -n "$repo_dir" ]]; then
-        local select_value=$(echo $repo_dir | awk '{print $2}')
-        local select_type=$(echo $repo_dir | awk '{print $1}')
-        if [[ "$select_type" = "[tmux]" ]]; then
-          tmux attach -t $select_value
-        else
-          cd $(ghq root)/${select_value}
-        fi
-      fi
-      break
-    fi
-  done
+  cd $(ghq root)/$select_repo
+  if type wezterm >/dev/null 2>&1; then
+    wezterm cli rename-workspace $select_repo
+  fi
 }
 
 function git_branch() {
