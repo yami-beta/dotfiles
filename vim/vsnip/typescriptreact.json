@@ -10,13 +10,33 @@
   "NextPage": {
     "prefix": ["nextpage"],
     "body": [
-      "type PageProps = {};",
+      "type Props = {",
+      "\tparams: unknown;",
+      "};",
       "",
-      "function Page({}: PageProps) {",
+      "export const generateMetadata = async ({ params }: Props) => {",
+      "\treturn {",
+      "\t\ttitle: \"\",",
+      "\t};",
+      "};",
+      "",
+      "export default function Page({ params }: Props) {",
       "\t$0",
-      "}",
+      "}"
+    ]
+  },
+  "storybook": {
+    "prefix": ["storybook"],
+    "body": [
+      "const meta = {",
+      "\tcomponent: ${1}",
+      "} satisfies Meta<typeof ${1}>;",
       "",
-      "export default Page;"
+      "export default meta;",
+      "",
+      "type Story = StoryObj<typeof meta>;",
+      "",
+      "export const Base = {${2}} satisfies Story;"
     ]
   }
 }

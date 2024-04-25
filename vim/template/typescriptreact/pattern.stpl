@@ -24,32 +24,16 @@ useMemo\.\(\S\+\)$
 	type {{$1}}Props = PropsWithChildren<{}>;
 	
 	export const {{$1}}: FC<{{$1}}Props> = () => {{{_cursor_}}};
-\(\S\+\)\.VFC$
-	import { VFC } from "react";
-	
-	type {{$1}}Props = {};
-	
-	export const {{$1}}: VFC<{{$1}}Props> = () => {{{_cursor_}}};
 \(\S\+\)\.stories$
 	import { Meta, StoryObj } from "@storybook/react";
 	import { {{$1}} } from "./{{$1}}";
 	
-	const meta: Meta<typeof {{$1}}> = {
+	const meta = {
 	  component: {{$1}},
-	};
+	} satisfies Meta<typeof {{$1}}>;
 	
 	export default meta;
 	
-	type Story = StoryObj<typeof {{$1}}>;
+	type Story = StoryObj<typeof meta>;
 	
-	export const Base: Story = {};
-\(\S\+\)\.NextPage$
-	import { NextPage } from "next";
-	
-	type {{$1}}Props = {};
-	
-	const {{$1}}: NextPage<{{$1}}Props> = () => {
-	  {{_cursor_}}
-	};
-	
-	export default {{$1}};
+	export const Base = {} satisfies Story;
