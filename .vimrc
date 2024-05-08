@@ -89,8 +89,7 @@ call plug#begin('~/.vim/plug')
 Plug 'vim-jp/vimdoc-ja'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
-" Plug 'mattn/vim-lsp-settings'
-Plug 'yami-beta/vim-lsp-settings', { 'branch': 'feat/vscode-eslint' }
+Plug 'mattn/vim-lsp-settings'
 " let g:lsp_log_file = expand('~/vim-lsp.log')
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_fold_enabled = 0
