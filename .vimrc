@@ -91,9 +91,14 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 " let g:lsp_log_file = expand('~/vim-lsp.log')
+let g:lsp_code_action_ui = 'float'
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_fold_enabled = 0
 let g:lsp_document_code_action_signs_enabled = 0
+" let g:lsp_inlay_hints_enabled = 1
+" let g:lsp_diagnostics_virtual_text_enabled = 0
+let g:lsp_diagnostics_virtual_text_align = 'right'
+let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
 let g:lsp_settings = {
 \ 'efm-langserver': {
 \   'disabled': v:false,
@@ -120,6 +125,9 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> <F1> <plug>(lsp-implementation)
   nmap <buffer> <F2> <plug>(lsp-rename)
 
+  nmap <expr><buffer> <C-u> popup_list()->empty() ? '<C-u>' : lsp#scroll(-4)
+  nmap <expr><buffer> <C-d> popup_list()->empty() ? '<C-d>' : lsp#scroll(+4)
+
   setlocal omnifunc=lsp#complete
 
   " https://github.com/prabirshrestha/vim-lsp/blob/7233bb2ec07506b6a6e57dfe4541f1c4e5647fd2/autoload/lsp.vim#L135-L146
@@ -133,7 +141,7 @@ function! s:on_lsp_buffer_enabled() abort
       autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.cjs call execute(['LspDocumentFormatSync --server=efm-langserver'])
     endif
     autocmd BufWritePre *.graphql call execute('LspDocumentFormatSync --server=efm-langserver')
-    autocmd BufWritePre *.go call execute('LspDocumentFormatSync')
+    autocmd BufWritePre *.go call execute(['LspCodeActionSync source.organizeImports', 'LspDocumentFormatSync'])
     autocmd BufWritePre *.dart call execute('LspDocumentFormatSync')
   augroup END
 endfunction
