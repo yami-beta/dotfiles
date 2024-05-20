@@ -302,6 +302,7 @@ Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascriptreact'] }
 
 Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript'] }
 Plug 'jjo/vim-cue', { 'for': ['cue'] }
+Plug 'hashivim/vim-terraform', { 'for': ['terraform'] }
 
 Plug 'hail2u/vim-css3-syntax'
 " Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
