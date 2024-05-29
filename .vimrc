@@ -449,6 +449,9 @@ inoremap <c-@> <cmd>:call ToggleTerminal()<cr>
 nnoremap <c-@> <cmd>:call ToggleTerminal()<cr>
 tnoremap <c-@> <cmd>:call ToggleTerminal()<cr>
 
+command! Tig tab terminal ++close tig
+command! Lazygit tab terminal ++close lazygit
+
 " quickfix
 nnoremap <silent><Leader>c :<C-u>cclose<CR>
 
