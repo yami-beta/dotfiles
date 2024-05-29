@@ -142,7 +142,7 @@ function! s:on_lsp_buffer_enabled() abort
     endif
     autocmd BufWritePre *.graphql call execute('LspDocumentFormatSync --server=efm-langserver')
     autocmd BufWritePre *.go call execute(['LspCodeActionSync source.organizeImports', 'LspDocumentFormatSync'])
-    autocmd BufWritePre *.dart call execute('LspDocumentFormatSync')
+    autocmd BufWritePre *.dart call execute(['LspCodeActionSync source.fixAll', 'LspCodeActionSync source.organizeImports', 'LspDocumentFormatSync'])
   augroup END
 endfunction
 augroup lsp_install
