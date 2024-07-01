@@ -13,7 +13,7 @@ config.keys = {
     key = 'w',
     mods = 'ALT',
     action = act.ShowLauncherArgs {
-      flags = 'FUZZY|WORKSPACES'
+      flags = 'WORKSPACES'
     },
   },
   -- https://wezfurlong.org/wezterm/config/lua/keyassignment/SwitchToWorkspace.html#prompting-for-the-workspace-name
