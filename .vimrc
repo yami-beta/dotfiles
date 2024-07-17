@@ -195,7 +195,6 @@ function! s:fzf_repo() abort
   \ }))
 endfunction
 command! Repo call s:fzf_repo()
-Plug 'yami-beta/fzf-session.vim'
 
 Plug 'mattn/vim-sonictemplate'
 let g:sonictemplate_vim_template_dir = [
@@ -502,10 +501,10 @@ nmap <silent> s <Plug>(operator-replace)
 nnoremap <silent> <Leader>d <Cmd>Fern . -drawer -right -reveal=%<CR>
 
 nnoremap <silent> <Leader>f :<C-u>Files<CR>
+nnoremap <silent> <Leader>g :<C-u>GFiles<CR>
 nnoremap <silent> <Leader>r :<C-u>FZFRelative<CR>
 nnoremap <silent> <Leader>b :<C-u>Buffers<CR>
 nnoremap <silent> <Leader>w :<C-u>Windows<CR>
-nnoremap <silent> <Leader>s :<C-u>FZFSession<CR>
 
 nmap <C-k> <Plug>(asterisk-z*)
 vmap <C-k> <Plug>(asterisk-z*)

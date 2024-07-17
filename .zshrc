@@ -212,6 +212,7 @@ fi
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --hidden --iglob "!.git"'
+
+export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore --iglob "!.git"'
 
 typeset -U path
