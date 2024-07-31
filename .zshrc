@@ -1,3 +1,6 @@
+# vim を日本語表示にするため
+export LANG=ja_JP.UTF-8
+
 bindkey -e
 disable r # rコマンド(zsh)を無効化，R言語と重複する
 setopt nonomatch # glob展開による警告を無効 (e.g. rake new_post['post title'])
