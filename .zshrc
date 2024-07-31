@@ -197,6 +197,14 @@ bindkey '^r' fzf_select_history
 
 export EDITOR="vim"
 
+# proto
+export PROTO_HOME="$HOME/.proto"
+export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
+
+export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore --iglob "!.git"'
+
+source "$HOME/pnpm-completion.zsh"
+
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 if type brew &>/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
@@ -205,14 +213,8 @@ if type brew &>/dev/null; then
   compinit
 fi
 
-# https://github.com/Schniz/fnm#zsh
-if type fnm &>/dev/null; then
-  eval "$(fnm env --use-on-cd)"
-fi
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore --iglob "!.git"'
 
 typeset -U path
