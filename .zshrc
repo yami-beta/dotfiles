@@ -1,30 +1,3 @@
-# Check if zplug is installed
-[[ -d ~/.zplug ]] || {
-  git clone https://github.com/zplug/zplug ~/.zplug
-  source ~/.zplug/init.zsh && zplug update --self
-}
-
-# Essential
-source ~/.zplug/init.zsh
-
-# Make sure to use double quotes to prevent shell expansion
-zplug "zplug/zplug"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-completions"
-
-# Install packages that have not been installed yet
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  else
-    echo
-  fi
-fi
-
-zplug load
-
 bindkey -e
 disable r # rコマンド(zsh)を無効化，R言語と重複する
 setopt nonomatch # glob展開による警告を無効 (e.g. rake new_post['post title'])
@@ -101,6 +74,9 @@ PROMPT="${prompt_username}%F{blue}%~%f"' ${vcs_info_msg_0_}'"
 # history search
 bindkey '^P' history-beginning-search-backward
 bindkey '^N' history-beginning-search-forward
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 alias ll='ls -lha'
 alias la='ls -a'
@@ -207,13 +183,20 @@ source "$HOME/pnpm-completion.zsh"
 
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+  # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
   autoload -Uz compinit
   compinit
 fi
 
+# zsh-syntax-highlighting が zshrc の最後の辺りに置くことを推奨されている
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# zsh-history-substring-search は zsh-syntax-highlighting の後に置くことを推奨されている
+source $(brew --prefix)/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
+# .zshrc.local で読み込んでいる google-cloud-sdk/completion.zsh.inc が compinit がまだ呼ばれていないときに呼ぶようになっているため、この位置で読み込み
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
