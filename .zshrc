@@ -174,7 +174,10 @@ function fzf_select_history() {
 zle -N fzf_select_history
 bindkey '^r' fzf_select_history
 
+alias deno-file-server='deno run --allow-net --allow-read https://deno.land/std/http/file_server.ts'
+
 export EDITOR="vim"
+
 
 # proto
 export PROTO_HOME="$HOME/.proto"
