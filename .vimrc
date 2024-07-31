@@ -545,6 +545,7 @@ augroup vimrc_filetype
   autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
   autocmd FileType typescript,typescriptreact,javascript,javascriptreact setlocal iskeyword+=@-@
   autocmd FileType typescript,typescriptreact,javascript,javascriptreact setlocal iskeyword+=-
+  autocmd FileType php setlocal shiftwidth=4
 augroup END
 
 let g:vim_indent_cont = 0
