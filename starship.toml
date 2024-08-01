@@ -1,0 +1,17 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = false
+
+# デフォルトの 500ms だとタイムアウトする言語がたまにあるので
+command_timeout = 1000
+
+[character]
+# デフォルトのシンボルだと Vim の :terminal で位置ずれが発生することがあるので
+success_symbol = "[>](bold green)"
+error_symbol = "[x](bold red)"
+vimcmd_symbol = "[<](bold green)"
+
+[directory]
+# 開発リポジトリを ~/dev/src/{owner}/{repo} に置いているから
+truncation_length = 5

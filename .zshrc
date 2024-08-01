@@ -49,29 +49,29 @@ DIRSTACKSIZE=5
 setopt auto_pushd pushdminus pushdignoredups
 
 # プロンプト
-autoload -Uz vcs_info
-autoload -Uz add-zsh-hook
-# PROMPT変数内で変数参照する
-setopt prompt_subst
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{cyan}%c%u%b%f"
-zstyle ':vcs_info:*' actionformats '[%b|%a]'
-function _update_vcs_info()
-{
-  vcs_info
-}
-add-zsh-hook precmd _update_vcs_info
-local prompt_username
-# sshログイン時に ユーザ名@ホスト名 を表示
-[[ "$SSH_CONNECTION" != '' ]] && prompt_username="%F{green}%n@%m%f:"
-# root時に ユーザ名@ホスト名 を表示
-[[ $UID -eq 0 ]] && prompt_username="%F{green}%n@%m%f:"
-# prompt_subst は，シングルクォートで囲まれている場合のみ変数展開する
-# %(!.#.$) は，Conditional Substitution
-PROMPT="${prompt_username}%F{blue}%~%f"' ${vcs_info_msg_0_}'"
-%(!.#.$) "
+# autoload -Uz vcs_info
+# autoload -Uz add-zsh-hook
+# # PROMPT変数内で変数参照する
+# setopt prompt_subst
+# zstyle ':vcs_info:git:*' check-for-changes true
+# zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
+# zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
+# zstyle ':vcs_info:*' formats "%F{cyan}%c%u%b%f"
+# zstyle ':vcs_info:*' actionformats '[%b|%a]'
+# function _update_vcs_info()
+# {
+#   vcs_info
+# }
+# add-zsh-hook precmd _update_vcs_info
+# local prompt_username
+# # sshログイン時に ユーザ名@ホスト名 を表示
+# [[ "$SSH_CONNECTION" != '' ]] && prompt_username="%F{green}%n@%m%f:"
+# # root時に ユーザ名@ホスト名 を表示
+# [[ $UID -eq 0 ]] && prompt_username="%F{green}%n@%m%f:"
+# # prompt_subst は，シングルクォートで囲まれている場合のみ変数展開する
+# # %(!.#.$) は，Conditional Substitution
+# PROMPT="${prompt_username}%F{blue}%~%f"' ${vcs_info_msg_0_}'"
+# %(!.#.$) "
 
 
 # history search
@@ -207,3 +207,5 @@ source $(brew --prefix)/share/zsh-history-substring-search/zsh-history-substring
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 typeset -U path
+
+eval "$(starship init zsh)"
