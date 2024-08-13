@@ -65,7 +65,11 @@ config.color_scheme = 'OneDark (base16)'
 -- config.color_scheme = 'nordfox'
 -- config.color_scheme = 'duskfox'
 
-config.font = wezterm.font("Cica")
+-- https://zenn.dev/paiza/articles/9ca689a0365b05
+config.font = wezterm.font_with_fallback({
+  { family = "Cica" },
+  { family = "Cica", assume_emoji_presentation = true },
+})
 config.font_size = 16.0
 
 config.window_background_opacity = 0.9
