@@ -201,6 +201,13 @@ let g:sonictemplate_vim_template_dir = [
 \ '$HOME/dev/src/github.com/yami-beta/dotfiles/vim/template'
 \ ]
 
+Plug 'tyru/empty-prompt.vim'
+let g:empty_prompt#pattern = &shell =~# 'sh$' ? '❯\s*$' : '>\s*$'
+function! s:empty_prompt_mappings() abort
+  call empty_prompt#map(#{lhs: '<Esc>', rhs: '<C-g>N'})
+endfunction
+autocmd VimEnter * ++once call s:empty_prompt_mappings()
+
 Plug 'yssl/QFEnter'
 let g:qfenter_keymap = {}
 let g:qfenter_keymap.vopen = ['<C-v>']
