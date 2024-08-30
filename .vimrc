@@ -30,7 +30,11 @@ setglobal ttyfast                    " 高速化
 setglobal mouse=a                    " 全モードでマウスを有効化
 setglobal ttymouse=sgr               " マウスコードの設定
 setglobal shellslash                 " パス区切りをスラッシュにする
-setglobal formatoptions+=mM          " 整形オプションにマルチバイト系を追加
+" r: 挿入モードで <Enter> を打ち込んだ後にコメント開始文字列を自動挿入
+" o: ノーマルモードで 'o', 'O' を打ち込んだ後にコメント開始文字列を自動挿入
+" m: 文字コードが 255 より後のマルチバイト文字の間でも改行する
+" M: 行の連結時に、マルチバイト文字の前後に空白を挿入しない。`B` より優先される
+setglobal formatoptions+=romM
 setglobal clipboard+=unnamed         " クリップボードと無名レジスタを共有
 " setglobal ambiwidth=double           " □とか○等の文字でカーソル位置がずれないようにする
 " setglobal ambiwidth=single           " powerline patched font を使用するため
