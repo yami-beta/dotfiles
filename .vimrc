@@ -111,6 +111,16 @@ let g:lsp_settings = {
 \ 'vim-language-server': {
 \   'blocklist': ['help'],
 \ },
+\ 'vscode-json-language-server': {
+\   'schemas': [
+\     {
+\       "name": "Application Resource Bundle",
+\       "description": "Application Resource Bundle",
+\       "fileMatch": ["*.arb"],
+\       "url": "https://raw.githubusercontent.com/google/arb-editor/main/schemas/arb.json"
+\     },
+\   ],
+\ },
 \ }
 let g:lsp_settings_filetype_typescript = ['vscode-eslint-language-server', 'typescript-language-server', 'deno']
 let g:lsp_settings_filetype_typescriptreact = ['vscode-eslint-language-server', 'typescript-language-server']
@@ -558,6 +568,7 @@ augroup vimrc_filetype
   autocmd FileType typescript,typescriptreact,javascript,javascriptreact setlocal iskeyword+=@-@
   autocmd FileType typescript,typescriptreact,javascript,javascriptreact setlocal iskeyword+=-
   autocmd FileType php setlocal shiftwidth=4
+  autocmd BufNewFile,BufRead *.arb setl filetype=json
 augroup END
 
 let g:vim_indent_cont = 0
