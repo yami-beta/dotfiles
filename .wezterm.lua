@@ -4,6 +4,26 @@ wezterm.on('update-right-status', function(window, pane)
   window:set_right_status(window:active_workspace())
 end)
 
+-- https://wezfurlong.org/wezterm/config/lua/window/set_config_overrides.html を参考に
+wezterm.on('toggle-opacity', function(window, pane)
+  local overrides = window:get_config_overrides() or {}
+
+  -- set_config_overrides は文字通り config に対して上書きする値を設定する
+  -- 透過度は `config.window_background_opacity = 0.9` を設定しているので
+  -- `overrides.window_background_opacity == nil` のとき透過が適用され
+  -- `overrides.window_background_opacity == 1.0` で未透過になる
+  --
+  -- lua はテーブルで nil を割り当てるとキーが存在しないことと同じ扱いになるため
+  -- `overrides.window_background_opacity = nil` は `window_background_opacity` の上書きをしないことになるらしい
+  if overrides.window_background_opacity then
+    overrides.window_background_opacity = nil
+  else
+    overrides.window_background_opacity = 1.0
+  end
+
+  window:set_config_overrides(overrides)
+end)
+
 local config = {}
 
 local act = wezterm.action
@@ -56,6 +76,11 @@ config.keys = {
     key = '-',
     mods = 'ALT',
     action = wezterm.action.SplitVertical { domain = 'CurrentPaneDomain' },
+  },
+  {
+    key = 'u',
+    mods = 'SUPER',
+    action = wezterm.action.EmitEvent 'toggle-opacity',
   },
 }
 
