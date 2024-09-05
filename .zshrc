@@ -207,6 +207,12 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # zsh-history-substring-search は zsh-syntax-highlighting の後に置くことを推奨されている
 source $(brew --prefix)/share/zsh-history-substring-search/zsh-history-substring-search.zsh
 
+# https://mise.jdx.dev/getting-started.html#_2a-activate-mise
+# `mise activate zsh` はインタラクティブ環境で PATH を操作するための設定なので .zshrc に記載している
+if type mise &>/dev/null; then
+  eval "$(mise activate zsh)"
+fi
+
 # .zshrc.local で読み込んでいる google-cloud-sdk/completion.zsh.inc が compinit がまだ呼ばれていないときに呼ぶようになっているため、この位置で読み込み
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
