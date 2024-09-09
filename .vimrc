@@ -239,7 +239,7 @@ Plug 'yami-beta/vim-colors-yuzu'
 Plug 'yami-beta/vim-colors-ruri'
 Plug 'yami-beta/vim-colors-nouvelle-tricolor'
 Plug 'joshdick/onedark.vim'
-let g:onedark_color_overrides = { 'visual_grey': { 'gui': '#4e5566', 'cterm': '237', 'cterm16': '8' } }
+let g:onedark_color_overrides = { 'comment_grey': { 'gui': '#7d8799', 'cterm': '59', 'cterm16': '7' }, 'visual_grey': { 'gui': '#4e5566', 'cterm': '237', 'cterm16': '8' } }
 augroup vimrc_colorscheme
   autocmd!
   " ターミナルの背景透過を使うため背景色設定をクリア
