@@ -1,0 +1,16 @@
+# タブ
+set tab-size = 4
+
+# 空白無視
+set ignore-space = all
+
+# 常にすべてのブランチを表示
+set main-options = --exclude=refs/stash --all
+
+set main-view = id date author commit-title:graph=yes,refs=yes
+color main-head red default
+
+# commit時にdiffを表示
+bind status C !git commit -v
+
+bind generic y @zsh -c "echo -n %(commit) | pbcopy"

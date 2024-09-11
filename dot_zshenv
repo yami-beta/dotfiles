@@ -1,0 +1,14 @@
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
+export PATH="$HOME/dev/bin:$PATH"
+export PATH="$HOME/.pub-cache/bin:$PATH"
+
+export FZF_DEFAULT_OPTS="--layout reverse"
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+if type go &>/dev/null; then
+  export PATH="$(go env GOPATH)/bin:$PATH"
+fi
+
+# vim: filetype=zsh

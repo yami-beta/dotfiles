@@ -202,6 +202,14 @@ if type brew &>/dev/null; then
   compinit
 fi
 
+if type direnv &>/dev/null; then
+  eval "$(direnv hook zsh)"
+fi
+
+if type rbenv &>/dev/null; then
+  eval "$(rbenv init -)"
+fi
+
 # zsh-syntax-highlighting が zshrc の最後の辺りに置くことを推奨されている
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # zsh-history-substring-search は zsh-syntax-highlighting の後に置くことを推奨されている
@@ -213,10 +221,13 @@ if type mise &>/dev/null; then
   eval "$(mise activate zsh)"
 fi
 
-# .zshrc.local で読み込んでいる google-cloud-sdk/completion.zsh.inc が compinit がまだ呼ばれていないときに呼ぶようになっているため、この位置で読み込み
+# .zshrc.local で読み込んでいる google-cloud-sdk/completion.zsh.inc は compinit がまだ呼ばれていない場合は compinit 呼ぶようになっている
+# compinit を複数回呼ばないようにこの位置で読み込みを行っている
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-typeset -U path
+typeset -U path PATH
 
 eval "$(starship init zsh)"
+
+# vim: filetype=zsh

@@ -1,0 +1,15 @@
+# .zshenv ではなくあえて .zprofile に設定するようになっている
+# macOS の /usr/libexec/path_helper によって /opt/homebrew/bin よりシステムのパスを優先度高く設定する挙動があり
+# これらを回避するために .zprofile に設定する方法が案内されている
+# https://github.com/orgs/Homebrew/discussions/1127
+#
+# /usr/libexec/path_helper の挙動は `unsetopt GLOBAL_RCS` で無効化出来るらしい
+# https://this.aereal.org/entry/zsh-path-helper
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# .zprofileへの記載が案内されていたので書いている
+# ただ .zshenv でも良い気はしている
+# https://mise.jdx.dev/getting-started.html#_2b-alternative-add-mise-shims-to-path
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+
+# vim: filetype=zsh
