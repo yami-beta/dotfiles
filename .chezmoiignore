@@ -3,3 +3,7 @@ LICENSE
 
 vim/
 vim-lsp.vimrc
+
+{{ if ne .chezmoi.os "darwin" }}
+.Brewfile
+{{ end }}
