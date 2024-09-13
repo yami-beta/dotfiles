@@ -190,7 +190,9 @@ export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore --iglob "!.git"'
 
-source "$HOME/pnpm-completion.zsh"
+if [ -f "$HOME/pnpm-completion.zsh" ]; then
+  source "$HOME/pnpm-completion.zsh"
+fi
 
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 if type brew &>/dev/null; then
