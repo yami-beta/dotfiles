@@ -102,4 +102,9 @@ config.window_background_opacity = 0.9
 -- https://wezfurlong.org/wezterm/config/lua/config/cursor_blink_rate.html
 config.cursor_blink_rate = 0
 
+-- https://wezfurlong.org/wezterm/config/appearance.html#styling-inactive-panes
+config.inactive_pane_hsb = {
+  brightness = 0.6,
+}
+
 return config
