@@ -104,6 +104,7 @@ config.cursor_blink_rate = 0
 
 -- https://wezfurlong.org/wezterm/config/appearance.html#styling-inactive-panes
 config.inactive_pane_hsb = {
+  -- saturation = 0.8,
   brightness = 0.6,
 }
 
