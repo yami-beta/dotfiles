@@ -35,16 +35,6 @@ zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}
 zstyle ':completion:*:default' menu select=1
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-# sshの補完候補
-zstyle ':completion:*' users off # ユーザの補完をオフ
-_ssh_config=($(egrep -i '^Host\s+.+' $HOME/.ssh/config $(find $HOME/.ssh/conf.d -type f 2>/dev/null) | awk '{print $2}'))
-[ -r /etc/hosts ] && : ${(A)_etc_hosts:=${(s: :)${(ps:\t:)${${(f)~~"$(</etc/hosts)"}%%\#*}##[:blank:]#[^[:blank:]]#}}} || _etc_hosts=()
-hosts=(
-  "$_ssh_config[@]"
-  localhost
-)
-zstyle ':completion:*:hosts' hosts $hosts # ホスト名の補完
-
 # cd の履歴
 # $ cd -[tab]
 # auto_pushd: cd の履歴を保持
