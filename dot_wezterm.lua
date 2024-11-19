@@ -85,7 +85,8 @@ config.keys = {
 }
 
 -- config.color_scheme = 'One Dark (Gogh)'
-config.color_scheme = 'OneDark (base16)'
+-- config.color_scheme = 'OneDark (base16)'
+config.color_scheme = 'OneHalfDark'
 -- config.color_scheme = 'nightfox'
 -- config.color_scheme = 'nordfox'
 -- config.color_scheme = 'duskfox'
