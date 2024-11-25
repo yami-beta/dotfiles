@@ -479,7 +479,8 @@ tnoremap <c-@> <cmd>:call ToggleTerminal()<cr>
 
 " tig は popup で表示するとスクロールが変な動きをしていて描画が不自然だった
 command! Tig vertical terminal ++close tig
-command! Git call popup_dialog(term_start(['lazygit'], #{ hidden: 1, term_finish: 'close' }), #{ minwidth: float2nr(winwidth(0) * 0.8), minheight: float2nr(winheight(0) * 0.8) })
+command! Git vertical terminal ++close lazygit
+" command! Git call popup_dialog(term_start(['lazygit'], #{ hidden: 1, term_finish: 'close' }), #{ minwidth: float2nr(winwidth(0) * 0.8), minheight: float2nr(winheight(0) * 0.8) })
 
 " quickfix
 nnoremap <silent><Leader>c :<C-u>cclose<CR>
