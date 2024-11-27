@@ -239,12 +239,9 @@ let g:qfenter_keymap.topen = ['<C-t>']
 Plug 'lambdalisue/fern.vim'
 
 " 見た目
-Plug 'ghifarit53/tokyonight-vim'
-let g:tokyonight_disable_italic_comment = 1
-let g:tokyonight_transparent_background = 1
-Plug 'yami-beta/vim-colors-yuzu'
-Plug 'yami-beta/vim-colors-ruri'
-Plug 'yami-beta/vim-colors-nouvelle-tricolor'
+" Plug 'ghifarit53/tokyonight-vim'
+" let g:tokyonight_disable_italic_comment = 1
+" let g:tokyonight_transparent_background = 1
 Plug 'joshdick/onedark.vim'
 let g:onedark_color_overrides = { 'comment_grey': { 'gui': '#7d8799', 'cterm': '59', 'cterm16': '7' }, 'visual_grey': { 'gui': '#4e5566', 'cterm': '237', 'cterm16': '8' } }
 augroup vimrc_colorscheme
