@@ -477,13 +477,12 @@ tnoremap <c-@> <cmd>:call ToggleTerminal()<cr>
 " tig は popup で表示するとスクロールが変な動きをしていて描画が不自然だった
 command! Tig vertical terminal ++close tig
 command! Git vertical terminal ++close lazygit
-" command! Git call popup_dialog(term_start(['lazygit'], #{ hidden: 1, term_finish: 'close' }), #{ minwidth: float2nr(winwidth(0) * 0.8), minheight: float2nr(winheight(0) * 0.8) })
 
 " bufhidden=delete に設定しないと popup を閉じた時にバッファが残ってしまうため
 function! s:lazygit() abort
   let l:term_bufid = term_start(['lazygit'], #{ hidden: 1, term_finish: 'close' })
   call setbufvar(l:term_bufid, '&bufhidden', 'delete')
-  let s:lazygit_winid = popup_dialog(l:term_bufid, #{ minwidth: float2nr(winwidth(0) * 0.8), minheight: float2nr(winheight(0) * 0.8) })
+  call popup_dialog(l:term_bufid, #{ minwidth: float2nr(winwidth(0) * 0.8), minheight: float2nr(winheight(0) * 0.8) })
 endfunction
 command! Lazygit call s:lazygit()
 cabbrev lazygit Lazygit
