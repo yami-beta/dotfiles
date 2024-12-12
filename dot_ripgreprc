@@ -7,3 +7,5 @@
 # Using glob patterns to include/exclude files or folders
 # --hidden だけだと .git/ 以下も検索対象になってしまうので除外
 --glob=!.git/*
+# 検索することが無さそうなもの
+--glob=!node_modules/*
