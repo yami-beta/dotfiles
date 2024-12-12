@@ -199,7 +199,9 @@ autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
 
 " set ambiwidth=single " でも特定の文字を全角幅で扱うように設定してくれるプラグイン
 " https://github.com/vim/vim/commit/08aac3c6192f0103cb87e280270a32b50e653be1
-Plug 'rbtnn/vim-ambiwidth'
+" :terminal を使っていると vim-ambiwidth で調整された幅によって表示が微妙にずれることがあった
+" vim-ambiwidth が無い状態でも困るケースに今のところ遭遇していないのでしばらく無しで運用してみる
+" Plug 'rbtnn/vim-ambiwidth'
 
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
