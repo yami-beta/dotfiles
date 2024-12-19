@@ -8,4 +8,4 @@
 # --hidden だけだと .git/ 以下も検索対象になってしまうので除外
 --glob=!.git/*
 # 検索することが無さそうなもの
---glob=!node_modules/*
+--glob=!**/node_modules/*
