@@ -205,6 +205,7 @@ autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
 
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
+cabbrev rg RG
 command! -bang FZFRelative call fzf#vim#files(expand('%:p:h'), <bang>0)
 function! s:fzf_repo() abort
   function! s:repo_cb(line) abort
