@@ -159,6 +159,7 @@ function! s:on_lsp_buffer_enabled() abort
     else
       autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.cjs call execute(['LspDocumentFormatSync --server=efm-langserver'])
     endif
+    autocmd BufWritePre *.astro call execute(['LspDocumentFormatSync'])
     autocmd BufWritePre *.graphql call execute('LspDocumentFormatSync --server=efm-langserver')
     autocmd BufWritePre *.go call execute(['LspCodeActionSync source.organizeImports', 'LspDocumentFormatSync'])
     " フォーマット後に require_trailing_commas の対象になることがあるので
