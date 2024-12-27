@@ -61,7 +61,7 @@ function repo() {
   fi
 
   cd $(ghq root)/$select_repo
-  if type wezterm >/dev/null 2>&1; then
+  if [[ -n $WEZTERM_UNIX_SOCKET ]]; then
     wezterm cli rename-workspace $select_repo
   fi
 }
