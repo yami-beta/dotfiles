@@ -7,9 +7,8 @@
 # https://this.aereal.org/entry/zsh-path-helper
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# .zprofileへの記載が案内されていたので書いている
-# ただ .zshenv でも良い気はしている
-# https://mise.jdx.dev/getting-started.html#_2b-alternative-add-mise-shims-to-path
-export PATH="$HOME/.local/share/mise/shims:$PATH"
+# https://mise.jdx.dev/dev-tools/shims.html#how-to-add-mise-shims-to-path
+# https://github.com/jdx/mise/pull/3232 で `mise activate` と `mise activate --shims` が共存できるようになった
+eval "$(mise activate zsh --shims)"
 
 # vim: filetype=zsh
