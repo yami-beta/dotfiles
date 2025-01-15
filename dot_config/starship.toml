@@ -11,11 +11,10 @@ command_timeout = 1000
 # 幅が大きいだけなら良いが Tab による補完を実行した時に何故か幅が小さくなる
 # これが気になるので symbol は Plain Text Symbols プリセットで指定されているものに変更
 # https://starship.rs/ja-JP/presets/plain-text
-[character]
-success_symbol = "[>](bold green)"
-error_symbol = "[x](bold red)"
-vimcmd_symbol = "[<](bold green)"
-
+# [character]
+# success_symbol = "[>](bold green)"
+# error_symbol = "[x](bold red)"
+# vimcmd_symbol = "[<](bold green)"
 
 [directory]
 # 開発リポジトリを ~/dev/src/{owner}/{repo} に置いているから
