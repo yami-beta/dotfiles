@@ -8,9 +8,12 @@ tools:
     format-command: 'npx --no-install prettier --stdin-filepath ${INPUT}'
     format-stdin: true
     root-markers:
+      - prettier.config.js
       - .prettierrc.js
       - .prettierrc.json
       - .prettierrc.yaml
+      - .prettierrc
+      - package.json
   stylelint: &stylelint
     lint-command: 'npx --no-install stylelint --formatter unix --stdin --stdin-filename ${INPUT}'
     lint-ignore-exit-code: false
