@@ -252,8 +252,8 @@ let g:onedark_color_overrides = { 'comment_grey': { 'gui': '#7d8799', 'cterm': '
 augroup vimrc_colorscheme
   autocmd!
   " ターミナルの背景透過を使うため背景色設定をクリア
-  autocmd ColorScheme * call onedark#extend_highlight("Normal", { "bg": { "cterm": "NONE", "gui": "NONE" } })
-  autocmd ColorScheme * call onedark#extend_highlight("QuickFixLine", { "fg": { "cterm": "NONE", "gui": "NONE" }, "bg": {"cterm": "NONE",  "gui": "NONE" }, "cterm": "bold", "gui": "bold" })
+  autocmd ColorScheme onedark call onedark#extend_highlight("Normal", { "bg": { "cterm": "NONE", "gui": "NONE" } })
+  autocmd ColorScheme onedark call onedark#extend_highlight("QuickFixLine", { "fg": { "cterm": "NONE", "gui": "NONE" }, "bg": {"cterm": "NONE",  "gui": "NONE" }, "cterm": "bold", "gui": "bold" })
 augroup END
 " Plug 'ap/vim-buftabline'
 
