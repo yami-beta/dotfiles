@@ -7,4 +7,6 @@ export PATH="$HOME/.pub-cache/bin:$PATH"
 export FZF_DEFAULT_OPTS="--layout reverse"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
+export HOMEBREW_BUNDLE_DUMP_NO_VSCODE=1
+
 # vim: filetype=zsh
