@@ -113,6 +113,9 @@ let g:lsp_settings = {
 \   'disabled': v:false,
 \   'blocklist': ['', 'help'],
 \ },
+\ 'biome': {
+\   'disabled': v:true,
+\ },
 \ 'vim-language-server': {
 \   'blocklist': ['help'],
 \ },
@@ -127,8 +130,8 @@ let g:lsp_settings = {
 \   ],
 \ },
 \ }
-let g:lsp_settings_filetype_typescript = ['vscode-eslint-language-server', 'typescript-language-server', 'deno']
-let g:lsp_settings_filetype_typescriptreact = ['vscode-eslint-language-server', 'typescript-language-server']
+let g:lsp_settings_filetype_typescript = ['vscode-eslint-language-server', 'typescript-language-server', 'deno', 'biome']
+let g:lsp_settings_filetype_typescriptreact = ['vscode-eslint-language-server', 'typescript-language-server', 'biome']
 function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> <C-]> <plug>(lsp-peek-definition)
   nmap <buffer> gd <plug>(lsp-definition)
@@ -151,10 +154,11 @@ function! s:on_lsp_buffer_enabled() abort
 
   " https://github.com/prabirshrestha/vim-lsp/blob/7233bb2ec07506b6a6e57dfe4541f1c4e5647fd2/autoload/lsp.vim#L135-L146
   let l:deno_enabled = lsp#is_server_running("deno")
+  let l:biome_enabled = lsp#is_server_running("biome")
 
   augroup lsp_format
     autocmd!
-    if l:deno_enabled
+    if l:deno_enabled || l:biome_enabled
       autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.cjs call execute(['LspDocumentFormatSync'])
     else
       autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.cjs call execute(['LspDocumentFormatSync --server=efm-langserver'])
