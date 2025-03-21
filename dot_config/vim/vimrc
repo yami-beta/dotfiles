@@ -332,6 +332,8 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tyru/caw.vim'
 Plug 'andymass/vim-matchup' " matchit.vim の改善版
 
+Plug 'tpope/vim-abolish'
+
 Plug 'kana/vim-operator-user'
 Plug 'machakann/vim-sandwich'
 Plug 'kana/vim-operator-replace'
