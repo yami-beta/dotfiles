@@ -102,11 +102,12 @@ Plug 'mattn/vim-lsp-settings'
 " let g:lsp_log_file = expand('~/vim-lsp.log')
 let g:lsp_code_action_ui = 'float'
 let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_fold_enabled = 0
 let g:lsp_document_code_action_signs_enabled = 0
 " let g:lsp_inlay_hints_enabled = 1
-" let g:lsp_diagnostics_virtual_text_enabled = 0
-let g:lsp_diagnostics_virtual_text_align = 'right'
+let g:lsp_diagnostics_virtual_text_enabled = 0
+let g:lsp_diagnostics_virtual_text_align = 'after'
 let g:lsp_diagnostics_virtual_text_wrap = 'truncate'
 let g:lsp_settings = {
 \ 'efm-langserver': {
@@ -131,7 +132,8 @@ let g:lsp_settings = {
 \ },
 \ }
 let g:lsp_settings_filetype_typescript = ['vscode-eslint-language-server', 'typescript-language-server', 'deno', 'biome']
-let g:lsp_settings_filetype_typescriptreact = ['vscode-eslint-language-server', 'typescript-language-server', 'biome']
+let g:lsp_settings_filetype_typescriptreact = ['vscode-eslint-language-server', 'typescript-language-server', 'deno', 'biome']
+let g:lsp_settings_filetype_javascript = ['vscode-eslint-language-server', 'typescript-language-server', 'deno', 'biome']
 function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> <C-]> <plug>(lsp-peek-definition)
   nmap <buffer> gd <plug>(lsp-definition)
@@ -158,8 +160,10 @@ function! s:on_lsp_buffer_enabled() abort
 
   augroup lsp_format
     autocmd!
-    if l:deno_enabled || l:biome_enabled
+    if l:deno_enabled
       autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.cjs call execute(['LspDocumentFormatSync'])
+    elseif l:biome_enabled
+      autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.cjs call execute(['LspCodeActionSync source.organizeImports.biome', 'LspCodeActionSync source.fixAll.biome', 'LspDocumentFormatSync'])
     else
       autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.cjs call execute(['LspDocumentFormatSync --server=efm-langserver'])
     endif
