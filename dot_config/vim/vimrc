@@ -268,10 +268,16 @@ augroup END
 " Plug 'yami-beta/vim-responsive-tabline'
 
 Plug 'itchyny/lightline.vim'
+" lineinfo:
+" デフォルト設定は `%3l:%-2c`
+" 列はバイトインデックスではなく列番号で表示するため変更
 let g:lightline = {
 \ 'colorscheme': 'onedark',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ],
+\ },
+\ 'component': {
+\   'lineinfo': '%3l:%-2v',
 \ },
 \ 'component_function': {
 \   'filename': 'LightLineFilename',
