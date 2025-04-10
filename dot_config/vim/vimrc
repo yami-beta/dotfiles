@@ -503,10 +503,10 @@ command! Git vertical terminal ++close lazygit
 function! s:lazygit() abort
   let l:term_bufid = term_start(['lazygit'], #{ hidden: 1, term_finish: 'close' })
   call setbufvar(l:term_bufid, '&bufhidden', 'delete')
-  call popup_dialog(l:term_bufid, #{ minwidth: float2nr(&columns * 0.8), minheight: float2nr(&lines * 0.8) })
+  call popup_dialog(l:term_bufid, #{ minwidth: float2nr(&columns * 0.8), minheight: float2nr(&lines * 0.8), fixed: v:true, resize: v:true })
 endfunction
 command! Lazygit call s:lazygit()
-cabbrev lazygit Lazygit
+cabbrev git Lazygit
 
 " quickfix
 nnoremap <silent><Leader>c :<C-u>cclose<CR>
