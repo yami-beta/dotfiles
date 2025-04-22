@@ -15,15 +15,15 @@ useMemo\.\(\S\+\)$
 \(\S\+\)\.FC$
 	import { FC } from "react";
 	
-	type {{$1}}Props = {};
+	type Props = {};
 	
-	export const {{$1}}: FC<{{$1}}Props> = () => {{{_cursor_}}};
+	export const {{$1}}: FC<Props> = () => {{{_cursor_}}};
 \(\S\+\)\.FCC$
 	import { FC } from "react";
 	
-	type {{$1}}Props = PropsWithChildren<{}>;
+	type Props = PropsWithChildren<{}>;
 	
-	export const {{$1}}: FC<{{$1}}Props> = () => {{{_cursor_}}};
+	export const {{$1}}: FC<Props> = () => {{{_cursor_}}};
 \(\S\+\)\.stories$
 	import { Meta, StoryObj } from "@storybook/react";
 	import { {{$1}} } from "./{{$1}}";
