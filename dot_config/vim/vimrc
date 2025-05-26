@@ -252,17 +252,43 @@ let g:qfenter_keymap.topen = ['<C-t>']
 Plug 'lambdalisue/fern.vim'
 
 " 見た目
-" Plug 'ghifarit53/tokyonight-vim'
+Plug 'ghifarit53/tokyonight-vim'
 " let g:tokyonight_disable_italic_comment = 1
 " let g:tokyonight_transparent_background = 1
+" Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'EdenEast/nightfox.nvim'
+Plug 'rose-pine/vim'
 Plug 'joshdick/onedark.vim'
+" Plug 'folke/tokyonight.nvim'
+" Plug 'folke/tokyonight.nvim', { 'as': 'tokyonight.vim', 'rtp': 'extras/vim' }
 let g:onedark_color_overrides = { 'comment_grey': { 'gui': '#7d8799', 'cterm': '59', 'cterm16': '7' }, 'visual_grey': { 'gui': '#4e5566', 'cterm': '237', 'cterm16': '8' } }
+function! s:modify_tokyonight() abort
+  hi Normal guibg=NONE
+  hi EndOfBuffer guibg=NONE
+  hi Visual guibg=#2d3f76
+  hi Comment guifg=#636da6
+endfunction
+
 augroup vimrc_colorscheme
   autocmd!
   " ターミナルの背景透過を使うため背景色設定をクリア
   autocmd ColorScheme onedark call onedark#extend_highlight("Normal", { "bg": { "cterm": "NONE", "gui": "NONE" } })
   autocmd ColorScheme onedark call onedark#extend_highlight("QuickFixLine", { "fg": { "cterm": "NONE", "gui": "NONE" }, "bg": {"cterm": "NONE",  "gui": "NONE" }, "cterm": "bold", "gui": "bold" })
+  autocmd ColorScheme catppuccin_* hi Normal guibg=NONE
+  autocmd ColorScheme tokyonight* call s:modify_tokyonight()
 augroup END
+
+function! s:setup_colorscheme()
+lua << EOF
+require("catppuccin").setup {
+  transparent_background = true,
+  term_colors = true,
+}
+EOF
+endfunction
+" autocmd vimrc User plug_on_load call s:setup_colorscheme()
+
 " Plug 'ap/vim-buftabline'
 
 " Plug 'yami-beta/vim-responsive-tabline'
@@ -272,7 +298,7 @@ Plug 'itchyny/lightline.vim'
 " デフォルト設定は `%3l:%-2c`
 " 列はバイトインデックスではなく列番号で表示するため変更
 let g:lightline = {
-\ 'colorscheme': 'onedark',
+\ 'colorscheme': 'tokyonight',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ],
 \ },
@@ -638,7 +664,7 @@ if &term =~# '^screen'
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 setglobal background=dark
-colorscheme onedark
+colorscheme tokyonight
 autocmd vimrc VimEnter,WinEnter,ColorScheme * hi! link WhiteSpaceEOL Todo
 autocmd vimrc VimEnter,WinEnter * match WhiteSpaceEOL /\S*\zs\s\+\ze$/
 " ハイライト確認コマンド

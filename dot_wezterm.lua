@@ -70,13 +70,15 @@ config.keys = {
 
 -- config.color_scheme = 'One Dark (Gogh)'
 -- config.color_scheme = 'OneDark (base16)'
-config.color_scheme = 'OneHalfDark'
+-- config.color_scheme = 'OneHalfDark'
 -- config.color_scheme = 'nightfox'
 -- config.color_scheme = 'nordfox'
 -- config.color_scheme = 'duskfox'
 -- config.color_scheme = 'Catppuccin Frappe'
 -- config.color_scheme = 'Catppuccin Macchiato'
 -- config.color_scheme = 'Catppuccin Mocha'
+-- config.color_scheme = 'rose-pine-moon'
+config.color_scheme = 'tokyonight_moon'
 
 -- https://zenn.dev/paiza/articles/9ca689a0365b05
 config.font = wezterm.font_with_fallback({
