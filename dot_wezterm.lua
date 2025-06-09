@@ -78,7 +78,7 @@ config.keys = {
 -- config.color_scheme = 'Catppuccin Macchiato'
 -- config.color_scheme = 'Catppuccin Mocha'
 -- config.color_scheme = 'rose-pine-moon'
-config.color_scheme = 'tokyonight_moon'
+config.color_scheme = 'tokyonight'
 
 -- https://zenn.dev/paiza/articles/9ca689a0365b05
 config.font = wezterm.font_with_fallback({
@@ -87,7 +87,7 @@ config.font = wezterm.font_with_fallback({
 })
 config.font_size = 16.0
 
-config.window_background_opacity = 0.9
+config.window_background_opacity = 0.8
 
 -- https://wezfurlong.org/wezterm/config/appearance.html#styling-inactive-panes
 config.inactive_pane_hsb = {

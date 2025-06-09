@@ -265,6 +265,7 @@ Plug 'joshdick/onedark.vim'
 let g:onedark_color_overrides = { 'comment_grey': { 'gui': '#7d8799', 'cterm': '59', 'cterm16': '7' }, 'visual_grey': { 'gui': '#4e5566', 'cterm': '237', 'cterm16': '8' } }
 function! s:modify_tokyonight() abort
   hi Normal guibg=NONE
+  hi Terminal guibg=NONE
   hi EndOfBuffer guibg=NONE
   hi Visual guibg=#2d3f76
   hi Comment guifg=#636da6
