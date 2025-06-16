@@ -178,10 +178,6 @@ if type go &>/dev/null; then
   export PATH="$(go env GOPATH)/bin:$PATH"
 fi
 
-if type rbenv &>/dev/null; then
-  eval "$(rbenv init -)"
-fi
-
 # zsh-syntax-highlighting が zshrc の最後の辺りに置くことを推奨されている
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # zsh-history-substring-search は zsh-syntax-highlighting の後に置くことを推奨されている
