@@ -46,5 +46,6 @@ cask "visual-studio-code"
 cask "wezterm"
 cask "ghostty"
 cask "zed"
+cask "rectangle"
 
 # vim: filetype=ruby
