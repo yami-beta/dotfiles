@@ -269,6 +269,7 @@ function! s:modify_tokyonight() abort
   hi EndOfBuffer guibg=NONE
   hi Visual guibg=#2d3f76
   hi Comment guifg=#636da6
+  hi Grey guifg=#7c8196
 endfunction
 
 augroup vimrc_colorscheme
