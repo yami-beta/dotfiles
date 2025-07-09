@@ -4,6 +4,11 @@ local config = {}
 
 config.keys = {
   {
+    key = 'Enter',
+    mods = 'ALT',
+    action = act.DisableDefaultAssignment,
+  },
+  {
     key = 'w',
     mods = 'ALT',
     action = act.ShowLauncherArgs {
