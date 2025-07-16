@@ -143,6 +143,11 @@ function fzf_select_history() {
 zle -N fzf_select_history
 bindkey '^r' fzf_select_history
 
+# 入力中のコマンドをテキストエディタで編集
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^y^e' edit-command-line
+
 alias deno-file-server='deno run --allow-net --allow-read https://deno.land/std/http/file_server.ts'
 
 export EDITOR="vim"
