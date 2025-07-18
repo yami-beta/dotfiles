@@ -388,6 +388,7 @@ Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascriptreact'] }
 " backtick `` で jsx のハイライトが崩れるので commit を固定
 " Plug 'HerringtonDarkholme/yats.vim', { 'for': ['typescript', 'typescriptreact'], 'commit': 'a488d15' }
 
+Plug 'mattn/vim-typespec'
 Plug 'jparise/vim-graphql', { 'for': ['javascript', 'typescript'] }
 Plug 'jjo/vim-cue', { 'for': ['cue'] }
 Plug 'hashivim/vim-terraform', { 'for': ['terraform'] }
