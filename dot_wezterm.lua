@@ -81,9 +81,9 @@ config.keys = {
 -- config.color_scheme = 'duskfox'
 -- config.color_scheme = 'Catppuccin Frappe'
 -- config.color_scheme = 'Catppuccin Macchiato'
--- config.color_scheme = 'Catppuccin Mocha'
+config.color_scheme = 'Catppuccin Mocha'
 -- config.color_scheme = 'rose-pine-moon'
-config.color_scheme = 'tokyonight'
+-- config.color_scheme = 'tokyonight'
 -- config.color_scheme = 'nord'
 
 -- https://zenn.dev/paiza/articles/9ca689a0365b05

@@ -255,8 +255,8 @@ Plug 'lambdalisue/fern.vim'
 Plug 'ghifarit53/tokyonight-vim'
 " let g:tokyonight_disable_italic_comment = 1
 " let g:tokyonight_transparent_background = 1
-" Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+" Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'EdenEast/nightfox.nvim'
 Plug 'rose-pine/vim'
 Plug 'joshdick/onedark.vim'
@@ -272,24 +272,38 @@ function! s:modify_tokyonight() abort
   hi Grey guifg=#7c8196
 endfunction
 
+function! s:modify_catppuccin() abort
+  hi Normal guibg=NONE
+  hi CursorLine cterm=NONE
+  hi CursorLineNr cterm=NONE
+endfunction
+
 augroup vimrc_colorscheme
   autocmd!
   " ターミナルの背景透過を使うため背景色設定をクリア
   autocmd ColorScheme onedark call onedark#extend_highlight("Normal", { "bg": { "cterm": "NONE", "gui": "NONE" } })
   autocmd ColorScheme onedark call onedark#extend_highlight("QuickFixLine", { "fg": { "cterm": "NONE", "gui": "NONE" }, "bg": {"cterm": "NONE",  "gui": "NONE" }, "cterm": "bold", "gui": "bold" })
-  autocmd ColorScheme catppuccin_* hi Normal guibg=NONE
+  autocmd ColorScheme catppuccin* call s:modify_catppuccin()
   autocmd ColorScheme tokyonight* call s:modify_tokyonight()
 augroup END
 
 function! s:setup_colorscheme()
+let g:catppuccin_palette = {}
+
 lua << EOF
-require("catppuccin").setup {
-  transparent_background = true,
-  term_colors = true,
-}
+local palette = require("catppuccin.palettes").get_palette()
+for k, v in pairs(palette) do
+  vim.g.catppuccin_palette[k] = v
+end
 EOF
+
+let l:c = g:catppuccin_palette
+let g:terminal_ansi_colors = [
+\ l:c.overlay0, l:c.red, l:c.green, l:c.yellow, l:c.blue, l:c.pink, l:c.sky, l:c.text,
+\ l:c.overlay1, l:c.red, l:c.green, l:c.yellow, l:c.blue, l:c.pink, l:c.sky, l:c.text
+\ ]
 endfunction
-" autocmd vimrc User plug_on_load call s:setup_colorscheme()
+autocmd vimrc User plug_on_load call s:setup_colorscheme()
 
 " Plug 'ap/vim-buftabline'
 
@@ -300,7 +314,7 @@ Plug 'itchyny/lightline.vim'
 " デフォルト設定は `%3l:%-2c`
 " 列はバイトインデックスではなく列番号で表示するため変更
 let g:lightline = {
-\ 'colorscheme': 'tokyonight',
+\ 'colorscheme': 'catppuccin',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ], [ 'filename' ] ],
 \ },
@@ -666,7 +680,7 @@ if &term =~# '^screen'
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 setglobal background=dark
-colorscheme tokyonight
+colorscheme catppuccin-mocha
 autocmd vimrc VimEnter,WinEnter,ColorScheme * hi! link WhiteSpaceEOL Todo
 autocmd vimrc VimEnter,WinEnter * match WhiteSpaceEOL /\S*\zs\s\+\ze$/
 " ハイライト確認コマンド
