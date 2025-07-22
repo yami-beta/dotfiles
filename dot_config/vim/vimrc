@@ -170,6 +170,7 @@ function! s:on_lsp_buffer_enabled() abort
     autocmd BufWritePre *.astro call execute(['LspDocumentFormatSync'])
     autocmd BufWritePre *.graphql call execute('LspDocumentFormatSync --server=efm-langserver')
     autocmd BufWritePre *.go call execute(['LspCodeActionSync source.organizeImports', 'LspDocumentFormatSync'])
+    autocmd BufWritePre *.tsp call execute(['LspDocumentFormatSync'])
     " フォーマット後に require_trailing_commas の対象になることがあるので
     " source.fixAll の前後にフォーマットを実行
     autocmd BufWritePre *.dart call execute(['LspCodeActionSync source.organizeImports', 'LspDocumentFormatSync', 'LspCodeActionSync source.fixAll', 'LspDocumentFormatSync'])
