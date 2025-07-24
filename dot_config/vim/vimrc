@@ -259,7 +259,6 @@ Plug 'ghifarit53/tokyonight-vim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 " Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'EdenEast/nightfox.nvim'
-Plug 'rose-pine/vim'
 Plug 'joshdick/onedark.vim'
 " Plug 'folke/tokyonight.nvim'
 " Plug 'folke/tokyonight.nvim', { 'as': 'tokyonight.vim', 'rtp': 'extras/vim' }
@@ -274,7 +273,6 @@ function! s:modify_tokyonight() abort
 endfunction
 
 function! s:modify_catppuccin() abort
-  hi Normal guibg=NONE
   hi CursorLine cterm=NONE
   hi CursorLineNr cterm=NONE
 endfunction
@@ -292,6 +290,14 @@ function! s:setup_colorscheme()
 let g:catppuccin_palette = {}
 
 lua << EOF
+require("catppuccin").setup {
+  transparent_background = true,
+  custom_highlights = function(colors)
+    return {
+      Visual = { bg = colors.surface2, },
+    }
+  end,
+}
 local palette = require("catppuccin.palettes").get_palette()
 for k, v in pairs(palette) do
   vim.g.catppuccin_palette[k] = v
