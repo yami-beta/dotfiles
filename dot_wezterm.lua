@@ -93,8 +93,8 @@ config.font = wezterm.font_with_fallback({
 })
 config.font_size = 16.0
 
-config.window_background_opacity = 0.8
-config.macos_window_background_blur = 5
+config.window_background_opacity = 0.9
+-- config.macos_window_background_blur = 5
 
 -- https://wezfurlong.org/wezterm/config/appearance.html#styling-inactive-panes
 config.inactive_pane_hsb = {
