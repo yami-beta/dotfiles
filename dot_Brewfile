@@ -23,6 +23,7 @@ brew "vim"
 brew "zsh-completions"
 brew "zsh-history-substring-search"
 brew "zsh-syntax-highlighting"
+brew "uv"
 
 # mise でインストールする Ruby の依存
 # https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
