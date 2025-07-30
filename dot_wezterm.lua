@@ -80,8 +80,8 @@ config.keys = {
 -- config.color_scheme = 'nordfox'
 -- config.color_scheme = 'duskfox'
 -- config.color_scheme = 'Catppuccin Frappe'
--- config.color_scheme = 'Catppuccin Macchiato'
-config.color_scheme = 'Catppuccin Mocha'
+config.color_scheme = 'Catppuccin Macchiato'
+-- config.color_scheme = 'Catppuccin Mocha'
 -- config.color_scheme = 'rose-pine-moon'
 -- config.color_scheme = 'tokyonight'
 -- config.color_scheme = 'nord'
@@ -93,7 +93,7 @@ config.font = wezterm.font_with_fallback({
 })
 config.font_size = 16.0
 
-config.window_background_opacity = 0.9
+config.window_background_opacity = 0.86
 -- config.macos_window_background_blur = 5
 
 -- https://wezfurlong.org/wezterm/config/appearance.html#styling-inactive-panes
