@@ -1,8 +1,5 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# Inserts a blank line between shell prompts
-add_newline = false
-
 # デフォルトの 500ms だとタイムアウトする言語がたまにあるので
 command_timeout = 1000
 
