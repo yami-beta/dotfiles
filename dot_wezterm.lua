@@ -88,10 +88,12 @@ config.color_scheme = 'Catppuccin Macchiato'
 
 -- https://zenn.dev/paiza/articles/9ca689a0365b05
 config.font = wezterm.font_with_fallback({
-  { family = "Cica" },
-  { family = "Cica", assume_emoji_presentation = true },
+  { family = "Moralerspace Argon JPDOC" },
+  { family = "Moralerspace Argon JPDOC", assume_emoji_presentation = true },
 })
-config.font_size = 16.0
+config.font_size = 14.0
+-- リガチャを有効にするなら以下を設定
+-- config.harfbuzz_features = {"ss01"}
 
 config.window_background_opacity = 0.86
 -- config.macos_window_background_blur = 5

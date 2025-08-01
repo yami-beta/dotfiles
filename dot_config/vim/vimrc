@@ -213,6 +213,7 @@ autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
 " 一方で vim-ambiwidth が無いとずれる文字もある
 " - 「※」
 Plug 'rbtnn/vim-ambiwidth'
+let g:ambiwidth_cica_enabled = v:false
 
 Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
@@ -665,7 +666,7 @@ set number " 行番号を表示
 set cursorline
 " set cursorcolumn
 set list
-setglobal listchars=tab:»\ ,space:･,eol:⏎
+setglobal listchars=tab:»\ ,trail:･,eol:↵
 setglobal showmatch " 括弧の対応をハイライト
 setglobal showmode "現在のモードを表示
 set conceallevel=0
