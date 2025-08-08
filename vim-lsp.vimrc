@@ -5,6 +5,14 @@ set nocompatible
 " https://vim-jp.org/vimdoc-ja/starting.html#xdg-base-dir
 setglobal runtimepath+=$HOME/.vim
 
+if has('patch-9.1.1590')
+  setglobal autocomplete
+endif
+
+setglobal completeopt=menuone,popup,noselect,noinsert
+
+colorscheme desert
+
 call plug#begin('~/.vim/plug')
 " Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
@@ -13,22 +21,29 @@ let g:lsp_log_file = expand('~/vim-lsp.log')
 let g:lsp_diagnostics_echo_cursor = 1
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_fold_enabled=0
+" `set autocomplete` で使う場合補完ウィンドウが表示されている状態で素早く入力すると E565 エラーが出ることがある
+" エラーの発生箇所は `s:display_completions`
+" 例: TypeScriptでオブジェクト `{` を入力して補完ウィンドウが表示されているときに素早く `}` を入力
+" 例: 補完ウィンドウが表示されているときにバックスペースを連打して素早く削除したとき
+" このオプションを有効にしていると出ないっぽい
+let g:lsp_async_completion=v:true
 let g:lsp_settings = {
 \ 'efm-langserver': {
 \   'disabled': v:true
 \ },
 \ }
-" let g:lsp_settings_filetype_typescript = ['vscode-eslint-language-server', 'typescript-language-server']
-" let g:lsp_settings_filetype_typescriptreact = ['vscode-eslint-language-server', 'typescript-language-server']
-" let g:lsp_settings_filetype_javascript = ['vscode-eslint-language-server', 'typescript-language-server']
-" let g:lsp_settings_filetype_javascriptreact = ['vscode-eslint-language-server', 'typescript-language-server']
-let g:lsp_settings_filetype_typescript = ['vscode-eslint-language-server']
-let g:lsp_settings_filetype_typescriptreact = ['vscode-eslint-language-server']
-let g:lsp_settings_filetype_javascript = ['vscode-eslint-language-server']
-let g:lsp_settings_filetype_javascriptreact = ['vscode-eslint-language-server']
+let g:lsp_settings_filetype_typescript = ['vscode-eslint-language-server', 'typescript-language-server']
+let g:lsp_settings_filetype_typescriptreact = ['vscode-eslint-language-server', 'typescript-language-server']
+let g:lsp_settings_filetype_javascript = ['vscode-eslint-language-server', 'typescript-language-server']
+let g:lsp_settings_filetype_javascriptreact = ['vscode-eslint-language-server', 'typescript-language-server']
+" let g:lsp_settings_filetype_typescript = ['vscode-eslint-language-server']
+" let g:lsp_settings_filetype_typescriptreact = ['vscode-eslint-language-server']
+" let g:lsp_settings_filetype_javascript = ['vscode-eslint-language-server']
+" let g:lsp_settings_filetype_javascriptreact = ['vscode-eslint-language-server']
 
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
+  setlocal complete+=o
 endfunction
 augroup lsp_install
   autocmd!
