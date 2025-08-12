@@ -63,6 +63,7 @@ setglobal undodir=~/.vim/tmp         " undoファイルの作成先
 set undofile                         " persistent_undoを有効化
 setglobal sessionoptions-=options
 setglobal sessionoptions-=blank
+setglobal fillchars+=vert:│
 setglobal laststatus=2
 setglobal showtabline=2              " tablineを常時表示
 setglobal guioptions-=e              " tablineをCUIで表示
@@ -276,6 +277,7 @@ endfunction
 function! s:modify_catppuccin() abort
   hi CursorLine cterm=NONE
   hi CursorLineNr cterm=NONE
+  hi VertSplit term=NONE cterm=NONE
 endfunction
 
 augroup vimrc_colorscheme
@@ -296,6 +298,7 @@ require("catppuccin").setup {
   custom_highlights = function(colors)
     return {
       Visual = { bg = colors.surface2, },
+      VertSplit = { fg = colors.surface2, },
     }
   end,
 }
