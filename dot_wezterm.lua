@@ -91,7 +91,7 @@ config.font = wezterm.font_with_fallback({
   { family = "Moralerspace Argon" },
   { family = "Moralerspace Argon", assume_emoji_presentation = true },
 })
-config.font_size = 14.0
+config.font_size = 15.0
 -- リガチャを有効にするなら以下を設定
 -- config.harfbuzz_features = {"ss01"}
 
