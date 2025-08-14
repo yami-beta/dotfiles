@@ -34,8 +34,6 @@ brew "libyaml"
 brew "gmp"
 brew "autoconf"
 
-tap "itome/tap"
-brew "itome/tap/flx"
 tap "go-task/tap"
 brew "go-task/tap/go-task"
 
