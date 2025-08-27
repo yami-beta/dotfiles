@@ -545,9 +545,9 @@ function! ToggleTerminal() abort
     call win_execute(l:wins[0], 'hide')
   endif
 endfunction
-inoremap <c-@> <cmd>:call ToggleTerminal()<cr>
-nnoremap <c-@> <cmd>:call ToggleTerminal()<cr>
-tnoremap <c-@> <cmd>:call ToggleTerminal()<cr>
+inoremap <C-@> <cmd>:call ToggleTerminal()<CR>
+nnoremap <C-@> <cmd>:call ToggleTerminal()<CR>
+tnoremap <C-@> <cmd>:call ToggleTerminal()<CR>
 
 " tig は popup で表示するとスクロールが変な動きをしていて描画が不自然だった
 command! Tig vertical terminal ++close tig
