@@ -7,6 +7,13 @@ export PATH="$HOME/.pub-cache/bin:$PATH"
 export FZF_DEFAULT_OPTS="--layout reverse"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
+# fzf で利用するコマンド
+# '.gitignore' で除外されているファイルもVimで編集することがあるので `--no-ignore-vcs` を指定
+# '.git/', 'node_modules/' 等の検索に引っかかって欲しくないものもある
+# 汎用的な除外対象は '~/.config/fd/ignore' に記載
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --no-ignore-vcs'
+
+
 export HOMEBREW_BUNDLE_DUMP_NO_VSCODE=1
 
 export ANDROID_HOME=$HOME/Library/Android/sdk

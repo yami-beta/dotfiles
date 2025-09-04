@@ -157,10 +157,6 @@ export EDITOR="vim"
 export PROTO_HOME="$HOME/.proto"
 export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
 
-# fzf で利用するコマンド
-# .ripgreprc の設定も適用される
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore'
-
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
