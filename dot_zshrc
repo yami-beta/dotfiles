@@ -52,7 +52,7 @@ bindkey '^[[B' history-substring-search-down
 
 alias ll='ls -lha'
 alias la='ls -a'
-alias rm='rm -i'
+# alias rm='rm -i'
 
 function repo() {
   select_repo=$(ghq list | fzf)
