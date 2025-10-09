@@ -157,15 +157,18 @@ export EDITOR="vim"
 export PROTO_HOME="$HOME/.proto"
 export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
 
-# https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
+# homebrewでインストールするコマンドは大体 $(brew --prefix)/share/zsh/site-functions に補完関数が置かれる
+# miseのように別途生成するコマンドもあるため置き場所を作っている
+FPATH=$HOME/zsh/site-functions:$FPATH
+
+# zsh-completionsが用意している補完関数をfpathに追加
+# https://github.com/Homebrew/homebrew-core/blob/master/Formula/z/zsh-completions.rb
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-  # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-  autoload -Uz compinit
-  compinit
 fi
+
+autoload -Uz compinit
+compinit
 
 if [[ -f "$HOME/pnpm-completion.zsh" ]]; then
   source "$HOME/pnpm-completion.zsh"
