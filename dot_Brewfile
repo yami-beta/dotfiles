@@ -47,5 +47,6 @@ cask "ghostty"
 cask "zed"
 cask "rectangle"
 cask "obsidian"
+cask "claude-code"
 
 # vim: filetype=ruby
