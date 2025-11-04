@@ -162,11 +162,11 @@ function! s:on_lsp_buffer_enabled() abort
   augroup lsp_format
     autocmd!
     if l:deno_enabled
-      autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.cjs call execute(['LspDocumentFormatSync'])
+      autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.mjs,*.cjs call execute(['LspDocumentFormatSync'])
     elseif l:biome_enabled
-      autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.cjs call execute(['LspCodeActionSync source.organizeImports.biome', 'LspCodeActionSync source.fixAll.biome', 'LspDocumentFormatSync'])
+      autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.mjs,*.cjs call execute(['LspCodeActionSync source.organizeImports.biome', 'LspCodeActionSync source.fixAll.biome', 'LspDocumentFormatSync'])
     else
-      autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.cjs call execute(['LspDocumentFormatSync --server=efm-langserver'])
+      autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.mjs,*.cjs call execute(['LspDocumentFormatSync --server=efm-langserver'])
     endif
     autocmd BufWritePre *.astro call execute(['LspDocumentFormatSync'])
     autocmd BufWritePre *.graphql call execute('LspDocumentFormatSync --server=efm-langserver')
