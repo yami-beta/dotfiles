@@ -87,9 +87,13 @@ config.color_scheme = 'Catppuccin Macchiato'
 -- config.color_scheme = 'nord'
 
 -- https://zenn.dev/paiza/articles/9ca689a0365b05
+-- →←↓↑※
 config.font = wezterm.font_with_fallback({
-  { family = "Moralerspace Argon" },
-  { family = "Moralerspace Argon", assume_emoji_presentation = true },
+  -- { family = "Moralerspace Neon" },
+  -- { family = "Moralerspace Argon" },
+  { family = "Moralerspace Radon" },
+  -- { family = "Moralerspace Krypton" },
+  -- { family = "Moralerspace Neon", assume_emoji_presentation = true },
 })
 config.font_size = 15.0
 -- リガチャを有効にするなら以下を設定
