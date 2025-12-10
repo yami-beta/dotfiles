@@ -27,7 +27,6 @@ setglobal splitright
 setglobal splitbelow
 setglobal mouse=a                    " 全モードでマウスを有効化
 setglobal ttymouse=sgr               " マウスコードの設定
-setglobal shellslash                 " パス区切りをスラッシュにする
 " r: 挿入モードで <Enter> を打ち込んだ後にコメント開始文字列を自動挿入
 " o: ノーマルモードで 'o', 'O' を打ち込んだ後にコメント開始文字列を自動挿入
 " m: 文字コードが 255 より後のマルチバイト文字の間でも改行する
