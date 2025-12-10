@@ -25,8 +25,6 @@ setglobal fileformats=unix,dos,mac   " 改行文字
 setglobal modeline
 setglobal splitright
 setglobal splitbelow
-setglobal lazyredraw                 " 高速化
-setglobal ttyfast                    " 高速化
 setglobal mouse=a                    " 全モードでマウスを有効化
 setglobal ttymouse=sgr               " マウスコードの設定
 setglobal shellslash                 " パス区切りをスラッシュにする
@@ -42,8 +40,6 @@ setglobal backspace=indent,eol,start " BSで，インデント・改行の削除
 setglobal whichwrap+=h,l,<,>         " カーソルを行頭、行末で止まらないようにする
 setglobal hidden                     " 未保存状態でバッファの切り替えを可能にする
 setglobal autoread                   " 自動読み込み
-setglobal noswapfile                 " スワップファイルを作成しない
-setglobal nobackup                   " backupファイル(file.txt~)を作成しない
 setglobal backupcopy=yes             " noで動作する場合samba上のファイルを書き込んだ際にgroupのパーミッションが変わる
 setglobal wrapscan                   " 最後まで検索したら先頭に戻る
 setglobal ignorecase                 " 大文字小文字を無視する
@@ -58,8 +54,8 @@ set breakindent                      " 折り返しにインデントを反映�
 " いずれは XDG_DATA_HOME ($HOME/.local/share) に移しても良いかもしれない
 " https://vim-jp.org/vimdoc-ja/starting.html#xdg-base-dir
 setglobal runtimepath+=$HOME/.vim
-setglobal directory=~/.vim/tmp       " swpファイルの作成先
-setglobal undodir=~/.vim/tmp         " undoファイルの作成先
+setglobal directory=~/.vim/tmp/swap  " swpファイルの作成先
+setglobal undodir=~/.vim/tmp/undo    " undoファイルの作成先
 set undofile                         " persistent_undoを有効化
 setglobal sessionoptions-=options
 setglobal sessionoptions-=blank
