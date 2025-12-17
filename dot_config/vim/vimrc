@@ -211,7 +211,7 @@ autocmd vimrc User plug_on_load call s:asyncomplete_on_post_source()
 Plug 'rbtnn/vim-ambiwidth'
 let g:ambiwidth_cica_enabled = v:false
 
-Plug '~/.fzf'
+Plug '/opt/homebrew/opt/fzf'
 Plug 'junegunn/fzf.vim'
 cabbrev <expr> rg (getcmdtype() ==# ':' && getcmdline() ==# 'rg') ? 'RG' : 'rg'
 command! -bang FZFRelative call fzf#vim#files(expand('%:p:h'), <bang>0)

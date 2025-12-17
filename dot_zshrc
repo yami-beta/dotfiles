@@ -182,6 +182,9 @@ if type go &>/dev/null; then
   export PATH="$(go env GOPATH)/bin:$PATH"
 fi
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
 # zsh-syntax-highlighting が zshrc の最後の辺りに置くことを推奨されている
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # zsh-history-substring-search は zsh-syntax-highlighting の後に置くことを推奨されている
@@ -196,7 +199,6 @@ fi
 # .zshrc.local で読み込んでいる google-cloud-sdk/completion.zsh.inc は compinit がまだ呼ばれていない場合は compinit 呼ぶようになっている
 # compinit を複数回呼ばないようにこの位置で読み込みを行っている
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 typeset -U path PATH
 
