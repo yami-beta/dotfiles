@@ -1,0 +1,8 @@
+shell-integration = zsh
+
+theme = catppuccin-frappe
+
+background-opacity = 0.9
+
+font-family = Cica
+font-size = 16
