@@ -12,7 +12,8 @@ config.keys = {
     key = 'w',
     mods = 'ALT',
     action = act.ShowLauncherArgs {
-      flags = 'FUZZY|WORKSPACES'
+      flags = 'FUZZY|WORKSPACES',
+      title = 'Select workspace'
     },
   },
   -- https://wezfurlong.org/wezterm/config/lua/keyassignment/SwitchToWorkspace.html#prompting-for-the-workspace-name
@@ -89,9 +90,9 @@ config.color_scheme = 'Catppuccin Macchiato'
 -- https://zenn.dev/paiza/articles/9ca689a0365b05
 -- →←↓↑※
 config.font = wezterm.font_with_fallback({
-  -- { family = "Moralerspace Neon" },
+  { family = "Moralerspace Neon" },
   -- { family = "Moralerspace Argon" },
-  { family = "Moralerspace Radon" },
+  -- { family = "Moralerspace Radon" },
   -- { family = "Moralerspace Krypton" },
   -- { family = "Moralerspace Neon", assume_emoji_presentation = true },
 })
