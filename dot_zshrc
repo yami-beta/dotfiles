@@ -148,6 +148,7 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^y^e' edit-command-line
 
+alias dotcd='cd $(chezmoi source-path)'
 alias deno-file-server='deno run --allow-net --allow-read https://deno.land/std/http/file_server.ts'
 
 export EDITOR="vim"
