@@ -81,7 +81,8 @@ config.keys = {
 -- config.color_scheme = 'nordfox'
 -- config.color_scheme = 'duskfox'
 -- config.color_scheme = 'Catppuccin Frappe'
-config.color_scheme = 'Catppuccin Macchiato'
+-- config.color_scheme = 'Catppuccin Macchiato'
+config.color_scheme = 'Edge Dark (base16)'
 -- config.color_scheme = 'Catppuccin Mocha'
 -- config.color_scheme = 'rose-pine-moon'
 -- config.color_scheme = 'tokyonight'
@@ -100,7 +101,7 @@ config.font_size = 15.0
 -- リガチャを有効にするなら以下を設定
 -- config.harfbuzz_features = {"ss01"}
 
-config.window_background_opacity = 0.86
+config.window_background_opacity = 0.9
 -- config.macos_window_background_blur = 5
 
 -- https://wezfurlong.org/wezterm/config/appearance.html#styling-inactive-panes
