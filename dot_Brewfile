@@ -49,5 +49,6 @@ cask "obsidian"
 # CTRL-Gでエディタを立ち上げて編集するときに非常に不便なため解消されるまではnpm経由で利用
 # cask "claude-code"
 cask "expo-orbit"
+cask "codex"
 
 # vim: filetype=ruby
