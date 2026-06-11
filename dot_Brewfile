@@ -51,4 +51,8 @@ cask "obsidian"
 cask "expo-orbit"
 cask "codex"
 
+# https://docs.expo.dev/get-started/set-up-your-environment/?platform=android&device=simulated&mode=development-build&buildEnv=local
+# https://reactnative.dev/docs/set-up-your-environment?platform=android
+cask "zulu@17"
+
 # vim: filetype=ruby
