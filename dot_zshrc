@@ -205,4 +205,21 @@ typeset -U path PATH
 
 eval "$(starship init zsh)"
 
+# ターミナルタイトルをカレントディレクトリに設定する
+# WezTerm は既定でフォアグラウンドのプロセス名をタイトルに表示するが、Claude Code
+# など OSC エスケープシーケンスでタイトルを書き換えるツールを使うと、終了後もその
+# タイトルが残ってしまう（待機プロンプトでは WezTerm が自発的にプロセス名へ戻さない）。
+# precmd でプロンプト描画のたびにカレントディレクトリへ書き戻すことで、ツール終了後の
+# 次のプロンプトでタイトルが復帰する
+# starship 自身はタイトルを設定しない（公式も precmd フックでの設定を案内している）:
+# https://starship.rs/advanced-config/#change-window-title
+# ドキュメントの precmd_functions+=() の代わりに add-zsh-hook（重複登録を防ぐ）を使用
+# print -Pn '\e]0;%~\a' の意味:
+#   \e]0;...\a : OSC エスケープシーケンス（0 はアイコン名とウィンドウタイトルの両方を設定）
+#   print -P   : %~ を prompt 展開（%~ = カレントディレクトリ、ホームは ~ に短縮）
+#   print -n   : 末尾の改行を付けない
+autoload -Uz add-zsh-hook
+function _set_terminal_title() { print -Pn '\e]0;%~\a' }
+add-zsh-hook precmd _set_terminal_title
+
 # vim: filetype=zsh
