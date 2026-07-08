@@ -88,6 +88,18 @@ config.color_scheme = 'Edge Dark (base16)'
 -- config.color_scheme = 'tokyonight'
 -- config.color_scheme = 'nord'
 
+-- ANSI bright black (\027[90m) はスキーム既定だと背景と近く読みづらい
+-- (Edge Dark では #3e4249 で背景 #262729 とのコントラスト比 1.54)。
+-- git のハッシュ・fzf の補助テキスト・コメント色など bright black を使う表示
+-- 全般が対象。選択中スキームの bright black だけを底上げする。
+-- lighten の係数は「読みやすさ(vs背景)」と「前景との区別」のトレードオフ。
+-- 0.3 = 読みやすさ 2.60 / 前景との区別 1.51 (大きいほど明るく前景に近づく)。
+local scheme = wezterm.color.get_builtin_schemes()[config.color_scheme]
+if scheme then
+  scheme.brights[1] = tostring(wezterm.color.parse(scheme.brights[1]):lighten(0.3))
+  config.colors = { brights = scheme.brights }
+end
+
 -- https://zenn.dev/paiza/articles/9ca689a0365b05
 -- →←↓↑※
 config.font = wezterm.font_with_fallback({
