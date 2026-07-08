@@ -55,14 +55,35 @@ alias la='ls -a'
 # alias rm='rm -i'
 
 function repo() {
-  select_repo=$(ghq list | fzf)
-  if [[ $select_repo = "" ]]; then
+  local extra_repos=(
+    "$HOME/.local/share/chezmoi"
+  )
+  # リポジトリ名を強調し、所在(親ディレクトリ)を薄色で右に添える
+  # 1列目: 表示用(名前 + 薄色パス) / 2列目: cd に使う絶対パス、タブ区切り
+  # fzf には --with-nth=1 で1列目のみ表示させ、選択後 cut -f2 で絶対パスを取り出す
+  local select_repo=$(
+    { ghq list --full-path; printf '%s\n' "${extra_repos[@]}"; } \
+      | awk -v home="$HOME" '
+          {
+            full = $0
+            n = split(full, parts, "/")
+            name = parts[n]
+            parent = substr(full, 1, length(full) - length(name) - 1)
+            if (parent == home)
+              parent = "~"
+            else if (index(parent, home "/") == 1)
+              parent = "~/" substr(parent, length(home) + 2)
+            printf "%-30s \033[90m%s\033[0m\t%s\n", name, parent, full
+          }' \
+      | fzf --ansi --delimiter='\t' --with-nth=1 --nth=1 \
+      | cut -f2)
+  if [[ -z $select_repo ]]; then
     return
   fi
 
-  cd $(ghq root)/$select_repo
+  cd "$select_repo"
   if [[ -n $WEZTERM_UNIX_SOCKET ]]; then
-    wezterm cli rename-workspace $select_repo
+    wezterm cli rename-workspace "${select_repo:t}"
   fi
 }
 
