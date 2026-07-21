@@ -79,6 +79,17 @@ git push -u origin <branch-name>
 - 単一コミットの場合: コミットメッセージの本文を PR ボディとして流用してよい
 - セクションの内容が薄い場合は無理に埋めず、該当セクションを省略する
 
+#### GitHubのリンクを掲載するとき
+
+**同一リポジトリ**の issue/PR を参照する場合は、通常の `#123` 形式（または `https://github.com/{org}/{repo}/issues/123` のフルURL）を使う。`redirect.github.com` は使わない。
+`Fixes #123` / `Closes #123` / `Resolves #123` などのクローズキーワードは、同一リポジトリ内の `#123` 形式かフルURLでのみ GitHub に認識され、マージ時に issue が自動クローズされる。`redirect.github.com` 経由にすると認識されず自動クローズされない。
+
+**他のGitHubリポジトリ**（作業リポジトリが `github.com/yami-beta/{repo}` の場合の別 `{org}/{repo}`）の issue 等へのリンクは以下のように変更する。
+例: `https://github.com/{org}/{repo}/issues/1` は `https://redirect.github.com/{org}/{repo}/issues/1` とする
+
+`redirect.github.com` を使うことでリンク先に参照元として表示されることを防止できる（他リポジトリへのバックリンク通知を避ける目的であり、同一リポジトリの参照には不要かつ弊害がある）
+https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/autolinked-references-and-urls#avoiding-backlinks-to-linked-references
+
 ### Step 5: Pull Request の作成
 
 ```bash
