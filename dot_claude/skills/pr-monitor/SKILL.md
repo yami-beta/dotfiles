@@ -8,7 +8,7 @@ allowed-tools: Bash(gh pr checks *), Bash(gh pr view *), Bash(gh pr status *), T
 
 ## 概要
 
-Monitor ツールで PR の CI チェックを監視し、全チェック完了時に通知する。`gh pr checks --watch` が GitHub Actions と external checks（Codecov 等）の両方を一括で監視する。手動の sleep ループで自前ポーリングしない（Monitor に任せる）。
+Monitor ツールで PR の CI チェックを監視し、全チェック完了時に通知する。`gh pr checks --watch` が GitHub Actions と external checks（Codecov 等）の両方を一括で監視する。
 
 ## いつ使うか
 
@@ -19,13 +19,12 @@ Monitor ツールで PR の CI チェックを監視し、全チェック完了�
 ## 前提
 
 - `gh` が認証済みで、対象リポジトリの PR にアクセスできること
-- Monitor は deferred ツールのため、使用前に `ToolSearch` で `select:Monitor` を実行して読み込むこと
 
 ## 手順
 
 1. **対象 PR を特定する**。ユーザーが PR 番号 / URL を指定していればそれを使う。指定がなければ現在のブランチに紐づく PR を対象にする（`gh pr checks` は引数なしで現在ブランチの PR を見る）。
 2. **現在の状況を確認する**: `gh pr checks <PR>` を実行。すべて確定済み（pending なし）なら監視は不要で、手順 5 の要約だけ行って終了する。pending があれば手順 3 へ。
-3. **Monitor を読み込む**: `ToolSearch` で `select:Monitor`。
+3. **Monitor を読み込む**: Monitor は deferred ツールのため、`ToolSearch` で `select:Monitor` を実行して読み込む。
 4. **Monitor を起動する**。下記スクリプトを `command` に渡す。全チェック完了時に結果を出力して終了する。
    - `description`: 「PR #<n> の CI チェック結果」のように具体的に。
    - `timeout_ms`: CI の所要時間に合わせ十分に取る（既定 3600000 = 60 分。ローカル E2E ビルド等を含むなら長め）。
