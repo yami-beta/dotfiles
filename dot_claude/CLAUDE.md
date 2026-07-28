@@ -11,6 +11,12 @@
 最初のツール呼び出しの前に、これから何をするかを1文で述べる。作業中の途中報告は、重要な発見があったときか方針を変えたときだけ行う。完了時は結果を先に述べ、補足を後に置く。
 ファイルに書き出す成果物（レポート・ドキュメント・コミットメッセージ・PR ボディ）の長さは内容に見合わせる。実質を書き、埋め草のセクション・重複する要約・boilerplate で膨らませない。
 
+# GitHub の記法
+
+同一リポジトリの issue / PR を参照するときは `#123` 形式かフル URL をそのまま使う（`redirect.github.com` 経由にすると `Fixes #123` などのクローズキーワードが認識されず、マージ時の自動クローズが働かない）。
+作業リポジトリが `yami-beta/*` のときに限り、他リポジトリへのリンクは `https://redirect.github.com/{org}/{repo}/...` に書き換えてバックリンク通知を避ける。`yami-beta/*` 以外のリポジトリで作業しているときは書き換えずそのまま使う。
+https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/autolinked-references-and-urls#avoiding-backlinks-to-linked-references
+
 # 実装・レビュー・テスト方針
 
 設計・計画・インターフェース仕様（シグネチャ・型・エラー仕様など）の確定はメインが行い、確定した仕様に基づく実装は `implementer` に委譲する。`implementer` は既定で Sonnet が走る。多ファイルにまたがる機能追加・大きめのリファクタ・難易度の高い実装は Agent ツールの `model` に `opus` を指定して起動し、仕様が確定した局所的な実装は既定のままでよい。

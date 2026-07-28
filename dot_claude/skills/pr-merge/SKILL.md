@@ -1,7 +1,7 @@
 ---
 name: pr-merge
-description: Pull Requestをマージする。マージ前にCIチェックとレビュー状態を確認し、リポジトリのマージ設定に応じた方法でマージする。「PRをマージ」「プルリクエストをマージ」などの要求時に使用。
-allowed-tools: Bash(gh pr merge *), Bash(gh pr view *), Bash(gh pr checks *), Bash(gh pr status *), Bash(gh repo view *), Bash(git fetch *), Skill(pr-monitor), AskUserQuestion
+description: Pull Requestをマージする。マージ前にCIチェックとレビュー状態を確認し、リポジトリのマージ設定と履歴の慣習に応じた方法でマージする。「PRをマージ」「プルリクエストをマージ」などの要求時に使用。
+allowed-tools: Bash(gh pr merge *), Bash(gh pr view *), Bash(gh pr checks *), Bash(gh pr status *), Bash(gh repo view *), Bash(git fetch *), Bash(git log *), Skill(pr-monitor), AskUserQuestion
 argument-hint: [pr-number]
 ---
 
@@ -31,10 +31,23 @@ gh pr checks <pr-number>
 
 ### Step 2: マージ方法の決定
 
-上記Contextの「許可されているマージ方法」を確認し、以下の優先順位で採用する:
-1. Merge commit (`--merge`)
-2. Squash merge (`--squash`)
-3. Rebase merge (`--rebase`)
+上記Contextの「許可されているマージ方法」と、デフォルトブランチの履歴から読み取れる運用を交差させて決める。
+
+デフォルトブランチの履歴を確認する:
+
+```bash
+gh repo view --json defaultBranchRef -q .defaultBranchRef.name
+git log -20 --format='%h %p %s' origin/<base>   # %p の親が2つ以上ある行がマージコミット、%s に PR 番号が付くか
+```
+
+`git log --merges -20` は件数上限がフィルタ後に効くため「直近20件のうちのマージ」にはならない。`%p` の親の数で判定する。
+
+- マージコミットがある → Merge commit (`--merge`)
+- 件名末尾に `(#123)` のような PR 番号がある → Squash merge (`--squash`)
+- どちらも見られない（直線的な履歴） → Rebase merge (`--rebase`)
+- 履歴が数件以下で判断材料が乏しい、または推定した方法が許可されていない場合は、許可されている中から Merge commit → Squash merge → Rebase merge の順で最初の方法を採る
+
+決定した方法は Step 3 でユーザーに提示して確認を得るため、推定を誤ってもそこで訂正できる。
 
 ### Step 3: Pull Requestをマージ
 
@@ -57,3 +70,7 @@ gh pr merge <pr-number> <merge-method> --delete-branch
 ```bash
 git fetch --prune
 ```
+
+### Step 5: 結果の報告
+
+マージした Pull Request のタイトルと URL、採用したマージ方法、ブランチ削除の結果を報告する。
