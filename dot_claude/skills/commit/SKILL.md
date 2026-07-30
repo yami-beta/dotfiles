@@ -16,7 +16,6 @@ $ARGUMENTS
 ### Step 1: 変更の確認
 
 - 現在のブランチ: !`git branch --show-current`
-- デフォルトブランチ: !`git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null`
 - コミット履歴: !`git log --oneline -20 2>/dev/null`
 - 変更ファイルの一覧を確認: !`git status`
 - ステージされていない変更を確認: !`git diff`
