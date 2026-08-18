@@ -41,6 +41,13 @@ blocker / major の指摘は修正後、修正差分を添えて `code-reviewer`
 メモリは一時的な受信箱であり、真実の源は git 管理のファイル（CLAUDE.md・スキル・settings）に置く。メモリの知見が繰り返し役立ったら CLAUDE.md やスキルへの昇格を提案してコミットし、昇格済みの内容はメモリから削除する（二重管理は陳腐化の温床）。
 スキルの実行中に手順の不備・毎回発生する手直し・ユーザーからの修正があったときは、その場しのぎで終わらせず、該当スキル（SKILL.md）自体の改善を提案する。
 
+# スキルの管理
+
+ユーザースコープのスキルの正本は https://github.com/yami-beta/skills の `skills/<name>/SKILL.md` であり、`gh skill` で `~/.claude/skills/` へ導入する（chezmoi は管理しない）。
+`~/.claude/skills/` にあるのは `gh skill install` が置いた複製であり、直接編集しない（`gh skill update` で無言のうちに上書きされる。frontmatter の `metadata.github-*` は install 時に注入されたもので、リポジトリ側には持たせない）。
+スキルを改善するときは skills リポジトリを編集して main へ入れ、`gh skill update --all` で反映する。リリースタグは切らない運用のため main の HEAD が常に取得される。
+スキルは単体で完結させる（外部の CLAUDE.md に依存する記述を置かない）。変更後は skills リポジトリで `gh skill publish --dry-run` を実行し、error が出ないことを確認する。
+
 # Proactive loops の活用方針
 
 Proactive loops は、イベントやスケジュールをトリガーに、人間の承認を待たずゴール達成まで自律実行し、ゴールに到達した回で終了する自動化であり、バグ報告のトリアージや依存関係アップグレードの確認など、反復的でゴールが明確な作業に向く。判断基準が曖昧な作業や、影響が大きく都度の確認が必要な作業には使わない。
