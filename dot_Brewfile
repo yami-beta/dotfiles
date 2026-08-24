@@ -32,8 +32,7 @@ brew "libyaml"
 brew "gmp"
 brew "autoconf"
 
-tap "go-task/tap"
-brew "go-task/tap/go-task"
+brew "mobile-dev-inc/tap/maestro", trusted: true
 
 cask "1password-cli"
 cask "alt-tab"
@@ -44,6 +43,7 @@ cask "ghostty"
 cask "zed"
 cask "rectangle"
 cask "obsidian"
+cask "go-task/tap/go-task", trusted: true
 # 以下の問題が発生している
 # https://github.com/anthropics/claude-code/issues/10950#issuecomment-3492665563
 # CTRL-Gでエディタを立ち上げて編集するときに非常に不便なため解消されるまではnpm経由で利用
