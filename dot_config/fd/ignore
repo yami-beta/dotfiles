@@ -1,8 +1,10 @@
 .git
 node_modules/
 dist/
+.next/
 .wrangler/
 .astro/
+.claude/worktrees/
 
 ### https://github.com/github/gitignore/blob/fc6ce5da28a8c3480cc8a5acad050449f72a9261/Global/macOS.gitignore
 
