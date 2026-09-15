@@ -1,0 +1,11 @@
+# Shared Codex preferences. Applied to ~/.codex/config.toml by chezmoi.
+# Reference: https://developers.openai.com/codex/config-basic/
+# This file replaces the destination; review local MCP, plugin, and project
+# settings before applying it to an existing installation.
+
+model = "gpt-6-astra"
+model_reasoning_effort = "low"
+personality = "pragmatic"
+
+[features]
+codex_git_commit = true
